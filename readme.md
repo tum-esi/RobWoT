@@ -8,4 +8,4 @@ Here you can check out the related code and result.
 >Related files: .ttt, .ts
 
 1. Please load the scene file(.ttt) in the coppeliasim
-2. Run the Typescript file(.ts) (tsc or ts-node <file-name>)
+2. Run the Typescript file(.ts)   command: tsc or ts-node (file-name)
