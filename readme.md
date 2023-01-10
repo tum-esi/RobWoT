@@ -5,6 +5,7 @@ Here you can check out the related code and result.
 
 ## How to use Typescript to control scenes in Copperliasim
 >Prerequest: Please modify the variable "sceneAddress" to your file path
+
 >Related files: .ttt, .ts
 
 1. Please load the scene file(.ttt) in the coppeliasim
