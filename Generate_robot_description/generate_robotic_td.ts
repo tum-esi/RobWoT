@@ -12,6 +12,7 @@ async function getRobotinfo(sim:any, robotName:string) {
     let fileContent = fs.readFileSync(fileName, 'utf8');
     
 
+
     let scriptHandle = Number(await sim.addScript(1)); // add sim.scripttype_childscript 1
 
     let objectHandle = Number(await sim.getObject(robotName));
@@ -53,9 +54,9 @@ async function main() {
     let sceneAddress:String = "D:/master_thesis/project/robwot/common_script_load_common_robot.ttt"; // you need to modify to your own path
     let sim = await init(sceneAddress); // initialize scene and sim
 
-    //let robotName = "/UR4";
+    let robotName = "/UR4";
     //let robotName = "/dobot";
-    let robotName = "/cobot";
+    //let robotName = "/cobot";
 
     // modify the template td file
     // 22.01.23  
