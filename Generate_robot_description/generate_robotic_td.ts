@@ -61,7 +61,7 @@ async function main() {
 
     console.log(robotInfo);
 
-    let robotInstancename = "./generated_robot_td/robot_" + robotInfo["robotName"] + ".json";
+    let robotInstancename = "./generated_robot_td/robot_" + "instance" + ".json";
 
     let robot_template = JSON.parse(fs.readFileSync("../robot_template.json", "utf8"));
 
