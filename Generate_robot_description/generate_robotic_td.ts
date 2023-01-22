@@ -54,9 +54,11 @@ async function main() {
     let sim = await init(sceneAddress); // initialize scene and sim
 
     //let robotName = "/UR4";
-    let robotName = "/dobot";
+    //let robotName = "/dobot";
+    let robotName = "/cobot";
 
-
+    // modify the template td file
+    // 22.01.23  
     let robotInfo = (await getRobotinfo(sim,robotName))[0]; // need to convert to object
 
     console.log(robotInfo);
@@ -64,6 +66,40 @@ async function main() {
     let robotInstancename = "./generated_robot_td/robot_" + "instance" + ".json";
 
     let robot_template = JSON.parse(fs.readFileSync("../robot_template.json", "utf8"));
+
+    // modify the joint amount and position,cartesian limit
+    // action moveTojointPosition
+    for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
+        let curJointname = "joint" + String(index+1);
+        robot_template["actions"]["moveTojointPosition"]["input"]["properties"][curJointname] = {
+            "type" : "number",
+            "minimum": robotInfo["jointLimitLows"][index],
+            "maximum": robotInfo["jointLimitHighs"][index]
+        }; 
+    }
+    // action moveTocartesianPosition
+    robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]);
+    robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]);
+    robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]);
+    robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]);
+    robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["minimum"] = 0;
+    robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]);
+    // property getJointposition
+    for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
+        let curJointname = "joint" + String(index+1);
+        robot_template["properties"]["getJointposition"]["properties"][curJointname] = {
+            "type" : "number",
+            "minimum": robotInfo["jointLimitLows"][index],
+            "maximum": robotInfo["jointLimitHighs"][index]
+        }; 
+    }
+    // property getCartesianposition
+    robot_template["properties"]["getCartesianposition"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]);
+    robot_template["properties"]["getCartesianposition"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]);
+    robot_template["properties"]["getCartesianposition"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]);
+    robot_template["properties"]["getCartesianposition"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]);
+    robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = 0;
+    robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]);    
 
     robot_template["title"] = "Virtual robot description - " + robotInfo["robotName"];
 

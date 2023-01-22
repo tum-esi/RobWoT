@@ -19,15 +19,9 @@
         "getJointposition":{
             "title": "get position of each joint",
             "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
-            "type": "array",
-            "items":{
-                "type" : "number",
-                "minimum": -20,
-                "maximum": 20,
-                "unit": "degree"
-              },
-            "maxItems": 7,
-            "minItems": 0,
+            "type": "object",
+            "properties":{
+            },
             "readOnly": true,
             "observable": true,
             "forms": [
@@ -120,14 +114,8 @@
             "title": "let robot move according to joint position",
             "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
             "input": {
-                "type": "array",
-                "items":{
-                    "type" : "number",
-                    "minimum": -20,
-                    "maximum": 20
-                },
-                "maxItems": 7,
-                "minItems": 0
+                "type": "object",
+                "properties":{}
             },
             "forms":  [
                 {
@@ -144,14 +132,24 @@
             "title": "make robot move according to cartesian position",
             "description": "minimum,maximum are decided by sprecific virtual robot",
             "input": {
-                "type": "array",
-                "items":{
+                "type": "object",
+                "properties": {
+                  "x":{
                     "type" : "number",
                     "minimum": -100,
                     "maximum": 100
-                },
-                "maxItems": 3,
-                "minItems": 3             
+                  },
+                  "y":{
+                    "type" : "number",
+                    "minimum": -100,
+                    "maximum": 100
+                  },
+                  "z":{
+                    "type" : "number",
+                    "minimum": -100,
+                    "maximum": 100
+                  }  
+                }        
             },
             "forms":  [
                 {
