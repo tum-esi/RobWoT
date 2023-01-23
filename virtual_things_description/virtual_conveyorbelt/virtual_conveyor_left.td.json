@@ -1,0 +1,56 @@
+{
+    "@context":[
+        "https://www.w3.org/2019/wot/td/v1",
+        {
+          "@language":"en"
+        }
+      ],
+    "@type":"Thing",
+    "title": "virtualConveyorleft",
+    "id": "urn:dev:ops:32473-virtualConveyor-left-masterThesis-Zucheng",
+    "description": "virtual conveyor belt left in copperliasim",
+    "security": "nosec_sc",
+    "securityDefinitions": { 
+      "nosec_sc": {
+        "scheme": "nosec" 
+      }
+    },
+    "actions":{
+        "startBeltBackward":{
+            "title":"Start conveyor belt with fixed speed",
+            "description":"This action starts moving the conveyor belt backward",
+            "forms":[
+                {
+                "contentType":"application/json",
+                "href":"http://localhost:8080/virtualConveyorleft/actions/startBeltBackward",
+                "htv:methodName":"POST",
+                "op":["invokeaction"]
+                }
+            ]
+        },
+        "startBeltForward":{
+            "title":"Start conveyor belt",
+            "description":"This action starts moving the conveyor belt forward",
+            "forms":[
+                {
+                "contentType":"application/json",
+                "href":"http://localhost:8080/virtualConveyorleft/actions/startBeltForward",
+                "htv:methodName":"POST",
+                "op":["invokeaction"]
+                }
+            ]
+        },
+        "stopBelt":{
+            "title":"Stop conveyor belt",
+            "description":"This action stops moving the conveyor belt",
+            "forms":[
+                {
+                    "contentType":"application/json",
+                    "href":"http://localhost:8080/virtualConveyorleft/actions/stopBelt",
+                    "htv:methodName":"POST",
+                    "op":["invokeaction"]
+                }
+            ]
+        }
+    }
+}

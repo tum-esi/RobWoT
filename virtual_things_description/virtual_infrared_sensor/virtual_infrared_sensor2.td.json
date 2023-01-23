@@ -1,0 +1,38 @@
+{
+    "@context":[
+        "https://www.w3.org/2019/wot/td/v1",
+        {
+          "@language":"en"
+        }
+      ],
+    "@type":"Thing",
+    "title": "virtualSensor2",
+    "id": "urn:dev:ops:32473-virtualSensor-2-masterThesis-Zucheng",
+    "description": "virtual sensor 2 in copperliasim",
+    "security": "nosec_sc",
+    "securityDefinitions": { 
+      "nosec_sc": {
+        "scheme": "nosec" 
+      }
+    },
+    "properties": {
+        "sensorState":{
+            "title": "infrared sensor state",
+            "description": "get the sensor state to check if there is object",
+            "type": "boolean",
+            "readOnly": true,
+            "observable": true,
+            "forms": [
+              {
+                "href": "http://localhost:8080/virtualSensor2/properties/sensorState",
+                "contentType": "application/json",
+                "op": [
+                  "readproperty"
+                ],
+                "htv:methodName": "GET"
+              }
+            ]
+        }
+
+    }
+}
