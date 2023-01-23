@@ -1,4 +1,4 @@
-const {RemoteAPIClient} = require("./RemoteAPIClient.js")
+const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js")
 
 // add delay function
 function delay(ms: number) {
@@ -122,7 +122,7 @@ class virtualDobot{
         // get motor handles
         let handles = await this.sim.callScriptFunction("fetchmotorHandles", this.scriptHandle);
         let len = handles[0].length;
-        let motorHandles = [];
+        let motorHandles:any = [];
         for (let index = 0; index < len; index++) {
             motorHandles[index] = handles[0][index];
         }
@@ -145,7 +145,7 @@ class virtualDobot{
         // get motor handles
         let handles = await this.sim.callScriptFunction("fetchmotorHandles", this.scriptHandle);
         let len = handles[0].length;
-        let motorHandles = [];
+        let motorHandles:any = [];
         for (let index = 0; index < len; index++) {
             motorHandles[index] = handles[0][index];
         }
@@ -184,7 +184,7 @@ async function init(address:String){
 
 
 async function main() {
-    let sceneAddress:String = "D:/master_thesis/project/robwot/Virtual_lab.ttt"; // you need to modify to your own path
+    let sceneAddress:String = "D:/master_thesis/project/robwot/Virtual_scenes/Virtual_lab.ttt"; // you need to modify to your own path
     let sim = await init(sceneAddress); // initialize scene and sim
 
     // generate conveyorbelt instance based on scene

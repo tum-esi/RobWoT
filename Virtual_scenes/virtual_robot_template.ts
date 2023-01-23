@@ -1,4 +1,4 @@
-const {RemoteAPIClient} = require("./RemoteAPIClient.js")
+const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js")
 
 // add delay function
 function delay(ms: number) {
@@ -28,7 +28,7 @@ class virtualRobot{
         // get motor handles
         let handles = await this.sim.callScriptFunction("fetchJointHandles", this.scriptHandle);
         let len = handles[0].length;
-        let jointHandles = [];
+        let jointHandles:any = [];
         for (let index = 0; index < len; index++) {
             jointHandles[index] = handles[0][index];
         }
@@ -68,7 +68,7 @@ class virtualRobot{
         // get motor handles
         let handles = await this.sim.callScriptFunction("fetchJointHandles", this.scriptHandle);
         let len = handles[0].length;
-        let jointHandles = [];
+        let jointHandles:any = [];
         for (let index = 0; index < len; index++) {
             jointHandles[index] = handles[0][index];
         }
@@ -112,7 +112,7 @@ async function init(address:String){
 
 
 async function main() {
-    let sceneAddress:String = "D:/master_thesis/project/robwot/Virtual_robots.ttt"; // you need to modify to your own path
+    let sceneAddress:String = "D:/master_thesis/project/robwot/Virtual_scenes/Virtual_robots.ttt"; // you need to modify to your own path
     let sim = await init(sceneAddress); // initialize scene and sim
 
     let frankaRobot = new virtualRobot(sim,"/Franka");
