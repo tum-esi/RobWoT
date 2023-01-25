@@ -1,0 +1,45 @@
+{
+    "@context":[
+        "https://www.w3.org/2019/wot/td/v1",
+        {
+          "@language":"en"
+        }
+      ],
+    "@type":"Thing",
+    "title": "virtualDobot",
+    "id": "urn:dev:ops:32473-virtualDobot-masterThesis-Zucheng",
+    "description": "virtual magician dobot in copperliasim",
+    "security": "nosec_sc",
+    "securityDefinitions": { 
+      "nosec_sc": {
+        "scheme": "nosec" 
+      }
+    },
+    "actions": {
+        "getCube":{
+            "title":"get cube",
+            "description":"Fetch the cube and put it on conveyor belt",
+            "forms":[
+                {
+                "contentType":"application/json",
+                "href":"http://localhost:8080/virtualDobot/actions/getCube",
+                "htv:methodName":"POST",
+                "op":["invokeaction"]
+                }
+            ]
+        },
+        "returnCube":{
+            "title":"return cube",
+            "description":"fetch cube from conveyor and return it back",
+            "forms":[
+                {
+                "contentType":"application/json",
+                "href":"http://localhost:8080/virtualDobot/actions/returnCube",
+                "htv:methodName":"POST",
+                "op":["invokeaction"]
+                }
+            ]
+        }
+
+    }
+}
