@@ -60,7 +60,7 @@ class virtualRobot{
 
         await this.sim.callScriptFunction("moveToPose_viaIKnew", this.scriptHandle,maxIkVel,maxIkAccel,maxIkJerk,position);
         //await this.sim.callScriptFunction("move", this.scriptHandle);
-        await delay(5000);
+        await delay(20000);
     }
     async getJointangle(){
         this.robotHandle = Number(await this.sim.getObject(this.name));

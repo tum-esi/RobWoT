@@ -6,7 +6,7 @@
         }
       ],
     "@type":"Thing",
-    "title": "virtualConveyorleft",
+    "title": "virtualConveyor1",
     "id": "urn:dev:ops:32473-virtualConveyor-left-masterThesis-Zucheng",
     "description": "virtual conveyor belt left in copperliasim",
     "security": "nosec_sc",
@@ -22,7 +22,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://localhost:8080/virtualConveyorleft/actions/startBeltBackward",
+                "href":"http://localhost:9002/virtualConveyor1/actions/startBeltBackward",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -34,7 +34,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://localhost:8080/virtualConveyorleft/actions/startBeltForward",
+                "href":"http://localhost:9002/virtualConveyor1/actions/startBeltForward",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -46,7 +46,7 @@
             "forms":[
                 {
                     "contentType":"application/json",
-                    "href":"http://localhost:8080/virtualConveyorleft/actions/stopBelt",
+                    "href":"http://localhost:9002/virtualConveyor1/actions/stopBelt",
                     "htv:methodName":"POST",
                     "op":["invokeaction"]
                 }

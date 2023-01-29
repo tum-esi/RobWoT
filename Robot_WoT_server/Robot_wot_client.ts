@@ -26,9 +26,9 @@ wotHelper
         const thing = await WoT.consume(td);
 
         //let tem1 = (await (await thing.readProperty("getJointposition")).value()); // need to modify the dataschema in WoT
-        //console.log(tem1);
+        //console.log(tem1); 
         //let tem2 = (await (await thing.readProperty("getCartesianposition")).value());
-
+        //thing.writeProperty()
         await thing.invokeAction("moveTocartesianPosition", {"x":0.2,"y":0.4,"z":0.25});
         await delay(5000);
         await thing.invokeAction("moveToinitialPosition");

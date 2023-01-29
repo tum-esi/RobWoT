@@ -1,0 +1,77 @@
+{
+    "@context":[
+        "https://www.w3.org/2019/wot/td/v1",
+        {
+          "@language":"en"
+        }
+      ],
+    "@type":"Thing",
+    "title": "virtualUarm",
+    "id": "urn:dev:ops:32473-virtualUarm-masterThesis-Zucheng",
+    "description": "virtual uarm in copperliasim",
+    "security": "nosec_sc",
+    "securityDefinitions": { 
+      "nosec_sc": {
+        "scheme": "nosec" 
+      }
+    },
+    "actions":{
+        "goTo":{
+            "title":"Go to position",
+            "description":"Move to Position x,y,z given by the user with fixed speed",
+            "input":{
+                "properties":{
+                    "x":{
+                        "maximum":200,
+                        "minimum":120,
+                        "type":"integer"
+                    },
+                    "y":{
+                        "maximum":200,
+                        "minimum":-200,
+                        "type":"number"
+                    },
+                    "z":{
+                        "maximum":100,
+                        "minimum":52,
+                        "type":"integer"
+                    }
+                },
+                "required":["x","y","z"],
+                "type":"object"
+            },
+            "forms":[
+                {
+                "contentType":"application/json",
+                "href":"http://localhost:9004/virtualUarm/actions/goTo",
+                "htv:methodName":"POST",
+                "op":["invokeaction"]
+                }
+            ]
+        },
+        "gripClose":{
+            "title":"close gripper",
+            "description":"close uarm gripper",
+            "forms":[
+                {
+                "contentType":"application/json",
+                "href":"http://localhost:9004/virtualUarm/actions/gripClose",
+                "htv:methodName":"POST",
+                "op":["invokeaction"]
+                }
+            ]
+        },
+        "gripOpen":{
+            "title":"open gripper",
+            "description":"open uarm gripper",
+            "forms":[
+                {
+                    "contentType":"application/json",
+                    "href":"http://localhost:9004/virtualUarm/actions/gripOpen",
+                    "htv:methodName":"POST",
+                    "op":["invokeaction"]
+                }
+            ]
+        }
+    }
+}

@@ -31,7 +31,7 @@
             "minItems": 3,
             "forms": [
                 {
-                  "href": "http://localhost:8080/virtualColorsensor/properties/color",
+                  "href": "http://localhost:9006/virtualColorsensor/properties/color",
                   "contentType": "application/json",
                   "op": [
                     "readproperty"
