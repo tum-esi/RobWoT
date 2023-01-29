@@ -225,7 +225,7 @@ async function main() {
             // set startBeltBackward action handlers
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
-                    await conveyor2.setConveyorSpeed(0.03);
+                    await conveyor2.setConveyorSpeed(0.04);
                     return "success";
                 }
                 catch{
@@ -236,7 +236,7 @@ async function main() {
             // set startBeltForward action handlers
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
-                    await conveyor2.setConveyorSpeed(-0.03);
+                    await conveyor2.setConveyorSpeed(-0.04);
                     return "success";
                 }
                 catch{
