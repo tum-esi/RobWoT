@@ -42,8 +42,8 @@ async function main() {
     }
 
     let P1 = {
-        "x":195,
-        "y":195,
+        "x":193,
+        "y":193,
         "z":70
     };
     let P4 = {
