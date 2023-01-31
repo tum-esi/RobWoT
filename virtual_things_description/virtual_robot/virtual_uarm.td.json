@@ -72,6 +72,44 @@
                     "op":["invokeaction"]
                 }
             ]
+        },
+        "goHome": {
+            "description": "Go to the set home point",
+            "forms": [
+              {
+                "contentType": "application/json",
+                "href": "http://localhost:9004/virtualUarm/actions/gohome",
+                "htv:methodName": "POST",
+                "op": "invokeaction"
+              }
+            ],
+            "idempotent": false,
+            "safe": false,
+            "title": "Go Home"
+          },
+          "goWithSpeed": {
+            "description": "Move to described Position with set speed",
+            "forms": [
+              {
+                "contentType": "application/json",
+                "href": "http://localhost:9004/virtualUarm/actions/gowithspeed",
+                "htv:methodName": "POST",
+                "op": "invokeaction"
+              }
+            ],
+            "idempotent": true,
+            "input": {
+              "properties": {
+                "speed": { "maximum": 10000, "minimum": 100, "type": "integer" },
+                "x": { "maximum": 200, "minimum": 120, "type": "integer" },
+                "y": { "maximum": 200, "minimum": -200, "type": "integer" },
+                "z": { "maximum": 100, "minimum": 52, "type": "integer" }
+              },
+              "required": ["x", "y", "z", "speed"],
+              "type": "object"
+            },
+            "safe": false,
+            "title": "Go to with speed"
         }
     }
 }
