@@ -116,6 +116,18 @@ export class virtualUarm{
 
         return "success";
     }
+    async goWithspeed(pos:Number[],speed:number):Promise<string> {
+        this.uarmHandle = Number(await this.sim.getObject(this.name));
+        this.scriptHandle = Number(await this.sim.getScript(1, this.uarmHandle,this.name));
+
+        await this.sim.callScriptFunction("goWithspeed", this.scriptHandle,pos,speed);
+        await delay(2000);
+
+        this.previousPos = pos;
+
+        return "success";
+        
+    }
     // open or close gripper
     async setGripperstate(state:boolean){
         this.uarmHandle = Number(await this.sim.getObject(this.name));

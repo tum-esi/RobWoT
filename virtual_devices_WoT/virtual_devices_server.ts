@@ -298,7 +298,7 @@ async function main() {
                     let finalPos:Number[] = [pos["x"]/1000, pos["y"]/1000, pos["z"]/1000]; // convert to meter
                     //console.log(finalPos);
 
-                    await uarm.goTopositon(finalPos);
+                    await uarm.goWithspeed(finalPos,2222);
                     
                     return "success";
                 }
@@ -322,6 +322,36 @@ async function main() {
             thing.setActionHandler("gripOpen", async() =>{
                 try {
                     await uarm.setGripperstate(false);
+                    return "success";
+                }
+                catch{
+                    console.log("failed");
+                    return "failed";
+                }
+            });
+            thing.setActionHandler("goWithSpeed", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+                    
+                    let finalPos:Number[] = [pos["x"]/1000, pos["y"]/1000, pos["z"]/1000]; // convert to meter
+                    let speed = pos["speed"];
+                    //console.log(finalPos);
+
+                    await uarm.goWithspeed(finalPos,speed);
+                    
+                    return "success";
+                }
+                catch{
+                    console.log("failed");
+                    return "failed";
+                }             
+            })
+            thing.setActionHandler("goHome", async() =>{
+                try {
+                    let pos = [0.220,0,0.1];
+
+                    await uarm.goWithspeed(pos,2222);
+
                     return "success";
                 }
                 catch{

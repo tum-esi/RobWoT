@@ -27,6 +27,21 @@ async function main() {
 
     let color = new makeWoTinteraction(colorURL);
 
+    // test part----- for new function
+    /*
+    let P1new = {
+        "x":193,
+        "y":193,
+        "z":70,
+        "speed":6000
+    };
+    await uarm.invokeAction("goWithSpeed", P1new);
+    await delay(6000);
+    await uarm.invokeAction("goHome");
+    await delay(20000);
+    */
+    //--------------
+
     await dobot.invokeAction("getCube");
 
     await delay(22000);
@@ -38,7 +53,7 @@ async function main() {
             await conveyor2.invokeAction("stopBelt");
             break
         }
-        await delay(1500);
+        await delay(1000);
     }
 
     let P1 = {
@@ -66,7 +81,7 @@ async function main() {
         "y":0,
         "z":80  
     };
-    
+
     await uarm.invokeAction("gripOpen");
     await uarm.invokeAction("goTo",P1);
     await delay(6000);
@@ -97,7 +112,7 @@ async function main() {
             await conveyor1.invokeAction("stopBelt");
             break
         }
-        await delay(1500);
+        await delay(1000);
     } 
 
     await delay(4000);
