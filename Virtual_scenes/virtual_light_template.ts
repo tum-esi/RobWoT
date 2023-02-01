@@ -84,7 +84,7 @@ async function init(address:String){
 
 
 async function main() {
-    let sceneAddress:String = "D:/master_thesis/project/robwot/Virtual_scenes/Virtual_light.ttt"; // you need to modify to your own path
+    let sceneAddress:String = __dirname + "/Virtual_light.ttt"; // you need to modify to your own path
     let sim = await init(sceneAddress); // initialize scene and sim
 
     // generate light instance based on the scene
