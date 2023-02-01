@@ -57,12 +57,12 @@ async function main() {
     }
 
     let P1 = {
-        "x":193,
+        "x":191,
         "y":191,
         "z":70
     };
     let P4 = {
-        "x":193,
+        "x":191,
         "y":191,
         "z":52
     };
@@ -92,7 +92,7 @@ async function main() {
     await uarm.invokeAction("goTo",P1);
     await delay(4000);
     await uarm.invokeAction("goTo",P3);
-    await delay(6000);
+    await delay(4000);
 
     console.log("current color RGB is");
     console.log(await color.readProperty("color"));
