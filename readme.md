@@ -5,7 +5,7 @@ Here you can check out the related code and result.
 
 >Prerequest: node.js, CoppeliaSim V4.4.0 installed
 
-![path](Virtual_IoT_lab.png)
+![path](Virtual_IoT_lab.png =600x800)
 
 ## Introduction
 
