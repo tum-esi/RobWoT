@@ -8,6 +8,5 @@
 4. Run the following command in the current folder path(use Virtual_lab.ttt as example)
 
 ```
-npm install
 ts-node Virtual_lab_template.ts
 ```
