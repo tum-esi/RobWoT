@@ -1,12 +1,19 @@
-## The Master's thesis
+# The Master's thesis
 Author: Zucheng Han
 
 Here you can check out the related code and result.
 
-## How to use Typescript to control scenes in Copperliasim
->Prerequest: Please modify the variable "sceneAddress" to your file path
+>Prerequest: node.js, CoppeliaSim V4.4.0 installed
 
->Related files: .ttt, .ts
+## Introduction
 
-1. Please load the scene file(.ttt) in the coppeliasim
-2. Run the Typescript file(.ts)   command: tsc or ts-node (file-name)
+
+## Content
+
+- [CoppeliaSim scens communication via Remote API](./Virtual_scenes/)
+- [Virtual device things description](./virtual_things_description/)
+- [Virtual IoT lab](./virtual_devices_WoT/)
+- [Automatic generate robot things description](./Generate_robot_description/)
+
+## Reference
+
