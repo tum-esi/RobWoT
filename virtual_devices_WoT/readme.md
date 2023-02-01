@@ -6,7 +6,7 @@
 
 1. Run the ```npm install``` command to install necessary packages in the repository root directory
 2. Please open the Copperliasim and load the scene file **Virtual_IoT_lab.ttt** manually
-3. Enter the **virtual_devices_WoT** folder and run the followling command
+3. Enter the **virtual_devices_WoT** folder and run the following command
 
 ```
 ts-node virtual_devices_server.ts
