@@ -407,7 +407,7 @@ async function main() {
                                 break;
                             }
                             await dobot.dobotMove(0.5-distance);
-                            await delay(70);
+                            await delay(60);
                         }    
                     }
 
@@ -470,7 +470,7 @@ async function main() {
                             await dobot.dobotMove(0.5-distance-0.01);
                             break;
                         }
-                        await delay(70);
+                        await delay(60);
                     }
                     //await dobot.dobotMove(0.47);
                 

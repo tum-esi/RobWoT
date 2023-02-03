@@ -53,17 +53,17 @@ async function main() {
             await conveyor2.invokeAction("stopBelt");
             break
         }
-        await delay(1000);
+        await delay(1400);
     }
 
     let P1 = {
-        "x":191,
-        "y":191,
+        "x":193,
+        "y":193,
         "z":70
     };
     let P4 = {
-        "x":191,
-        "y":191,
+        "x":193,
+        "y":193,
         "z":52
     };
     let P2 = {
@@ -112,7 +112,7 @@ async function main() {
             await conveyor1.invokeAction("stopBelt");
             break
         }
-        await delay(1000);
+        await delay(1400);
     } 
 
     await delay(4000);
