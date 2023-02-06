@@ -401,7 +401,7 @@ async function main() {
                         await dobot.dobotMove(0.5);
                         await dobot.setJointangle([0,70,95,0]);
                         while (true){
-                            distance = distance + 0.01;
+                            distance = distance + 0.007;
                             if (await cubeDetect.objectDetect()){
                                 await dobot.dobotMove(0.5-distance);
                                 break;
@@ -464,10 +464,10 @@ async function main() {
                     // detect cube then slowly move
                     let distance = 0;
                     while (true){
-                        distance = distance + 0.01;
+                        distance = distance + 0.007;
                         await dobot.dobotMove(0.5-distance);
                         if (await cubeDetect.objectDetect()){
-                            await dobot.dobotMove(0.5-distance-0.01);
+                            await dobot.dobotMove(0.5-distance-0.003);
                             break;
                         }
                         await delay(70);
