@@ -467,7 +467,7 @@ async function main() {
                         distance = distance + 0.007;
                         await dobot.dobotMove(0.5-distance);
                         if (await cubeDetect.objectDetect()){
-                            await dobot.dobotMove(0.5-distance-0.003);
+                            await dobot.dobotMove(0.5-distance-0.005);
                             break;
                         }
                         await delay(70);
