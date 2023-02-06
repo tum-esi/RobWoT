@@ -429,7 +429,7 @@ async function main() {
 
                     await dobot.setJointangle([0,15,15,0]);
 
-                    await dobot.dobotMove(0.5);
+                    await dobot.dobotMove(0.49);
                 
                     await dobot.setJointangle([0,70,95,0]);
                 
@@ -457,7 +457,7 @@ async function main() {
                 
                     await dobot.setJointangle([0,15,15,0]);
                 
-                    await dobot.dobotMove(0.5);
+                    await dobot.dobotMove(0.49);
                 
                     await dobot.setJointangle([0,63,95,0]);
 
