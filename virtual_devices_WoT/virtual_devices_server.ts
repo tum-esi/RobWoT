@@ -398,15 +398,15 @@ async function main() {
                     let distance = 0;
                     if ((await cubeDetect.objectDetect())==false){
 
-                        await dobot.dobotMove(0.5);
+                        await dobot.dobotMove(0.49);
                         await dobot.setJointangle([0,70,95,0]);
                         while (true){
                             distance = distance + 0.007;
                             if (await cubeDetect.objectDetect()){
-                                await dobot.dobotMove(0.5-distance);
+                                await dobot.dobotMove(0.49-distance);
                                 break;
                             }
-                            await dobot.dobotMove(0.5-distance);
+                            await dobot.dobotMove(0.49-distance);
                             await delay(70);
                         }    
                     }
@@ -457,7 +457,7 @@ async function main() {
                 
                     await dobot.setJointangle([0,15,15,0]);
                 
-                    await dobot.dobotMove(0.484);
+                    await dobot.dobotMove(0.475);
                 
                     await dobot.setJointangle([0,63,95,0]);
 
@@ -465,9 +465,9 @@ async function main() {
                     let distance = 0;
                     while (true){
                         distance = distance + 0.007;
-                        await dobot.dobotMove(0.5-distance);
+                        await dobot.dobotMove(0.475-distance);
                         if (await cubeDetect.objectDetect()){
-                            await dobot.dobotMove(0.5-distance-0.005);
+                            await dobot.dobotMove(0.475-distance-0.005);
                             break;
                         }
                         await delay(70);
