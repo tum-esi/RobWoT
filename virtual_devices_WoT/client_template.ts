@@ -109,6 +109,7 @@ async function main() {
     await conveyor1.invokeAction("startBeltBackward");
     while (true){
         if (await sensor1.readProperty("sensorState") == true){
+            await delay(1000);
             await conveyor1.invokeAction("stopBelt");
             break
         }
