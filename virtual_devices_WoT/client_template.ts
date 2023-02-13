@@ -53,7 +53,7 @@ async function main() {
             await conveyor2.invokeAction("stopBelt");
             break
         }
-        await delay(1400);
+        await delay(1500);
     }
 
     let P1 = {
@@ -109,10 +109,11 @@ async function main() {
     await conveyor1.invokeAction("startBeltBackward");
     while (true){
         if (await sensor1.readProperty("sensorState") == true){
+            await delay(1000);
             await conveyor1.invokeAction("stopBelt");
             break
         }
-        await delay(1400);
+        await delay(1500);
     } 
 
     await delay(4000);
