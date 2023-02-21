@@ -24,7 +24,7 @@
             "observable": true,
             "forms": [
               {
-                "href": "http://localhost:9000/virtualSensor1/properties/sensorState",
+                "href": "http://localhost:9000/virtualsensor1/properties/sensorState",
                 "contentType": "application/json",
                 "op": [
                   "readproperty"

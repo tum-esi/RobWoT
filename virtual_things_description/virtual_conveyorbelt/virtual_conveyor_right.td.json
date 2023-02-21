@@ -22,7 +22,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://localhost:9003/virtualConveyor2/actions/startBeltBackward",
+                "href":"http://localhost:9000/virtualconveyor2/actions/startBeltBackward",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -34,7 +34,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://localhost:9003/virtualConveyor2/actions/startBeltForward",
+                "href":"http://localhost:9000/virtualconveyor2/actions/startBeltForward",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -46,7 +46,7 @@
             "forms":[
                 {
                     "contentType":"application/json",
-                    "href":"http://localhost:9003/virtualConveyor2/actions/stopBelt",
+                    "href":"http://localhost:9000/virtualconveyor2/actions/stopBelt",
                     "htv:methodName":"POST",
                     "op":["invokeaction"]
                 }

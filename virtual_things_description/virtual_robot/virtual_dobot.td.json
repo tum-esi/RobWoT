@@ -22,7 +22,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://localhost:9005/virtualDobot/actions/getCube",
+                "href":"http://localhost:9000/virtualdobot/actions/getCube",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -34,7 +34,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://localhost:9005/virtualDobot/actions/returnCube",
+                "href":"http://localhost:9000/virtualdobot/actions/returnCube",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
