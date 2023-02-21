@@ -110,7 +110,7 @@ export class virtualUarm{
         }
         */
         await this.sim.callScriptFunction("goTo", this.scriptHandle,pos);
-        await delay(2000);
+        //await delay(2000);
 
         this.previousPos = pos;
 
@@ -121,7 +121,7 @@ export class virtualUarm{
         this.scriptHandle = Number(await this.sim.getScript(1, this.uarmHandle,this.name));
 
         await this.sim.callScriptFunction("goWithspeed", this.scriptHandle,pos,speed);
-        await delay(2000);
+        //await delay(2000);
 
         this.previousPos = pos;
 
@@ -165,7 +165,7 @@ export class virtualDobot{
         this.jointAngle = [0,0,0,0];
         this.gripperState = false;
     }
-    async setJointangle(angle:Number[]):Promise<string>{
+    async setJointangle(angle:number[]):Promise<string>{
         this.dobotHandle = Number(await this.sim.getObject(this.name));
         this.scriptHandle = Number(await this.sim.getScript(1, this.dobotHandle,this.name));
         // get motor handles
@@ -185,8 +185,20 @@ export class virtualDobot{
 
 
         this.jointAngle = angle;
-        // move to config
-        await this.sim.callScriptFunction("moveToConfig", this.scriptHandle, motorHandles,maxVel,maxAccel,maxJerk,this.jointAngle);
+        /*
+        for (let index = 0; index < angle.length; index++) {
+            let curSinglejoint=angle[index]*Math.PI/180;
+            await this.sim.setJointPosition(motorHandles[index],curSinglejoint);
+            //await this.sim.callScriptFunction("goTojoint", this.scriptHandle, motorHandles[index],curSinglejoint);
+            //await delay(200);
+        }
+        */
+        
+        // move to config 2.21 it can't be blocking, consider to change it by another way
+        let simTime = await this.sim.callScriptFunction("moveToConfig", this.scriptHandle, motorHandles,maxVel,maxAccel,maxJerk,this.jointAngle);
+        console.log(50-simTime[0]*1000);
+        // now try based on simulation time to adjust delay time
+        //await delay((50-simTime[0]*1000)*100+500);
         await delay(2500);
 
         return "success";
