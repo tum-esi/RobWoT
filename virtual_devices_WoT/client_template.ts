@@ -6,12 +6,12 @@ function delay(ms: number) {
 
 // virtual devices url
 let sensor1URL = "http://localhost:9000/virtualsensor1";
-let sensor2URL = "http://localhost:9001/virtualsensor2";
-let conveyor1URL = "http://localhost:9002/virtualconveyor1"; 
-let conveyor2URL = "http://localhost:9003/virtualconveyor2";
-let uarmURL = "http://localhost:9004/virtualuarm";
-let dobotURL = "http://localhost:9005/virtualdobot";
-let colorURL = "http://localhost:9006/virtualcolorsensor";
+let sensor2URL = "http://localhost:9000/virtualsensor2";
+let conveyor1URL = "http://localhost:9000/virtualconveyor1"; 
+let conveyor2URL = "http://localhost:9000/virtualconveyor2";
+let uarmURL = "http://localhost:9000/virtualuarm";
+let dobotURL = "http://localhost:9000/virtualdobot";
+let colorURL = "http://localhost:9000/virtualcolorsensor";
 
 async function main() {
     // WoT client init
@@ -44,7 +44,7 @@ async function main() {
 
     await dobot.invokeAction("getCube");
 
-    await delay(22000);
+    await delay(28000);
 
     await conveyor2.invokeAction("startBeltForward");
 
