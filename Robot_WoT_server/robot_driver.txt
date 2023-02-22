@@ -11,11 +11,20 @@ function sysCall_init()
     -- set the dummy point position
     simBase=sim.getObject('.')
     objectHandlesall = sim.getObjectsInTree(simBase,sim.handle_all,0)
-    --print(sim.getObjectAlias(objectHandlesall[#objectHandlesall],-1))
-    -- endEffector is not a idel position, modify it later
-    endEffectorpos = sim.getObjectPosition(objectHandlesall[#objectHandlesall], sim.handle_world)
-    sim.setObjectPosition(tipHandle, sim.handle_world, endEffectorpos)
-    sim.setObjectPosition(targetHandle, sim.handle_world, endEffectorpos)
+    --print(sim.getObjectAlias(objectHandlesall[#objectsimTargetHandlesall],-1))
+    -- try to make the ik target,tip point closed to real end position
+    -- first check if it exist connection, if exist, use connection position, if not use endeffector pos
+    connectionHandle=sim.getObject("./connection",{noError=true} )
+    if connectionHandle ~= -1 then
+        connectionPos=sim.getObjectPosition(connectionHandle,sim.handle_world)
+        sim.setObjectPosition(tipHandle, sim.handle_world, connectionPos)
+        sim.setObjectPosition(targetHandle, sim.handle_world, connectionPos)
+    else
+        -- endEffector is not a idel position
+        endEffectorpos = sim.getObjectPosition(objectHandlesall[#objectHandlesall], sim.handle_world)
+        sim.setObjectPosition(tipHandle, sim.handle_world, endEffectorpos)
+        sim.setObjectPosition(targetHandle, sim.handle_world, endEffectorpos)
+    end 
     -- set dummy point to the parent object
     sim.setObjectParent(tipHandle,objectHandlesall[#objectHandlesall],true)
     sim.setObjectParent(targetHandle,simBase,true)

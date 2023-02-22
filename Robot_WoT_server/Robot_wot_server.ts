@@ -32,7 +32,7 @@ async function init(address:String){
 }
 
 async function loadRobotdriver(sim:any, robotName:string) {
-    const fileName = "../robot_driver.txt";
+    const fileName = "./robot_driver.txt";
     let fileContent = fs.readFileSync(fileName, 'utf8');
     
     let scriptHandle = Number(await sim.addScript(1)); // add sim.scripttype_childscript 1
@@ -41,7 +41,8 @@ async function loadRobotdriver(sim:any, robotName:string) {
 
     let checkScripthandle = await sim.getScript(1, objectHandle, robotName);
     if (checkScripthandle != -1){
-        await sim.removeScript(checkScripthandle); // when the script exists
+        console.log(checkScripthandle);
+        await sim.removeScript(checkScripthandle[0]); // when the script exists
     }
 
     await sim.setScriptStringParam(scriptHandle,Number(await sim.scriptstringparam_text),fileContent); // load code to script
@@ -75,9 +76,9 @@ server.start().then((WoT) => {
     WoT.produce(robotInstance).then(async(thing) => {
         console.log("Produced " + thing.getThingDescription().title);
         // init the copperliasim
-        let sceneAddress:String = "D:/master_thesis/project/robwot/common_script_load_common_robot.ttt"; // you need to modify to your own path
+        let sceneAddress:String = __dirname + "/robot_virtual_workspace.ttt";
         var sim = await init(sceneAddress); // initialize scene and sim
-        let scriptHandle = await loadRobotdriver(sim,"/UR4"); // robot could be fetched from the td 
+        let scriptHandle = await loadRobotdriver(sim,"/virtual_robot"); // robot could be fetched from the td 
 
         console.log("loadScript" + scriptHandle);
         await sim.startSimulation();
@@ -86,15 +87,15 @@ server.start().then((WoT) => {
         // set property handlers (using async-await)
         // set getJointposition propety handlers
         thing.setPropertyReadHandler("getJointposition", async() => 
-        await sim.callScriptFunction("getJointposition", scriptHandle)[0]);
+        (await sim.callScriptFunction("getJointposition", scriptHandle))[0]);
 
         // set getCartesianposition property handlers
         thing.setPropertyReadHandler("getCartesianposition", async() => 
-        await sim.callScriptFunction("getCartesianposition", scriptHandle)[0]);
+        (await sim.callScriptFunction("getCartesianposition", scriptHandle))[0]);
 
         // set getRobotinfo	property handlers
         thing.setPropertyReadHandler("getRobotinfo", async() => 
-        await sim.callScriptFunction("getRobotinfo", scriptHandle)[0]);
+        (await sim.callScriptFunction("robotInfo", scriptHandle))[0]);
 
 
         // set action handlers (using async-await)
