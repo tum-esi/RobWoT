@@ -1,1 +1,204 @@
-{"title":"Virtual robot description - UR4","id":"urn:dev:ops:32473-Master-thesis-Zucheng","description":"21.01.2023, this is common robot description file, it includes some common actions and properties","@context":["https://www.w3.org/2019/wot/td/v1",{"@language":"en"}],"@type":"Thing","security":"nosec_sc","securityDefinitions":{"nosec_sc":{"scheme":"nosec"}},"properties":{"getJointposition":{"title":"get position of each joint","description":"maxItems,minItems,minimum,maximum are decided by sprecific virtual robot","type":"object","properties":{"joint1":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint2":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint3":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint4":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint5":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint6":{"type":"number","minimum":-3.1415926535898,"maximum":6.2831853071796}},"readOnly":true,"observable":true,"forms":[{"href":"http://localhost:8080/robot_template/properties/getJointposition","contentType":"application/json","op":["readproperty"],"htv:methodName":"GET"}]},"getCartesianposition":{"title":"get cartesian position of robotic end-effector","description":"minimum,maximum is decided by specific robot","type":"object","properties":{"x":{"type":"number","minimum":-0.68928498029709,"maximum":0.68928498029709},"y":{"type":"number","minimum":-0.68928498029709,"maximum":0.68928498029709},"z":{"type":"number","minimum":0,"maximum":0.68928498029709}},"observable":true,"readOnly":true,"forms":[{"href":"http://localhost:8080/robot_template/properties/getCartesianposition","contentType":"application/json","op":["readproperty"],"htv:methodName":"GET"}]},"getRobotinfo":{"title":"get the robot basic information","description":"","type":"object","properties":{"robotName":{"type":"string"},"robotJoints":{"type":"string"}},"observable":true,"readOnly":true,"forms":[{"href":"http://localhost:8080/robot_template/properties/getRobotinfo","contentType":"application/json","op":["readproperty"],"htv:methodName":"GET"}]}},"actions":{"moveToinitialPosition":{"title":"let robot go to the initial position","description":"","forms":[{"href":"http://localhost:8080/robot_template/actions/moveToinitialPosition","contentType":"application/json","op":["invokeaction"],"htv:methodName":"PUT"}]},"moveTojointPosition":{"title":"let robot move according to joint position","description":"maxItems,minItems,minimum,maximum are decided by sprecific virtual robot","input":{"type":"object","properties":{"joint1":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint2":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint3":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint4":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint5":{"type":"number","minimum":-6.2831854820251,"maximum":12.56637096405},"joint6":{"type":"number","minimum":-3.1415926535898,"maximum":6.2831853071796}}},"forms":[{"href":"http://localhost:8080/robot_template/actions/moveTojointPosition","contentType":"application/json","op":["invokeaction"],"htv:methodName":"PUT"}]},"moveTocartesianPosition":{"title":"make robot move according to cartesian position","description":"minimum,maximum are decided by sprecific virtual robot","input":{"type":"object","properties":{"x":{"type":"number","minimum":-0.68928498029709,"maximum":0.68928498029709},"y":{"type":"number","minimum":-0.68928498029709,"maximum":0.68928498029709},"z":{"type":"number","minimum":0,"maximum":0.68928498029709}}},"forms":[{"href":"http://localhost:8080/robot_template/actions/moveTocartesianPosition","contentType":"application/json","op":["invokeaction"],"htv:methodName":"PUT"}]}}}
+{
+  "title": "virtualRobot-ur_robot",
+  "id": "urn:dev:ops:32473-Master-thesis-Zucheng",
+  "description": "21.01.2023, this is common robot description file, it includes some common actions and properties",
+  "links": [
+    {
+      "href": "D:\\master_thesis\\project\\robwot\\Generate_robot_description\\robot_shape.stl",
+      "type": "model/stl",
+      "rel": "workspace"
+    }
+  ],
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],
+  "@type": "Thing",
+  "security": "nosec_sc",
+  "securityDefinitions": { "nosec_sc": { "scheme": "nosec" } },
+  "properties": {
+    "getJointposition": {
+      "title": "get position of each joint",
+      "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+      "type": "object",
+      "properties": {
+        "joint1": {
+          "type": "number",
+          "minimum": -6.2831854820251,
+          "maximum": 12.56637096405
+        },
+        "joint2": {
+          "type": "number",
+          "minimum": -6.2831854820251,
+          "maximum": 12.56637096405
+        },
+        "joint3": {
+          "type": "number",
+          "minimum": -6.2831854820251,
+          "maximum": 12.56637096405
+        },
+        "joint4": {
+          "type": "number",
+          "minimum": -6.2831854820251,
+          "maximum": 12.56637096405
+        },
+        "joint5": {
+          "type": "number",
+          "minimum": -6.2831854820251,
+          "maximum": 12.56637096405
+        },
+        "joint6": {
+          "type": "number",
+          "minimum": -3.1415926535898,
+          "maximum": 6.2831853071796
+        }
+      },
+      "readOnly": true,
+      "observable": true,
+      "forms": [
+        {
+          "href": "http://localhost:8080/robot_template/properties/getJointposition",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    },
+    "getCartesianposition": {
+      "title": "get cartesian position of robotic end-effector",
+      "description": "minimum,maximum is decided by specific robot",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -0.68928736448288,
+          "maximum": 0.68928736448288
+        },
+        "y": {
+          "type": "number",
+          "minimum": -0.68928736448288,
+          "maximum": 0.68928736448288
+        },
+        "z": { "type": "number", "minimum": 0, "maximum": 0.68928736448288 }
+      },
+      "observable": true,
+      "readOnly": true,
+      "forms": [
+        {
+          "href": "http://localhost:8080/robot_template/properties/getCartesianposition",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    },
+    "getRobotinfo": {
+      "title": "get the robot basic information",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "robotName": { "type": "string" },
+        "positionLimits": { "type": "number" },
+        "jointAmount": { "type": "number" },
+        "jointLimitHighs": { "type": "array" },
+        "jointLimitLows": { "type": "array" }
+      },
+      "observable": true,
+      "readOnly": true,
+      "forms": [
+        {
+          "href": "http://localhost:8080/robot_template/properties/getRobotinfo",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "moveToinitialPosition": {
+      "title": "let robot go to the initial position",
+      "description": "",
+      "forms": [
+        {
+          "href": "http://localhost:8080/robot_template/actions/moveToinitialPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    },
+    "moveTojointPosition": {
+      "title": "let robot move according to joint position",
+      "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "joint1": {
+            "type": "number",
+            "minimum": -6.2831854820251,
+            "maximum": 12.56637096405
+          },
+          "joint2": {
+            "type": "number",
+            "minimum": -6.2831854820251,
+            "maximum": 12.56637096405
+          },
+          "joint3": {
+            "type": "number",
+            "minimum": -6.2831854820251,
+            "maximum": 12.56637096405
+          },
+          "joint4": {
+            "type": "number",
+            "minimum": -6.2831854820251,
+            "maximum": 12.56637096405
+          },
+          "joint5": {
+            "type": "number",
+            "minimum": -6.2831854820251,
+            "maximum": 12.56637096405
+          },
+          "joint6": {
+            "type": "number",
+            "minimum": -3.1415926535898,
+            "maximum": 6.2831853071796
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "http://localhost:8080/robot_template/actions/moveTojointPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    },
+    "moveTocartesianPosition": {
+      "title": "make robot move according to cartesian position",
+      "description": "minimum,maximum are decided by sprecific virtual robot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": -0.68928736448288,
+            "maximum": 0.68928736448288
+          },
+          "y": {
+            "type": "number",
+            "minimum": -0.68928736448288,
+            "maximum": 0.68928736448288
+          },
+          "z": { "type": "number", "minimum": 0, "maximum": 0.68928736448288 }
+        }
+      },
+      "forms": [
+        {
+          "href": "http://localhost:8080/robot_template/actions/moveTocartesianPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    }
+  }
+}
