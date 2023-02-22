@@ -109,10 +109,22 @@ end
 function getJointposition()
     local curJointpos={}
     for i=1,#jointHandles,1 do
-        curJointpos[i]=sim.getJointPosition(jointHandles[i])
+        jointName="joint"..i
+        curJointpos[jointName]=sim.getJointPosition(jointHandles[i])
     end
     
     return curJointpos
+end
+
+function getCartesianposition()
+    local curCartpos={}
+    curPos=sim.getObjectPosition(simTip,simBase)
+
+    curCartpos.x=curPos[1]
+    curCartpos.y=curPos[2]
+    curCartpos.z=curPos[3]
+
+    return curCartpos
 end
 
 function moveToinitialPosition()
@@ -195,4 +207,10 @@ function coroutineMain()
 
     local targetPos3={0,0,0,0,0,0}
     --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos3)
+    
+    --local tem=getCartesianposition()
+    --print(tem)
+    --local tem1=getJointposition()
+    --print(tem1)
+    
 end
