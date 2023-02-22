@@ -1,5 +1,5 @@
 {
-    "title": "Virtual robot description template",
+    "title": "virtualrobot-undefined",
     "id": "urn:dev:ops:32473-Master-thesis-Zucheng",
     "description": "21.01.2023, this is common robot description file, it includes some common actions and properties",
     "links":[{
@@ -79,12 +79,21 @@
             "description": "",
             "type": "object",
             "properties":{
-                "robotName":{
-                    "type": "string"
-                },
-                "robotJoints":{
-                    "type": "string"
-                }
+              "robotName":{
+                "type":"string"
+              },
+              "positionLimits":{
+                "type":"number"
+              },
+              "jointAmount":{
+                "type":"number"
+              },
+              "jointLimitHighs":{
+                "type":"array"
+              },
+              "jointLimitLows":{
+                "type":"array"
+              }
             },
             "observable": true,
             "readOnly": true,
