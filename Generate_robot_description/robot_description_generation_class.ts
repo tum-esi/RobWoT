@@ -100,8 +100,8 @@ class robotDescriptiongenrate{
         robot_template["title"] = "virtualRobot-" + robotType;
 
         //link model stl location record
+        //robot_template["links"][0]["href"] = "http://localhost:8080/robot_template" + "/robot_shape.stl";
         robot_template["links"][0]["href"] = __dirname + "\\robot_shape.stl";
-
         const data = JSON.stringify(robot_template); // data convert 
         
         return data;

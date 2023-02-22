@@ -68,15 +68,15 @@
       "properties": {
         "x": {
           "type": "number",
-          "minimum": -0.68928736448288,
-          "maximum": 0.68928736448288
+          "minimum": -0.68928742408752,
+          "maximum": 0.68928742408752
         },
         "y": {
           "type": "number",
-          "minimum": -0.68928736448288,
-          "maximum": 0.68928736448288
+          "minimum": -0.68928742408752,
+          "maximum": 0.68928742408752
         },
-        "z": { "type": "number", "minimum": 0, "maximum": 0.68928736448288 }
+        "z": { "type": "number", "minimum": 0, "maximum": 0.68928742408752 }
       },
       "observable": true,
       "readOnly": true,
@@ -180,15 +180,15 @@
         "properties": {
           "x": {
             "type": "number",
-            "minimum": -0.68928736448288,
-            "maximum": 0.68928736448288
+            "minimum": -0.68928742408752,
+            "maximum": 0.68928742408752
           },
           "y": {
             "type": "number",
-            "minimum": -0.68928736448288,
-            "maximum": 0.68928736448288
+            "minimum": -0.68928742408752,
+            "maximum": 0.68928742408752
           },
-          "z": { "type": "number", "minimum": 0, "maximum": 0.68928736448288 }
+          "z": { "type": "number", "minimum": 0, "maximum": 0.68928742408752 }
         }
       },
       "forms": [
