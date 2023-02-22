@@ -187,19 +187,20 @@ export class virtualDobot{
         this.jointAngle = angle;
         /*
         for (let index = 0; index < angle.length; index++) {
-            let curSinglejoint=angle[index]*Math.PI/180;
-            await this.sim.setJointPosition(motorHandles[index],curSinglejoint);
+            angle[index]=angle[index]*Math.PI/180;
+            //await this.sim.setJointPosition(motorHandles[index],curSinglejoint);
             //await this.sim.callScriptFunction("goTojoint", this.scriptHandle, motorHandles[index],curSinglejoint);
             //await delay(200);
         }
         */
+        //await this.sim.rmlMoveToJointPositions(motorHandles,-1,null,null,maxVel,maxAccel,maxJerk,angle,null,null)
         
         // move to config 2.21 it can't be blocking, consider to change it by another way
         let simTime = await this.sim.callScriptFunction("moveToConfig", this.scriptHandle, motorHandles,maxVel,maxAccel,maxJerk,this.jointAngle);
         console.log(50-simTime[0]*1000);
         // now try based on simulation time to adjust delay time
         //await delay((50-simTime[0]*1000)*100+500);
-        await delay(2500);
+        await delay(10000);
 
         return "success";
     }
