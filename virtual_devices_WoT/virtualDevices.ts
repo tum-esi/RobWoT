@@ -183,24 +183,23 @@ export class virtualDobot{
         let maxAccel=[accel*Math.PI/180,accel*Math.PI/180,accel*Math.PI/180,accel*Math.PI/180];
         let maxJerk=[jerk*Math.PI/180,jerk*Math.PI/180,jerk*Math.PI/180,jerk*Math.PI/180];
 
-
-        this.jointAngle = angle;
-        /*
         for (let index = 0; index < angle.length; index++) {
             angle[index]=angle[index]*Math.PI/180;
-            //await this.sim.setJointPosition(motorHandles[index],curSinglejoint);
-            //await this.sim.callScriptFunction("goTojoint", this.scriptHandle, motorHandles[index],curSinglejoint);
-            //await delay(200);
         }
-        */
-        //await this.sim.rmlMoveToJointPositions(motorHandles,-1,null,null,maxVel,maxAccel,maxJerk,angle,null,null)
-        
-        // move to config 2.21 it can't be blocking, consider to change it by another way
-        let simTime = await this.sim.callScriptFunction("moveToConfig", this.scriptHandle, motorHandles,maxVel,maxAccel,maxJerk,this.jointAngle);
-        console.log(50-simTime[0]*1000);
-        // now try based on simulation time to adjust delay time
-        //await delay((50-simTime[0]*1000)*100+500);
-        await delay(10000);
+        this.jointAngle = angle;
+        // also change it to blocking function
+        await this.sim.callScriptFunction("moveJoint", this.scriptHandle, motorHandles,maxVel,maxAccel,maxJerk,this.jointAngle);
+
+        while (true){
+            let state = await this.sim.callScriptFunction("check", this.scriptHandle);
+            //console.log(state);
+            await delay(500);
+            if (state[0]==3){
+                break;
+            }
+    
+        }
+        await delay(100);
 
         return "success";
     }
@@ -256,13 +255,22 @@ export class virtualDobot{
         return "success";
         //return "success";
     }
-    // moveTopos decrpeted
+    // moveTopos update to the blocking function
     async moveTopos(position:number[]):Promise<string>{
         this.dobotHandle = Number(await this.sim.getObject(this.name));
         this.scriptHandle = Number(await this.sim.getScript(1, this.dobotHandle,this.name));
         
-        await this.sim.callScriptFunction("moveToPose_viaIKnew", this.scriptHandle, position);
-        await delay(2000);   
+        await this.sim.callScriptFunction("move", this.scriptHandle, position);
+        while (true){
+            let state = await this.sim.callScriptFunction("check", this.scriptHandle);
+            //console.log(state);
+            await delay(500);
+            if (state[0]==3){
+                break;
+            }
+    
+        }
+        await delay(100);
         
         return "success";
     }
