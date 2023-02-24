@@ -43,8 +43,8 @@ async function main() {
     //--------------
 
     await dobot.invokeAction("getCube");
-
-    await delay(28000);
+    
+    await delay(35000);
 
     await conveyor2.invokeAction("startBeltForward");
 
@@ -119,6 +119,7 @@ async function main() {
     await delay(4000);
 
     await dobot.invokeAction("returnCube");
+    
 }
 
 main();
