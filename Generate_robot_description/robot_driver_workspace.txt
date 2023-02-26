@@ -182,7 +182,7 @@ doCalculation=function()
     
     end
     
-    for i=1,6,1 do
+    for i=1,jointHandles,1 do
         sim.setJointPosition(jointHandles[i],initialJointPositions[i])
     end
     
