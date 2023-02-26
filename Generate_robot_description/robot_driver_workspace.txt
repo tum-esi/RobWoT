@@ -80,13 +80,13 @@ doCalculation=function()
     local generateRandom=true -- Use random configurations instead of joint divisions
     local randomSteps=80000 -- Number of random configs to test
     
-    local jointHandles={}
+    --local jointHandles={}
     local jointLimitLows={}
     local jointLimitRanges={}
     local initialJointPositions={}
     
-    for i=1,6,1 do
-        jointHandles[i]=sim.getObject('./joint',{index=i-1})
+    for i=1,#jointHandles,1 do
+        --jointHandles[i]=sim.getObject('./joint',{index=i-1})
         local cyclic,interv=sim.getJointInterval(jointHandles[i]) -- judge if the joint is cyclic
         if cyclic then
             jointLimitLows[i]=-180*math.pi/180
@@ -110,19 +110,12 @@ doCalculation=function()
     
     if generateRandom then
         for cnt=1,randomSteps,1 do
-            local p1=jointLimitLows[1]+math.random()*jointLimitRanges[1]
-            sim.setJointPosition(jointHandles[1],p1)
-            local p2=jointLimitLows[2]+math.random()*jointLimitRanges[2]
-            sim.setJointPosition(jointHandles[2],p2)
-            local p3=jointLimitLows[3]+math.random()*jointLimitRanges[3]
-            sim.setJointPosition(jointHandles[3],p3)
-            local p4=jointLimitLows[4]+math.random()*jointLimitRanges[4]
-            sim.setJointPosition(jointHandles[4],p4)
-            local p5=jointLimitLows[5]+math.random()*jointLimitRanges[5]
-            sim.setJointPosition(jointHandles[5],p5)
-            local p6=jointLimitLows[6]+math.random()*jointLimitRanges[6]
-            sim.setJointPosition(jointHandles[6],p6)
-
+            for i=1,#jointHandles,1 do
+                local pos=jointLimitLows[i]+math.random()*jointLimitRanges[i]
+                sim.setJointPosition(jointHandles[i],pos)
+            
+            end
+            
             local colliding=false
             local matrix=sim.getObjectMatrix(tip,sim.handle_world)
             
@@ -368,9 +361,9 @@ function coroutineMain()
     --moveTojoint(targetPos1)
     local info=robotInfo()
     --print(info)
-    --generateWorkingspace(0)
+    generateWorkingspace()
     
-    --moveToPosition({0.2,-0.1,0.4})
+    --moveToPosition({0.5,0.3,-0.5})
     local targetPos2={-90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180}
     --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos2)
 
