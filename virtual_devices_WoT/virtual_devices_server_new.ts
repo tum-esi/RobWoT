@@ -135,7 +135,7 @@ async function main() {
             // set startBeltBackward action handlers
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
-                    await conveyor1.setConveyorSpeed(0.03);
+                    await conveyor1.setConveyorSpeed(0.02);
                     return "success";
                 }
                 catch{
@@ -146,7 +146,7 @@ async function main() {
             // set startBeltForward action handlers
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
-                    await conveyor1.setConveyorSpeed(-0.03);
+                    await conveyor1.setConveyorSpeed(-0.02);
                     return "success";
                 }
                 catch{
@@ -189,7 +189,7 @@ async function main() {
             // set startBeltBackward action handlers
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
-                    await conveyor2.setConveyorSpeed(0.04);
+                    await conveyor2.setConveyorSpeed(0.025);
                     return "success";
                 }
                 catch{
@@ -200,7 +200,7 @@ async function main() {
             // set startBeltForward action handlers
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
-                    await conveyor2.setConveyorSpeed(-0.04);
+                    await conveyor2.setConveyorSpeed(-0.025);
                     return "success";
                 }
                 catch{
@@ -339,13 +339,13 @@ async function main() {
                         await dobot.dobotMove(0.49);
                         await dobot.moveTopos([0.44508001208305, 0.49000000953674, 0.032000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                         while (true){
-                            distance = distance + 0.007;
+                            distance = distance + 0.0048;
                             if (await cubeDetect.objectDetect()){
                                 await dobot.dobotMove(0.49-distance);
                                 break;
                             }
                             await dobot.dobotMove(0.49-distance);
-                            await delay(70);
+                            await delay(100);
                         }    
                     }
 
@@ -355,7 +355,9 @@ async function main() {
 
                     await dobot.setGripperstate(false);
 
-                    await dobot.moveTopos([0.44508001208305, 0.27799999713898, 0.054019999414682, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                    await dobot.moveTopos([0.44508001208305, 0.27799999713898, 0.056019999414682, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+
+                    await dobot.moveTopos([0.44508001208305, 0.27799999713898, 0.043019999414682, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                     
                     await dobot.moveTopos([0.44508001208305, 0.27799999713898, 0.032019999593496, 2.1218841084192e-07, -1.6752113651819e-07, -0.70711296796799, 0.70710057020187]);
                     
@@ -402,15 +404,17 @@ async function main() {
 
                     await dobot.dobotMove(0.58);
                 
-                    await dobot.moveTopos([0.28299000859261, 0.55800002813339, 0.112199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.2845, 0.559, 0.112199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
                     
-                    await dobot.moveTopos([0.28299000859261, 0.55800002813339, 0.08199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.2845, 0.559, 0.09599998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
 
-                    await dobot.moveTopos([0.28299000859261, 0.55800002813339, 0.058200001716614, 2.1218852452876e-07, -1.6752125020503e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.2845, 0.559, 0.07599998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+
+                    await dobot.moveTopos([0.2845, 0.559, 0.056700001716614, 2.1218852452876e-07, -1.6752125020503e-07, -0.70711296796799, 0.70710062980652]);
 
                     await dobot.setGripperstate(true);
 
-                    await dobot.moveTopos([0.28299000859261, 0.55800002813339, 0.075199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.2845000859261, 0.55900002813339, 0.075199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
                 
                     await dobot.setJointangle([0,20,60,40,0]);
                 
@@ -422,19 +426,19 @@ async function main() {
                     // detect cube then slowly move
                     let distance = 0;
                     while (true){
-                        distance = distance + 0.007;
+                        distance = distance + 0.005;
                         await dobot.dobotMove(0.475-distance);
                         if (await cubeDetect.objectDetect()){
                             await dobot.dobotMove(0.475-distance-0.005);
                             break;
                         }
-                        await delay(70);
+                        await delay(100);
                     }
                     //await dobot.dobotMove(0.47);
-                
-                    await dobot.setGripperstate(false);
 
                     await dobot.moveTopos([0.44508001208305, 0.475-distance-0.005, 0.035000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                    
+                    await dobot.setGripperstate(false);
 
                     await dobot.moveTopos([0.44508001208305, 0.475-distance-0.005, 0.050000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                     

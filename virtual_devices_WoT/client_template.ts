@@ -41,7 +41,7 @@ async function main() {
     await delay(20000);
     */
     //--------------
-
+    
     await dobot.invokeAction("getCube");
     
     await delay(35000);
@@ -50,20 +50,21 @@ async function main() {
 
     while (true){
         if (await sensor2.readProperty("sensorState") == true){
+            await delay(500);
             await conveyor2.invokeAction("stopBelt");
             break
         }
-        await delay(1500);
+        await delay(800);
     }
 
     let P1 = {
-        "x":193,
-        "y":193,
+        "x":192,
+        "y":192,
         "z":70
     };
     let P4 = {
-        "x":193,
-        "y":193,
+        "x":192,
+        "y":192,
         "z":52
     };
     let P2 = {
@@ -80,6 +81,11 @@ async function main() {
         "x":200,
         "y":0,
         "z":80  
+    };
+    let P6 = {
+        "x":200,
+        "y":-200,
+        "z":70
     };
 
     await uarm.invokeAction("gripOpen");
@@ -100,24 +106,25 @@ async function main() {
     await delay(2000);
     await uarm.invokeAction("goTo",P2);
     await delay(4000);
+    await uarm.invokeAction("goTo",P6);
+    await delay(4000);
     await uarm.invokeAction("gripOpen");
     await delay(4000);
     await uarm.invokeAction("goTo",P5);
-    
     await delay(4000);
 
     await conveyor1.invokeAction("startBeltBackward");
     while (true){
         if (await sensor1.readProperty("sensorState") == true){
-            await delay(1000);
+            await delay(500);
             await conveyor1.invokeAction("stopBelt");
             break
         }
-        await delay(1500);
+        await delay(1000);
     } 
 
     await delay(4000);
-
+    
     await dobot.invokeAction("returnCube");
     
 }
