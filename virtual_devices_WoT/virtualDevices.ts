@@ -109,7 +109,7 @@ export class virtualUarm{
             await delay(2000);
         }
         */
-        await this.sim.callScriptFunction("goTo", this.scriptHandle,pos);
+        await this.sim.callScriptFunction("goTo", this.scriptHandle,pos); //this is non-blocking function
         //await delay(2000);
 
         this.previousPos = pos;
@@ -120,8 +120,23 @@ export class virtualUarm{
         this.uarmHandle = Number(await this.sim.getObject(this.name));
         this.scriptHandle = Number(await this.sim.getScript(1, this.uarmHandle,this.name));
 
-        await this.sim.callScriptFunction("goWithspeed", this.scriptHandle,pos,speed);
+        await this.sim.callScriptFunction("goWithspeed", this.scriptHandle,pos,speed); //this is non-blocking function
         //await delay(2000);
+        // now change it to blocking function
+        /*
+        // ----------------------------------
+        await this.sim.callScriptFunction("moveWithspeed", this.scriptHandle,pos,speed);
+        while (true){
+            let state = await this.sim.callScriptFunction("check", this.scriptHandle);
+            //console.log(state);
+            await delay(500);
+            if (state[0]==3){
+                break;
+            }
+        }
+        await delay(100);
+        // -----------------------------------
+        */
 
         this.previousPos = pos;
 
@@ -134,7 +149,7 @@ export class virtualUarm{
         this.scriptHandle = Number(await this.sim.getScript(1, this.uarmHandle,this.name));
 
         await this.sim.callScriptFunction("enableGripper", this.scriptHandle,state);
-        //await delay(1500);
+        await delay(1000);
     }
     async getCurpos():Promise<number[]>{
         this.uarmHandle = Number(await this.sim.getObject(this.name));
@@ -197,7 +212,6 @@ export class virtualDobot{
             if (state[0]==3){
                 break;
             }
-    
         }
         await delay(100);
 
