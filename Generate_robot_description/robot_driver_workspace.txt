@@ -361,7 +361,7 @@ function coroutineMain()
     --moveTojoint(targetPos1)
     local info=robotInfo()
     --print(info)
-    generateWorkingspace()
+    --generateWorkingspace()
     
     --moveToPosition({0.5,0.3,-0.5})
     local targetPos2={-90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180}
