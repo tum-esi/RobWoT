@@ -1,8 +1,8 @@
 ## The Copperliasim scene to reproduce the IoT lab platform
 
->> Virtual_IoT_lab.ttt: 95% replicate the IoT lab platform except dobot gripper
+>Virtual_IoT_lab.ttt: 95% replicate the IoT lab platform except dobot gripper
 
->> Virtual_IoT_lab_new.ttt: 99% replicate the IoT lab plafrom
+>Virtual_IoT_lab_new.ttt: 99% replicate the IoT lab plafrom
 
 
 ## How to initialize the virtual IoT lab based on WoT server
