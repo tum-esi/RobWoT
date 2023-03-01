@@ -26,13 +26,3 @@ or
 ts-node virtual_devices_server_new.ts
 ts-node client_template.ts
 ```
-
-## common problem and accessible method to solve the problem
-
-1. the dobot move too slow and could't finish the complete motion
-
-
-
-2. the cube is shaking in the uarm gripper
-
- 
