@@ -6,7 +6,9 @@
 >Virtual_IoT_lab_new.ttt: 99% replicate the IoT lab plafrom
 
 
-Due the characteristic of physical engine in Copperliasim, the complex gripper lead to more complex collision calculations in the simulation. Therefore,  normally the success rate of whole action in scene **Virtual_IoT_lab.ttt** is 99%, and the success rate in scene **Virtual_IoT_lab_new.ttt** is 95%. It is recommended to test your client script in scene  **Virtual_IoT_lab.ttt** at beginning. 
+Due the characteristic of physical engine in Copperliasim, the complex gripper lead to more complex collision calculations in the simulation. Therefore,  normally the success rate of whole action in scene **Virtual_IoT_lab.ttt** is 99%, and the success rate in scene **Virtual_IoT_lab_new.ttt** is 95%. It is recommended to test your client script in scene  **Virtual_IoT_lab.ttt** at beginning
+
+Besides, object such as cube or gripper shaking is a normal phenomenon in Copperliasim simulation. If sometimes action fails due to the vibration of the object. You can try to restart the Copperliasim to fix this problem
 
 ## How to initialize the virtual IoT lab based on WoT server
 
@@ -17,7 +19,6 @@ Due the characteristic of physical engine in Copperliasim, the complex gripper l
 1. Run the ```npm install``` command to install necessary packages in the repository root directory
 2. Please open the Copperliasim and load the scene file **Virtual_IoT_lab.ttt** or **Virtual_IoT_lab_new.ttt** manually
 3. Enter the **virtual_devices_WoT** folder and run the following command
-4. Don't run two scene and corresponding server at the same time, which will cause port conflict.
 
 ```
 ts-node virtual_devices_server.ts
@@ -30,3 +31,7 @@ or
 ts-node virtual_devices_server_new.ts
 ts-node client_template.ts
 ```
+
+4. Don't run two scene and corresponding server at the same time, which will cause port conflict.
+5. It requires 5-7 seconds for the server to initialization. So it needs a little time interval between commands.
+5. You can write your client scirpt, or you can directly use **client_template.ts** 
