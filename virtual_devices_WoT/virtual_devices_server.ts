@@ -136,7 +136,7 @@ async function main() {
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
                     await conveyor1.setConveyorSpeed(0.03);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
@@ -147,7 +147,7 @@ async function main() {
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
                     await conveyor1.setConveyorSpeed(-0.03);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
@@ -158,11 +158,11 @@ async function main() {
             thing.setActionHandler("stopBelt", async() =>{
                 try {
                     await conveyor1.setConveyorSpeed(0);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -190,33 +190,33 @@ async function main() {
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
                     await conveyor2.setConveyorSpeed(0.04);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             // set startBeltForward action handlers
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
                     await conveyor2.setConveyorSpeed(-0.04);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
             thing.setActionHandler("stopBelt", async() =>{
                 try {
                     await conveyor2.setConveyorSpeed(0);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -251,33 +251,33 @@ async function main() {
 
                     await uarm.goWithspeed(finalPos,2222);
                     
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             // set startBeltForward action handlers
             thing.setActionHandler("gripClose", async() =>{
                 try {
                     await uarm.setGripperstate(true);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
             thing.setActionHandler("gripOpen", async() =>{
                 try {
                     await uarm.setGripperstate(false);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             thing.setActionHandler("goWithSpeed", async(data) =>{
@@ -290,11 +290,11 @@ async function main() {
 
                     await uarm.goWithspeed(finalPos,speed);
                     
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }             
             })
             thing.setActionHandler("goHome", async() =>{
@@ -303,11 +303,11 @@ async function main() {
 
                     await uarm.goWithspeed(pos,2222);
 
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -375,11 +375,11 @@ async function main() {
 
                     await dobot.setJointangle([0,15,15,0]);
 
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -415,11 +415,11 @@ async function main() {
                     await dobot.setGripperstate(false);
                 
                     await dobot.setJointangle([0,15,15,0]);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 

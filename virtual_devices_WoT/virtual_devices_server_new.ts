@@ -136,33 +136,33 @@ async function main() {
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
                     await conveyor1.setConveyorSpeed(0.02);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             // set startBeltForward action handlers
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
                     await conveyor1.setConveyorSpeed(-0.02);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
             thing.setActionHandler("stopBelt", async() =>{
                 try {
                     await conveyor1.setConveyorSpeed(0);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -190,33 +190,33 @@ async function main() {
             thing.setActionHandler("startBeltBackward", async() =>{
                 try {
                     await conveyor2.setConveyorSpeed(0.025);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             // set startBeltForward action handlers
             thing.setActionHandler("startBeltForward", async() =>{
                 try {
                     await conveyor2.setConveyorSpeed(-0.025);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
             thing.setActionHandler("stopBelt", async() =>{
                 try {
                     await conveyor2.setConveyorSpeed(0);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -251,33 +251,33 @@ async function main() {
 
                     await uarm.goWithspeed(finalPos,2222);
 
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             // set startBeltForward action handlers
             thing.setActionHandler("gripClose", async() =>{
                 try {
                     await uarm.setGripperstate(true);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
             thing.setActionHandler("gripOpen", async() =>{
                 try {
                     await uarm.setGripperstate(false);
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
             thing.setActionHandler("goWithSpeed", async(data) =>{
@@ -290,11 +290,11 @@ async function main() {
 
                     await uarm.goWithspeed(finalPos,speed);
                     
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }             
             })
             thing.setActionHandler("goHome", async() =>{
@@ -303,11 +303,11 @@ async function main() {
 
                     await uarm.goWithspeed(pos,2222);
 
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -383,16 +383,20 @@ async function main() {
                 
                     await dobot.moveTopos([0.44508001208305, 0.49000000953674, 0.032000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                 
-                    await dobot.dobotMove(0.45);
+                    await dobot.dobotMove(0.46);
 
                     await dobot.setJointangle([0,20,60,40,0]);
+
+                    await dobot.dobotMove(0.14);
+
+                    await dobot.setJointangle([0,40,100,60,0]); // go to the position like real iot lab
                    
 
-                    return "success";
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -404,17 +408,17 @@ async function main() {
 
                     await dobot.dobotMove(0.58);
                 
-                    await dobot.moveTopos([0.284, 0.558, 0.112199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.284, 0.555, 0.112199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
                     
-                    await dobot.moveTopos([0.284, 0.558, 0.09599998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.284, 0.555, 0.09599998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
 
-                    await dobot.moveTopos([0.284, 0.558, 0.07599998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.284, 0.555, 0.07599998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
 
-                    await dobot.moveTopos([0.284, 0.558, 0.056700001716614, 2.1218852452876e-07, -1.6752125020503e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.284, 0.555, 0.056700001716614, 2.1218852452876e-07, -1.6752125020503e-07, -0.70711296796799, 0.70710062980652]);
 
                     await dobot.setGripperstate(true);
 
-                    await dobot.moveTopos([0.284, 0.558, 0.075199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.284, 0.555, 0.075199998915195, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
                 
                     await dobot.setJointangle([0,20,60,40,0]);
                 
@@ -436,18 +440,25 @@ async function main() {
                     }
                     //await dobot.dobotMove(0.47);
 
-                    await dobot.moveTopos([0.44508001208305, 0.475-distance-0.005, 0.035000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                    await dobot.moveTopos([0.44508001208305, 0.475-distance-0.0045, 0.035000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                     
                     await dobot.setGripperstate(false);
 
-                    await dobot.moveTopos([0.44508001208305, 0.475-distance-0.005, 0.050000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                    await dobot.moveTopos([0.44508001208305, 0.475-distance-0.0045, 0.050000001519918, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                     
                     await dobot.setJointangle([0,20,60,40,0]);
-                    return "success";
+
+                    await dobot.dobotMove(0.14);
+
+                    await dobot.setJointangle([0,40,100,60,0]); // go to the position like real iot lab
+
+                    await dobot.setGripperstate(true);
+
+                    return "";
                 }
                 catch{
                     console.log("failed");
-                    return "failed";
+                    return "";
                 }
             });
 
@@ -472,461 +483,6 @@ async function main() {
             });
         });
     });
-    /*
-    // robot WoT server 
-    // create Servient add HTTP binding with port configuration
-    let serverSensor1 = new Servient();
-    serverSensor1.addServer(
-        new HttpServer({
-            port: 9000, // set port 9000 as request
-        })
-    );
-
-    // sensor1
-    serverSensor1.start().then((WoT) => {
-        WoT.produce(sensorTD1).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
-            let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
-            //var sim = await init(sceneAddress); // initialize scene and sim
-
-            //await sim.startSimulation();
-            //await delay(500);
-            
-            let sensor1 = new virtualSensor(sim,"/InfraredSensor1");
-    
-            // set property handlers (using async-await)
-            // set sensorState propety handlers
-            thing.setPropertyReadHandler("sensorState", async() => await (sensor1.objectDetect()))
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-
-    let serverSensor2 = new Servient();
-    serverSensor2.addServer(
-        new HttpServer({
-            port: 9001, // set port 8080 as request
-        })
-    );
-    // sensor2
-    serverSensor2.start().then((WoT) => {
-        WoT.produce(sensorTD2).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
-            //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
-            //var sim = await init(sceneAddress); // initialize scene and sim
-
-            //await sim.startSimulation();
-            //await delay(500);
-            
-            let sensor1 = new virtualSensor(sim,"/InfraredSensor2");
-            
-            // set property handlers (using async-await)
-            // set sensorState propety handlers
-            thing.setPropertyReadHandler("sensorState", async() => await (sensor1.objectDetect()))
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-
-    // conveyor WoT server 
-    // create Servient add HTTP binding with port configuration
-    let serverConveyor1 = new Servient();
-    serverConveyor1.addServer(
-        new HttpServer({
-            port: 9002, // set port 9002 as request
-        })
-    );
-
-    // conveyor1
-    serverConveyor1.start().then((WoT) => {
-        WoT.produce(conveyorTD1).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
-            //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
-            //var sim = await init(sceneAddress); // initialize scene and sim
-
-            //await sim.startSimulation();
-            //await delay(500);
-            
-            let conveyor1 = new virtualConveyor(sim,"/ConveyorBelt1");
-            await conveyor1.setConveyorSpeed(0);
-
-            // set action handlers (using async-await)
-            // set startBeltBackward action handlers
-            thing.setActionHandler("startBeltBackward", async() =>{
-                try {
-                    await conveyor1.setConveyorSpeed(0.03);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-            // set startBeltForward action handlers
-            thing.setActionHandler("startBeltForward", async() =>{
-                try {
-                    await conveyor1.setConveyorSpeed(-0.03);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            thing.setActionHandler("stopBelt", async() =>{
-                try {
-                    await conveyor1.setConveyorSpeed(0);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-
-    // conveyor WoT server 
-    // create Servient add HTTP binding with port configuration
-    let serverConveyor2 = new Servient();
-    serverConveyor2.addServer(
-        new HttpServer({
-            port: 9003, // set port 9002 as request
-        })
-    );
-
-
-    // conveyor2
-    serverConveyor2.start().then((WoT) => {
-        WoT.produce(conveyorTD2).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
-            //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
-            //var sim = await init(sceneAddress); // initialize scene and sim
-
-            //await sim.startSimulation();
-            //await delay(500);
-            
-            let conveyor2 = new virtualConveyor(sim,"/ConveyorBelt2");
-            await conveyor2.setConveyorSpeed(0);
-
-            // set action handlers (using async-await)
-            // set startBeltBackward action handlers
-            thing.setActionHandler("startBeltBackward", async() =>{
-                try {
-                    await conveyor2.setConveyorSpeed(0.04);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-            // set startBeltForward action handlers
-            thing.setActionHandler("startBeltForward", async() =>{
-                try {
-                    await conveyor2.setConveyorSpeed(-0.04);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            thing.setActionHandler("stopBelt", async() =>{
-                try {
-                    await conveyor2.setConveyorSpeed(0);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-
-    // uarm WoT server 
-    // create Servient add HTTP binding with port configuration
-    let uarm = new Servient();
-    uarm.addServer(
-        new HttpServer({
-            port: 9004, // set port 9004 as request
-        })
-    );
-
-
-    // uarm
-    uarm.start().then((WoT) => {
-        WoT.produce(uarmTD).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
-            //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
-            //var sim = await init(sceneAddress); // initialize scene and sim
-
-            //await sim.startSimulation();
-            //await delay(200);
-            
-            let uarm = new virtualUarm(sim, "/uarm");
-
-            uarm.setGripperstate(false);
-
-            // set action handlers (using async-await)
-            // set startBeltBackward action handlers
-            thing.setActionHandler("goTo", async(data) =>{
-                try {
-                    let pos:any = await data.value();
-                    
-                    let finalPos:Number[] = [pos["x"]/1000, pos["y"]/1000, pos["z"]/1000]; // convert to meter
-                    //console.log(finalPos);
-
-                    await uarm.goWithspeed(finalPos,2222);
-                    
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-            // set startBeltForward action handlers
-            thing.setActionHandler("gripClose", async() =>{
-                try {
-                    await uarm.setGripperstate(true);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            thing.setActionHandler("gripOpen", async() =>{
-                try {
-                    await uarm.setGripperstate(false);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-            thing.setActionHandler("goWithSpeed", async(data) =>{
-                try {
-                    let pos:any = await data.value();
-                    
-                    let finalPos:Number[] = [pos["x"]/1000, pos["y"]/1000, pos["z"]/1000]; // convert to meter
-                    let speed = pos["speed"];
-                    //console.log(finalPos);
-
-                    await uarm.goWithspeed(finalPos,speed);
-                    
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }             
-            })
-            thing.setActionHandler("goHome", async() =>{
-                try {
-                    let pos = [0.220,0,0.1];
-
-                    await uarm.goWithspeed(pos,2222);
-
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-
-    // dobot WoT server 
-    // create Servient add HTTP binding with port configuration
-    let dobot = new Servient();
-    dobot.addServer(
-        new HttpServer({
-            port: 9005, // set port 9004 as request
-        })
-    );
-
-
-    // dobot
-    dobot.start().then((WoT) => {
-        WoT.produce(dobotTD).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-
-            let dobot = new virtualDobot(sim, "/Dobot");
-
-            let cubeDetect = new virtualSensor(sim,"/cubesensor");
-
-            dobot.setGripperstate(false);
-
-            // set action handlers (using async-await)
-            // set startBeltBackward action handlers
-            // set startBeltForward action handlers
-            thing.setActionHandler("getCube", async() =>{
-                try {
-                    // detect cube then slowly move
-                    let distance = 0;
-                    if ((await cubeDetect.objectDetect())==false){
-
-                        await dobot.dobotMove(0.49);
-                        await dobot.setJointangle([0,70,95,0]);
-                        while (true){
-                            distance = distance + 0.007;
-                            if (await cubeDetect.objectDetect()){
-                                await dobot.dobotMove(0.49-distance);
-                                break;
-                            }
-                            await dobot.dobotMove(0.49-distance);
-                            await delay(70);
-                        }    
-                    }
-
-                    await dobot.setJointangle([0,15,15,0]);
-        
-                    await dobot.dobotMove(0.286);
-
-                    await dobot.setJointangle([0,64,95,0]);
-                
-                    await dobot.setGripperstate(true);
-                
-                    await dobot.setJointangle([0,15,15,0]);
-                
-                    await dobot.dobotMove(-0.398);
-                
-                    await dobot.setJointangle([0,80,15,0]);
-                
-                    await dobot.setGripperstate(false);
-
-                    await dobot.setJointangle([0,15,15,0]);
-
-                    await dobot.dobotMove(0.484);
-                
-                    await dobot.setJointangle([0,70,95,0]);
-                
-                    await dobot.dobotMove(0.45);
-
-                    await dobot.setJointangle([0,15,15,0]);
-
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            thing.setActionHandler("returnCube", async() =>{
-                try {
-                    await dobot.setJointangle([0,15,15,0]);
-
-                    await dobot.dobotMove(0.557);
-                
-                    await dobot.setJointangle([0,110,10,0]);
-                
-                    await dobot.setGripperstate(true);
-                
-                    await dobot.setJointangle([0,15,15,0]);
-                
-                    await dobot.dobotMove(0.475);
-                
-                    await dobot.setJointangle([0,63,95,0]);
-
-                    // detect cube then slowly move
-                    let distance = 0;
-                    while (true){
-                        distance = distance + 0.007;
-                        await dobot.dobotMove(0.475-distance);
-                        if (await cubeDetect.objectDetect()){
-                            await dobot.dobotMove(0.475-distance-0.005);
-                            break;
-                        }
-                        await delay(70);
-                    }
-                    //await dobot.dobotMove(0.47);
-                
-                    await dobot.setGripperstate(false);
-                
-                    await dobot.setJointangle([0,15,15,0]);
-                    return "success";
-                }
-                catch{
-                    console.log("failed");
-                    return "failed";
-                }
-            });
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-
-    // color sensor WoT server 
-    // create Servient add HTTP binding with port configuration
-    let colorSensor = new Servient();
-    colorSensor.addServer(
-        new HttpServer({
-            port: 9006, // set port 9004 as request
-        })
-    );
-
-
-    // color sensor
-    colorSensor.start().then((WoT) => {
-        WoT.produce(colorTD).then(async(thing) => {
-            console.log("Produced " + thing.getThingDescription().title);
-
-            let colorSensor = new virtualSensor(sim,"/Color_sensor");
-
-            thing.setPropertyReadHandler("color", async() => await (colorSensor.getObjectcolor()))
-
-            // expose the thing
-            thing.expose().then(() => {
-                console.info(thing.getThingDescription().title + " ready");
-                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
-            });
-        });
-    });
-    */
 
 }
 
