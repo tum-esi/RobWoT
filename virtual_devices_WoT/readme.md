@@ -1,10 +1,10 @@
 ## The Copperliasim scene to reproduce the IoT lab platform
 
 >Virtual_IoT_lab.ttt: 90% replicate the IoT lab platform except dobot gripper
-
+<img src="Virtual_IoT_lab.png" width="600">
 
 >Virtual_IoT_lab_new.ttt: 95% replicate the IoT lab plafrom
-
+<img src="Virtual_IoT_lab_new.png" width="600">
 
 Due the characteristic of physical engine in Copperliasim, the complex gripper lead to more complex collision calculations in the simulation. Therefore,  normally the success rate of whole process  **client_template.ts**  in scene **Virtual_IoT_lab.ttt** is 95%, and the success rate in scene **Virtual_IoT_lab_new.ttt** is 90%. It is recommended to test your client script in scene  **Virtual_IoT_lab.ttt** at beginning
 
