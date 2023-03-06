@@ -385,11 +385,11 @@
     }
   },
   "security": [
-    "nosec_sc"
+    "basic_sc"
   ],
   "securityDefinitions": {
-    "nosec_sc": {
-      "scheme": "nosec"
+    "basic_sc": {
+      "scheme": "basic"
     }
   },
   "title": "Uarm"
