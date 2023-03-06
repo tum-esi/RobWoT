@@ -43,7 +43,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://139.24.50.8:9000/virtualuarm/actions/goTo",
+                "href":"http://192.168.48.73:9000/virtualuarm/actions/goTo",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -55,7 +55,7 @@
             "forms":[
                 {
                 "contentType":"application/json",
-                "href":"http://139.24.50.8:9000/virtualuarm/actions/gripClose",
+                "href":"http://192.168.48.73:9000/virtualuarm/actions/gripClose",
                 "htv:methodName":"POST",
                 "op":["invokeaction"]
                 }
@@ -67,7 +67,7 @@
             "forms":[
                 {
                     "contentType":"application/json",
-                    "href":"http://139.24.50.8:9000/virtualuarm/actions/gripOpen",
+                    "href":"http://192.168.48.73:9000/virtualuarm/actions/gripOpen",
                     "htv:methodName":"POST",
                     "op":["invokeaction"]
                 }
@@ -78,7 +78,7 @@
             "forms": [
               {
                 "contentType": "application/json",
-                "href": "http://139.24.50.8:9000/virtualuarm/actions/goHome",
+                "href": "http://192.168.48.73:9000/virtualuarm/actions/goHome",
                 "htv:methodName": "POST",
                 "op": "invokeaction"
               }
@@ -92,7 +92,7 @@
             "forms": [
               {
                 "contentType": "application/json",
-                "href": "http://139.24.50.8:9000/virtualuarm/actions/goWithSpeed",
+                "href": "http://192.168.48.73:9000/virtualuarm/actions/goWithSpeed",
                 "htv:methodName": "POST",
                 "op": "invokeaction"
               }
