@@ -16,13 +16,16 @@ export class makeWoTinteraction{
     wotHelper:Helpers;
     data:WoT.DataSchemaValue;
     // constructor
-    constructor(fileAddress:string){
+    constructor(fileAddress:string,credentials?:any){
         this.TDfile = fileAddress; // local path or remote ip address
         // init WoT server
         // create Servient and add HTTP binding
         this.client = new Servient();
         this.client.addClientFactory(new HttpClientFactory());
         this.wotHelper = new Helpers(this.client);
+
+        // if need credential to access the server
+        this.client.addCredentials(credentials);
 
         this.data = "null";
     }
