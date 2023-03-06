@@ -5,10 +5,10 @@ function delay(ms: number) {
 }
 
 // virtual devices url
-let sensor1URL = "http://localhost:9000/virtualsensor1";
-let sensor2URL = "http://localhost:9000/virtualsensor2";
-let conveyor1URL = "http://localhost:9000/virtualconveyor1"; 
-let conveyor2URL = "http://localhost:9000/virtualconveyor2";
+let sensor1URL = "http://localhost:9000/virtualinfraredsensor1";
+let sensor2URL = "http://localhost:9000/virtualinfraredsensor2";
+let conveyor1URL = "http://localhost:9000/virtualconveyorbelt1"; 
+let conveyor2URL = "http://localhost:9000/virtualconveyorbelt2";
 let uarmURL = "http://localhost:9000/virtualuarm";
 let dobotURL = "http://localhost:9000/virtualdobot";
 let colorURL = "http://localhost:9000/virtualcolorsensor";
@@ -49,7 +49,7 @@ async function main() {
     await conveyor2.invokeAction("startBeltForward");
 
     while (true){
-        if (await sensor2.readProperty("sensorState") == true){
+        if (await sensor2.readProperty("objectPresence") == true){
             await delay(500);
             await conveyor2.invokeAction("stopBelt");
             break
@@ -115,7 +115,7 @@ async function main() {
 
     await conveyor1.invokeAction("startBeltBackward");
     while (true){
-        if (await sensor1.readProperty("sensorState") == true){
+        if (await sensor1.readProperty("objectPresence") == true){
             await delay(500);
             await conveyor1.invokeAction("stopBelt");
             break
