@@ -7,8 +7,8 @@
       ],
     "@type":"Thing",
     "title": "virtualDobot",
-    "id": "urn:dev:ops:32473-virtualDobot-masterThesis-Zucheng",
-    "description": "virtual magician dobot in copperliasim",
+    "id": "urn:dev:ops:32473-virtualDobot",
+    "description": "virtual magician dobot in coppeliasim",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {

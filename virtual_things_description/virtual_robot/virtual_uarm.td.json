@@ -7,8 +7,8 @@
       ],
     "@type":"Thing",
     "title": "virtualUarm",
-    "id": "urn:dev:ops:32473-virtualUarm-masterThesis-Zucheng",
-    "description": "virtual uarm in copperliasim",
+    "id": "urn:dev:ops:32473-virtualUarm",
+    "description": "virtual uarm in coppeliasim",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {

@@ -6,7 +6,7 @@ import {Helpers} from '@node-wot/core';
 // for reading local TD file
 import * as fs from 'fs';
 
-// load remote api for copperliasim
+// load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
 
@@ -75,7 +75,7 @@ var jointAmout = joints.length;
 server.start().then((WoT) => {
     WoT.produce(robotInstance).then(async(thing) => {
         console.log("Produced " + thing.getThingDescription().title);
-        // init the copperliasim
+        // init the coppeliasim
         let sceneAddress:String = __dirname + "/robot_virtual_workspace.ttt";
         var sim = await init(sceneAddress); // initialize scene and sim
         let scriptHandle = await loadRobotdriver(sim,"/virtual_robot"); // robot could be fetched from the td 

@@ -19,10 +19,10 @@ class robotDescriptiongenrate{
         this.robotInstancename = "./generated_robot_td/robot_" + "instance" + ".json";
 
     }
-    // scene initialization in copperliasim
+    // scene initialization in coppeliasim
     private async sceneInit():Promise<any>{
         const client = new RemoteAPIClient('localhost', 23050,'json');
-        console.log("load scene to copperliasim");
+        console.log("load scene to coppeliasim");
         await client.websocket.open();
         let sim = await client.getObject('sim');
         console.log('Getting proxy object "sim"...');
@@ -121,9 +121,9 @@ class robotDescriptiongenrate{
     }
     // generate TD file and save it
     async generateTD(robotType:string):Promise<string>{
-        // load scene to copperliasim and get sim
+        // load scene to coppeliasim and get sim
         let sim = await this.sceneInit();
-        // load script to object of copperliasim and get necessary information about robot
+        // load script to object of coppeliasim and get necessary information about robot
         let robotInfo = await this.loadDrivertoRobot(sim,robotType); // return format will be a array, so only use first
         // generate new content for the TD file now only includes the joint limits or pos limit
         console.log(robotInfo);

@@ -1,4 +1,4 @@
-// load remote api for copperliasim
+// load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
 // load virtual dobot class

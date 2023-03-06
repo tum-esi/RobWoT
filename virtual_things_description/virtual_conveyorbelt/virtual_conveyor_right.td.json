@@ -7,8 +7,8 @@
       ],
     "@type":"Thing",
     "title": "virtualConveyor2",
-    "id": "urn:dev:ops:32473-virtualConveyor-right-masterThesis-Zucheng",
-    "description": "virtual conveyor belt right in copperliasim",
+    "id": "urn:dev:ops:32473-virtualConveyor-right",
+    "description": "virtual conveyor belt right in coppeliasim",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {

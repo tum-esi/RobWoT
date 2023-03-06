@@ -19,10 +19,10 @@ class robotURDFload{
         this.fileAddress = fileAddress;
         this.robotName = robotName;
     }
-    // scene initialization in copperliasim
+    // scene initialization in coppeliasim
     private async sceneInit():Promise<any>{
         const client = new RemoteAPIClient('localhost', 23050,'json');
-        console.log("load scene to copperliasim");
+        console.log("load scene to coppeliasim");
         await client.websocket.open();
         let sim = await client.getObject('sim');
         console.log('Getting proxy object "sim"...');
@@ -93,7 +93,7 @@ class robotURDFload{
             await sim.setModelProperty(robotHandles[0], p);
             // save the robot as model 
             let rootAddress = path.resolve(__dirname, '..');
-            let finalPath = rootAddress + "/Copperliasim scene" + this.robotName + ".ttm";
+            let finalPath = rootAddress + "/Coppeliasim scene" + this.robotName + ".ttm";
             await sim.saveModel(robotHandles[0], finalPath);
             console.log(finalPath);
         }
@@ -101,15 +101,15 @@ class robotURDFload{
         return "success";
     }
     async loadURDF():Promise<any>{
-        // initial copperliasim and get sim
+        // initial coppeliasim and get sim
         let simArray = await this.sceneInit();
         let sim = simArray[0];
         let simURDF = simArray[1];
         // parse the URDF file(mainly modify the package name)
 
-        // load URDF file to copperliasim scene 
+        // load URDF file to coppeliasim scene 
         // current problem: it only has dummy link
-        console.log("load urdf file to copperliasim, it requires a few seconds");
+        console.log("load urdf file to coppeliasim, it requires a few seconds");
 
         // the return name is the urdf robot name, some urdf doesn't have..., so tend to not get name
         // because some urdf cause error after successfully import, so just use this method...
@@ -130,7 +130,7 @@ class robotURDFload{
 async function main() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
 
-    let sceneAddress = rootAddress + "/Copperliasim scene/robot_urdf_load_scene.ttt";
+    let sceneAddress = rootAddress + "/Coppeliasim scene/robot_urdf_load_scene.ttt";
     console.log(sceneAddress);
     let fileAddress = rootAddress + "/Load_URDF_robot/URDF example/mypal_description/urdf/mypal_260.urdf";
     let robotName = "/virtual_robot";

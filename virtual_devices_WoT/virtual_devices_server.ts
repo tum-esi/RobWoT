@@ -6,7 +6,7 @@ import {Helpers} from '@node-wot/core';
 // for reading local TD file
 import * as fs from 'fs';
 
-// load remote api for copperliasim
+// load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
 // load virtual sensor class
@@ -77,7 +77,7 @@ async function main() {
         //sensor1
         WoT.produce(sensorTD1).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -99,7 +99,7 @@ async function main() {
         //sensor2   
         WoT.produce(sensorTD2).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -121,7 +121,7 @@ async function main() {
         // conveyor1
         WoT.produce(conveyorTD1).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -175,7 +175,7 @@ async function main() {
         //conveyor2    
         WoT.produce(conveyorTD2).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -229,7 +229,7 @@ async function main() {
         //uarm
         WoT.produce(uarmTD).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -458,7 +458,7 @@ async function main() {
     serverSensor1.start().then((WoT) => {
         WoT.produce(sensorTD1).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -489,7 +489,7 @@ async function main() {
     serverSensor2.start().then((WoT) => {
         WoT.produce(sensorTD2).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -523,7 +523,7 @@ async function main() {
     serverConveyor1.start().then((WoT) => {
         WoT.produce(conveyorTD1).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -590,7 +590,7 @@ async function main() {
     serverConveyor2.start().then((WoT) => {
         WoT.produce(conveyorTD2).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
@@ -657,7 +657,7 @@ async function main() {
     uarm.start().then((WoT) => {
         WoT.produce(uarmTD).then(async(thing) => {
             console.log("Produced " + thing.getThingDescription().title);
-            // init the copperliasim
+            // init the coppeliasim
             //let sceneAddress:String = virtualSceneadress; // you need to modify to your own path
             //var sim = await init(sceneAddress); // initialize scene and sim
 
