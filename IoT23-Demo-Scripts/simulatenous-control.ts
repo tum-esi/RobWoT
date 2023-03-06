@@ -16,9 +16,9 @@ const P1 = {
 
 // const uarmURL_V = "http://192.168.48.73:9000/virtualuarm";
 const uarmTD_V = JSON.parse(readFileSync("virtual_things_description/virtual_robot/virtual_uarm.td.json","utf-8"))
-const conveyor1TD_V = JSON.parse(readFileSync("virtual_things_description/virtual_conveyorbelt/virtual_conveyor_left.td.json","utf-8"))
+const conveyor1TD_V = JSON.parse(readFileSync("virtual_things_description/virtual_conveyorbelt/virtual_conveyor_right.td.json","utf-8"))
 const uarmTD_R = JSON.parse(readFileSync("Real-Devices-TDs/Uarm.json","utf-8"))
-const conveyor1TD_R = JSON.parse(readFileSync("Real-Devices-TDs/ConveyorBelt1.json","utf-8"))
+const conveyor1TD_R = JSON.parse(readFileSync("Real-Devices-TDs/ConveyorBelt2.json","utf-8"))
 
 main()
 
@@ -26,7 +26,7 @@ async function main() {
     let Consumer = new Servient();
 
     Consumer.addCredentials({
-        "urn:dev:ops:32473-ConveyorBelt-001": {
+        "urn:dev:ops:32473-ConveyorBelt-002": {
             username: "admin",
             password: "hunter2"
         },
@@ -37,7 +37,6 @@ async function main() {
     })
     Consumer.addClientFactory(new HttpClientFactory());
     Consumer.addClientFactory(new HttpsClientFactory({allowSelfSigned:true}));
-    const wotHelper = new Helpers(Consumer);
 
     const WoT = await Consumer.start();
     let uarm_V = await WoT.consume(uarmTD_V)
@@ -53,7 +52,13 @@ async function main() {
     uarm_R.invokeAction("gripClose");
     uarm_V.invokeAction("gripClose");
 
+    await delay(3000)
+    conveyor1_V.invokeAction("startBeltBackward");
+    conveyor1_R.invokeAction("startBeltBackward");
 
+    await delay(3000)
+    conveyor1_V.invokeAction("stopBelt");
+    conveyor1_R.invokeAction("stopBelt");
     // await uarm_V.invokeAction("goTo",P1);
 
 }
