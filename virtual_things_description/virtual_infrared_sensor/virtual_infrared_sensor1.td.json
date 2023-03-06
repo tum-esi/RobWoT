@@ -24,7 +24,7 @@
             "observable": true,
             "forms": [
               {
-                "href": "http://localhost:9000/virtualsensor1/properties/objectPresence",
+                "href": "http://localhost:9000/virtualinfraredsensor1/properties/objectPresence",
                 "contentType": "application/json",
                 "op": [
                   "readproperty"
