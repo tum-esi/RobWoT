@@ -371,7 +371,7 @@ async function main() {
                     
                     await dobot.moveTopos([0.28507000207901, -0.4, 0.12200003683567, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
                     
-                    await dobot.moveTopos([0.28507000207901, -0.4, 0.07500003683567, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                    await dobot.moveTopos([0.28507000207901, -0.4, 0.0800003683567, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
 
                     await dobot.setGripperstate(false);
 
@@ -402,7 +402,7 @@ async function main() {
 
             thing.setActionHandler("returnCube", async() =>{
                 try {
-                    await dobot.setJointangle([0,20,60,40,-60]);
+                    await dobot.setJointangle([0,20,60,40,-55]);
 
                     await dobot.setGripperstate(false);
 
