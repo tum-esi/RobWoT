@@ -6,9 +6,9 @@
         }
       ],
     "@type":"Thing",
-    "title": "virtualSensor1",
-    "id": "urn:dev:ops:32473-virtualSensor-1",
-    "description": "virtual sensor 1 in coppeliasim",
+    "title": "VirtualInfraredSensor1",
+    "id": "urn:dev:ops:32473-virtual-sensor-1",
+    "description": "Infrared sensor for the detection of objects (Virtual)",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {
@@ -16,15 +16,15 @@
       }
     },
     "properties": {
-        "sensorState":{
-            "title": "infrared sensor state",
+        "objectPresence":{
+            "title": "Read infrared sensor",
             "description": "get the sensor state if there is object",
             "type": "boolean",
             "readOnly": true,
             "observable": true,
             "forms": [
               {
-                "href": "http://localhost:9000/virtualsensor1/properties/sensorState",
+                "href": "http://localhost:9000/virtualsensor1/properties/objectPresence",
                 "contentType": "application/json",
                 "op": [
                   "readproperty"

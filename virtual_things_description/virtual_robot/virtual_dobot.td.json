@@ -6,9 +6,9 @@
         }
       ],
     "@type":"Thing",
-    "title": "virtualDobot",
-    "id": "urn:dev:ops:32473-virtualDobot",
-    "description": "virtual magician dobot in coppeliasim",
+    "title": "VirtualDobot",
+    "id": "urn:dev:ops:32473-virtual-dobot",
+    "description": "Virtual Dobot Magician",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {
@@ -17,7 +17,7 @@
     },
     "actions": {
         "getCube":{
-            "title":"get cube",
+            "title":"Get Cube",
             "description":"Fetch the cube and put it on conveyor belt",
             "forms":[
                 {
@@ -29,8 +29,8 @@
             ]
         },
         "returnCube":{
-            "title":"return cube",
-            "description":"fetch cube from conveyor and return it back",
+            "title":"Return Cube",
+            "description":"Fetch cube from conveyor and return it back",
             "forms":[
                 {
                 "contentType":"application/json",

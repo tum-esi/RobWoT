@@ -6,9 +6,9 @@
         }
       ],
     "@type":"Thing",
-    "title": "virtualConveyor1",
-    "id": "urn:dev:ops:32473-virtualConveyor-left",
-    "description": "virtual conveyor belt left in coppeliasim",
+    "title": "VirtualConveyorBelt1",
+    "id": "urn:dev:ops:32473-virtual-conveyor-left",
+    "description": "Conveyor Belt on the Left (Virtual)",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {

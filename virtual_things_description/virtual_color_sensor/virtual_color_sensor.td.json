@@ -6,9 +6,9 @@
         }
       ],
     "@type":"Thing",
-    "title": "virtualColorsensor",
-    "id": "urn:dev:ops:32473-virtualColorsensor",
-    "description": "virtual color sensor in coppeliasim",
+    "title": "VirtualColorSensor",
+    "id": "urn:dev:ops:32473-virtual-color-sensor",
+    "description": "Color Sensor (Virtual)",
     "security": "nosec_sc",
     "securityDefinitions": { 
       "nosec_sc": {
