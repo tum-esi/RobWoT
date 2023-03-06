@@ -87,8 +87,8 @@ async function main() {
             let sensor1 = new virtualSensor(sim,"/InfraredSensor1");
     
             // set property handlers (using async-await)
-            // set sensorState propety handlers
-            thing.setPropertyReadHandler("sensorState", async() => await (sensor1.objectDetect()))
+            // set objectPresence propety handlers
+            thing.setPropertyReadHandler("objectPresence", async() => await (sensor1.objectDetect()))
 
             // expose the thing
             thing.expose().then(() => {
@@ -109,8 +109,8 @@ async function main() {
             let sensor1 = new virtualSensor(sim,"/InfraredSensor2");
             
             // set property handlers (using async-await)
-            // set sensorState propety handlers
-            thing.setPropertyReadHandler("sensorState", async() => await (sensor1.objectDetect()))
+            // set objectPresence propety handlers
+            thing.setPropertyReadHandler("objectPresence", async() => await (sensor1.objectDetect()))
 
             // expose the thing
             thing.expose().then(() => {
