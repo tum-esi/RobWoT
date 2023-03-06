@@ -13,7 +13,7 @@
             "forms": [
                 {
                     "contentType": "application/json",
-                    "href": "https://remotelab.esi.cit.tum.de:8081/ColorSensor/properties/color",
+                    "href": "https://129.187.45.8:8081/ColorSensor/properties/color",
                     "op": "readproperty"
                 }
             ],
@@ -31,7 +31,7 @@
             "forms": [
                 {
                     "contentType": "application/json",
-                    "href": "https://remotelab.esi.cit.tum.de:8081/ColorSensor/properties/lux",
+                    "href": "https://129.187.45.8:8081/ColorSensor/properties/lux",
                     "op": "readproperty"
                 }
             ],
@@ -46,7 +46,7 @@
             "forms": [
                 {
                     "contentType": "application/json",
-                    "href": "https://remotelab.esi.cit.tum.de:8081/ColorSensor/properties/temperature",
+                    "href": "https://129.187.45.8:8081/ColorSensor/properties/temperature",
                     "op": "readproperty"
                 }
             ],

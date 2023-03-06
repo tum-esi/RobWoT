@@ -16,7 +16,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/InfraredSensor1/events/detectedObject",
+          "href": "https://129.187.45.8:8081/InfraredSensor1/events/detectedObject",
           "op": [
             "subscribeevent"
           ],
@@ -29,7 +29,7 @@
   "forms": [
     {
       "contentType": "application/json",
-      "href": "https://remotelab.esi.cit.tum.de:8081/InfraredSensor1/all/properties",
+      "href": "https://129.187.45.8:8081/InfraredSensor1/all/properties",
       "op": [
         "writeallproperties",
         "writemultipleproperties"
@@ -43,7 +43,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/InfraredSensor1/properties/objectPresence",
+          "href": "https://129.187.45.8:8081/InfraredSensor1/properties/objectPresence",
           "op": [
             "readproperty",
             "writeproperty"
@@ -51,7 +51,7 @@
         },
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/InfraredSensor1/properties/objectPresence/observable",
+          "href": "https://129.187.45.8:8081/InfraredSensor1/properties/objectPresence/observable",
           "op": [
             "observeproperty"
           ],

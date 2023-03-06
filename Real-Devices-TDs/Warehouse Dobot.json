@@ -11,7 +11,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/DobotMagician/actions/calibrateDevice",
+          "href": "https://129.187.45.8:8081/DobotMagician/actions/calibrateDevice",
           "op": "invokeaction"
         }
       ],
@@ -25,7 +25,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/DobotMagician/actions/getCube",
+          "href": "https://129.187.45.8:8081/DobotMagician/actions/getCube",
           "op": "invokeaction"
         }
       ],
@@ -39,7 +39,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/DobotMagician/actions/returnCube",
+          "href": "https://129.187.45.8:8081/DobotMagician/actions/returnCube",
           "op": "invokeaction"
         }
       ],
@@ -57,7 +57,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/DobotMagician/properties/position",
+          "href": "https://129.187.45.8:8081/DobotMagician/properties/position",
           "op": [
             "readproperty"
           ]

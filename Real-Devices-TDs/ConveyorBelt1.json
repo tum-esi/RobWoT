@@ -12,7 +12,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt1/actions/startBeltBackward",
+          "href": "https://129.187.45.8:8081/ConveyorBelt1/actions/startBeltBackward",
           "htv:methodName": "POST",
           "op": [
             "invokeaction"
@@ -32,7 +32,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt1/actions/startBeltForward",
+          "href": "https://129.187.45.8:8081/ConveyorBelt1/actions/startBeltForward",
           "htv:methodName": "POST",
           "op": [
             "invokeaction"
@@ -52,7 +52,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt1/actions/stopBelt",
+          "href": "https://129.187.45.8:8081/ConveyorBelt1/actions/stopBelt",
           "htv:methodName": "POST",
           "op": [
             "invokeaction"
@@ -72,7 +72,7 @@
   "forms": [
     {
       "contentType": "application/json",
-      "href": "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt1/all/properties",
+      "href": "https://129.187.45.8:8081/ConveyorBelt1/all/properties",
       "op": [
         "writeallproperties",
         "writemultipleproperties"
@@ -86,7 +86,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt1/properties/speed",
+          "href": "https://129.187.45.8:8081/ConveyorBelt1/properties/speed",
           "op": [
             "readproperty",
             "writeproperty"

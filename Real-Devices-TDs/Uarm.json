@@ -6,7 +6,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/beep",
+          "href": "https://129.187.45.8:8081/uarm/actions/beep",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -26,7 +26,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/beepwithtime",
+          "href": "https://129.187.45.8:8081/uarm/actions/beepwithtime",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -51,7 +51,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/gowithspeed",
+          "href": "https://129.187.45.8:8081/uarm/actions/gowithspeed",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -102,7 +102,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/gohome",
+          "href": "https://129.187.45.8:8081/uarm/actions/gohome",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -122,7 +122,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/goto",
+          "href": "https://129.187.45.8:8081/uarm/actions/goto",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -167,7 +167,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/gripclose",
+          "href": "https://129.187.45.8:8081/uarm/actions/gripclose",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -187,7 +187,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/gripopen",
+          "href": "https://129.187.45.8:8081/uarm/actions/gripopen",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -207,7 +207,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/reset",
+          "href": "https://129.187.45.8:8081/uarm/actions/reset",
           "htv:methodName": "POST",
           "op": "invokeaction"
         }
@@ -221,7 +221,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/turnleft",
+          "href": "https://129.187.45.8:8081/uarm/actions/turnleft",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -254,7 +254,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/actions/turnright",
+          "href": "https://129.187.45.8:8081/uarm/actions/turnright",
           "htv:methodName": "POST",
           "op": "invokeaction"
         },
@@ -291,7 +291,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/properties/homeloc",
+          "href": "https://129.187.45.8:8081/uarm/properties/homeloc",
           "op": [
             "readproperty",
             "writeproperty"
@@ -343,7 +343,7 @@
       "forms": [
         {
           "contentType": "application/json",
-          "href": "http://172.16.1.150:8080/uarm/properties/location",
+          "href": "https://129.187.45.8:8081/uarm/properties/location",
           "op": [
             "readproperty"
           ]
