@@ -14,6 +14,12 @@ const P1 = {
     "z":70
 };
 
+const P2 = {
+    "x":192,
+    "y":-192,
+    "z":70
+};
+
 // const uarmURL_V = "http://192.168.48.73:9000/virtualuarm";
 const uarmTD_V = JSON.parse(readFileSync("virtual_things_description/virtual_robot/virtual_uarm.td.json","utf-8"))
 const conveyor1TD_V = JSON.parse(readFileSync("virtual_things_description/virtual_conveyorbelt/virtual_conveyor_right.td.json","utf-8"))
@@ -44,21 +50,35 @@ async function main() {
     let conveyor1_V = await WoT.consume(conveyor1TD_V)
     let conveyor1_R = await WoT.consume(conveyor1TD_R)
 
-    await delay(3000)
-    uarm_V.invokeAction("gripOpen");
-    uarm_R.invokeAction("gripOpen");
+    while(true){
+        await delay(3000)
+        uarm_V.invokeAction("gripOpen");
+        uarm_R.invokeAction("gripOpen");
 
-    await delay(3000)
-    uarm_R.invokeAction("gripClose");
-    uarm_V.invokeAction("gripClose");
+        await delay(3000)
+        uarm_R.invokeAction("gripClose");
+        uarm_V.invokeAction("gripClose");
 
-    await delay(3000)
-    conveyor1_V.invokeAction("startBeltBackward");
-    conveyor1_R.invokeAction("startBeltBackward");
+        await delay(3000)
+        
+        uarm_V.invokeAction("goTo",P1);
+        uarm_R.invokeAction("goTo",P1);
 
-    await delay(3000)
-    conveyor1_V.invokeAction("stopBelt");
-    conveyor1_R.invokeAction("stopBelt");
-    // await uarm_V.invokeAction("goTo",P1);
+        await delay(20000)
+
+        conveyor1_V.invokeAction("startBeltBackward");
+        conveyor1_R.invokeAction("startBeltBackward");
+
+        await delay(3000)
+        conveyor1_V.invokeAction("stopBelt");
+        conveyor1_R.invokeAction("stopBelt");
+
+        await delay(3000)
+
+        uarm_V.invokeAction("goTo",P2);
+        uarm_R.invokeAction("goTo",P2);
+        await delay(20000)
+    }
+
 
 }
