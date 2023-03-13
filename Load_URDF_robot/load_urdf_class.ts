@@ -9,7 +9,7 @@ function delay(ms: number) {
 }
 
 
-class robotURDFload{
+export class robotURDFload{
     //variable
     sceneAddress:string
     robotName:string
