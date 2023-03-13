@@ -1,4 +1,5 @@
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
+var path = require('path');   // for root path
 import * as fs from 'fs';
 
 // add delay function
@@ -8,15 +9,19 @@ function delay(ms: number) {
 
 class robotDescriptiongenrate{
     //variable
-    sceneAddress:string
-    driverAddress:string
-    robotName:string
-    robotInstancename:string
-    constructor(sceneAddress:string){
+    sceneAddress:string;
+    driverAddress:string;
+    robotName:string;
+    robotInstancename:string;
+    modelAddress:string;
+    sim:any;
+    constructor(sceneAddress:string,modelAddress:string){
         this.sceneAddress = sceneAddress;
+        this.modelAddress = modelAddress;
         this.driverAddress = "./robot_driver_workspace.txt";
         this.robotName = "/virtual_robot";
         this.robotInstancename = "./generated_robot_td/robot_" + "instance" + ".json";
+        this.sim = null;
 
     }
     // scene initialization in coppeliasim
@@ -34,6 +39,8 @@ class robotDescriptiongenrate{
     private async loadDrivertoRobot(sim:any,name:string):Promise<any>{
         const fileName = this.driverAddress;
         let fileContent = fs.readFileSync(fileName, 'utf8');
+
+        this.robotName = "/" + name;
 
         let scriptHandle = Number(await sim.addScript(1)); // add sim.scripttype_childscript 1
 
@@ -54,9 +61,9 @@ class robotDescriptiongenrate{
 
         await delay(500);
     
-        let robotInfo = await sim.callScriptFunction("robotInfo", robotScripthandle,name);
+        //let robotInfo = await sim.callScriptFunction("robotInfo", robotScripthandle,name);
 
-        return robotInfo[0];
+        //return robotInfo[0];
     }
     private async limitContentgenerate(robotInfo:any,robotType:string):Promise<any>{
         // robot_template should be a fixed path
@@ -67,35 +74,41 @@ class robotDescriptiongenrate{
         // action moveTojointPosition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
             let curJointname = "joint" + String(index+1);
+            let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
+            let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
             robot_template["actions"]["moveTojointPosition"]["input"]["properties"][curJointname] = {
                 "type" : "number",
-                "minimum": robotInfo["jointLimitLows"][index],
-                "maximum": robotInfo["jointLimitHighs"][index]
+                "unit" : "deg",
+                "minimum": min,
+                "maximum": max
             }; 
         }
         // action moveTocartesianPosition
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["minimum"] = 0;
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]["x"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]["x"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]["y"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]["y"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["minimum"] = - Number(robotInfo["positionLimits"]["z"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]);
         // property getJointposition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
             let curJointname = "joint" + String(index+1);
+            let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
+            let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
             robot_template["properties"]["getJointposition"]["properties"][curJointname] = {
                 "type" : "number",
-                "minimum": robotInfo["jointLimitLows"][index],
-                "maximum": robotInfo["jointLimitHighs"][index]
+                "unit" : "deg",
+                "minimum": min,
+                "maximum": max
             }; 
         }
         // property getCartesianposition
-        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = 0;
-        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]);    
+        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]["x"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]["x"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]["y"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]["y"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = - Number(robotInfo["positionLimits"]["z"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]);   
 
         robot_template["title"] = "virtualRobot-" + robotType;
 
@@ -106,39 +119,67 @@ class robotDescriptiongenrate{
         
         return data;
     }
-    private async workShapegenerate(sim:any):Promise<string>{
+    private async workShapegenerate(sim:any, savePath:string):Promise<any>{
         let objectHandle = Number(await sim.getObject(this.robotName));
         let robotScripthandle = Number(await sim.getScript(1, objectHandle,this.robotName));
 
-        await sim.callScriptFunction("generateWorkingspace", robotScripthandle,this.robotName,0);
-        console.log("generate working space shape, it requires about 20 seconds")
-        await delay(3000);
+        let generateState = false;
+        let div = 7;
 
-        return "success"
+        let Path = savePath;
+
+        await sim.callScriptFunction("generateWorkingspace", robotScripthandle, generateState, div, Path);
+        console.log("generate working space shape, it requires a few seconds")
+        await delay(3000);
+        while(true){
+            await delay(1000);
+            let state = (await sim.callScriptFunction("getState", robotScripthandle))[0];
+            // wait only the docalculation is finished
+            if (state>3){
+                break;
+            }
+        }
+
+        let robotInfo = await sim.callScriptFunction("robotInfo", robotScripthandle);
+
+        return robotInfo[0];
     }
-    private async shapeRecord(robotInfo:any) {
-        
+    private async loadModel(sim:any):Promise<any> {
+        let robotHandle = await sim.loadModel(this.modelAddress);
+        robotHandle = robotHandle[0];
+
+        let curRobotpos = (await sim.getObjectPosition(robotHandle, sim.handle_world))[0];
+        let compensateHeight = 0.03; // consider potential collision, increase the height
+        await sim.setObjectPosition(robotHandle, sim.handle_world, [curRobotpos[0],curRobotpos[1], curRobotpos[2]+compensateHeight]);
+
+        let robotName = (await sim.getObjectAlias(robotHandle))[0]; //get robot name based on robot handle
+        //console.log(await sim.getObjectAlias(robotHandle));
+
+        return robotName;  
     }
     // generate TD file and save it
-    async generateTD(robotType:string):Promise<string>{
+    async generateTD(filePath:string):Promise<string>{
         // load scene to coppeliasim and get sim
         let sim = await this.sceneInit();
+        // load robot model to scene
+        let robotName = await this.loadModel(sim);
         // load script to object of coppeliasim and get necessary information about robot
-        let robotInfo = await this.loadDrivertoRobot(sim,robotType); // return format will be a array, so only use first
+        await this.loadDrivertoRobot(sim,robotName); // only load driver to robot
+        // generate robot working space and save the shape
+        let robotInfo = await this.workShapegenerate(sim, filePath);
         // generate new content for the TD file now only includes the joint limits or pos limit
         console.log(robotInfo);
-        let infoNew = await this.limitContentgenerate(robotInfo,robotType);
-        // generate robot working space and save the shape
-        await this.workShapegenerate(sim);
+        let infoNew = await this.limitContentgenerate(robotInfo,robotName);
         // record the shape in the TD
 
 
         let finalData = infoNew;
+        console.log("write infomation in things description")
         // file save
         fs.writeFileSync(this.robotInstancename, finalData);
         await delay(2000);
         // stop simulation
-        await sim.stopSimulation();
+        //await sim.stopSimulation();
         await delay(200);
 
         return "success";
@@ -148,13 +189,17 @@ class robotDescriptiongenrate{
 
 
 async function main() {
-    let sceneAddress = __dirname + "/robot_virtual_workspace.ttt";
-    let rdg = new robotDescriptiongenrate(sceneAddress);
+    let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
+    let modelAddress = rootAddress + "/Coppeliasim scene/virtual_robot.ttm";
+    let sceneAddress = rootAddress + "/Coppeliasim scene/robot_virtual_workspace.ttt";
+    let rdg = new robotDescriptiongenrate(sceneAddress,modelAddress);
 
-    await rdg.generateTD("ur_robot");
+    let shapePath = __dirname;
+
+    await rdg.generateTD(shapePath);
 
     await delay(500);
-    process.exit(1);
+    //process.exit(1);
     
     
 }
