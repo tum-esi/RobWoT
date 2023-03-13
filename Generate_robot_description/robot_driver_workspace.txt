@@ -2,33 +2,38 @@ function sysCall_init()
     corout=coroutine.create(coroutineMain)
     a=2 -- this is for compute working space
     
-    -- initialize the dummy point for IK
-    local tipHandle = sim.createDummy(0.01)
-    local targetHandle = sim.createDummy(0.01)
-    -- dummy point rename
-    sim.setObjectAlias(tipHandle, "tip")
-    sim.setObjectAlias(targetHandle, "target")
-    -- set the dummy point position
     simBase=sim.getObject('.')
-    objectHandlesall = sim.getObjectsInTree(simBase,sim.handle_all,0)
-    --print(sim.getObjectAlias(objectHandlesall[#objectHandlesall],-1))
-    -- try to make the ik target,tip point closed to real end position
-    -- first check if it exist connection, if exist, use connection position, if not use endeffector pos
-    connectionHandle=sim.getObject("./connection",{noError=true} )
-    if connectionHandle ~= -1 then
-        connectionPos=sim.getObjectPosition(connectionHandle,sim.handle_world)
-        sim.setObjectPosition(tipHandle, sim.handle_world, connectionPos)
-        sim.setObjectPosition(targetHandle, sim.handle_world, connectionPos)
-    else
-        -- endEffector is not a idel position
-        endEffectorpos = sim.getObjectPosition(objectHandlesall[#objectHandlesall], sim.handle_world)
-        sim.setObjectPosition(tipHandle, sim.handle_world, endEffectorpos)
-        sim.setObjectPosition(targetHandle, sim.handle_world, endEffectorpos)
-    end 
-    -- set dummy point to the parent object
-    sim.setObjectParent(tipHandle,objectHandlesall[#objectHandlesall],true)
-    sim.setObjectParent(targetHandle,simBase,true)
-    
+    -- consider someone will manually modify the dummy points according to requirements
+    local tip=sim.getObject("./tip",{noError=true} )
+    local target=sim.getObject("./target",{noError=true} )
+    if (tip == -1)and(target == -1) then   -- if two dummy don't exist, then create
+        -- initialize the dummy point for IK
+        local tipHandle = sim.createDummy(0.01)
+        local targetHandle = sim.createDummy(0.01)
+        -- dummy point rename
+        sim.setObjectAlias(tipHandle, "tip")
+        sim.setObjectAlias(targetHandle, "target")
+        -- set the dummy point position
+        simBase=sim.getObject('.')
+        objectHandlesall = sim.getObjectsInTree(simBase,sim.handle_all,0)
+        --print(sim.getObjectAlias(objectHandlesall[#objectHandlesall],-1))
+        -- try to make the ik target,tip point closed to real end position
+        -- first check if it exist connection, if exist, use connection position, if not use endeffector pos
+        connectionHandle=sim.getObject("./connection",{noError=true} )
+        if connectionHandle ~= -1 then
+            connectionPos=sim.getObjectPosition(connectionHandle,sim.handle_world)
+            sim.setObjectPosition(tipHandle, sim.handle_world, connectionPos)
+            sim.setObjectPosition(targetHandle, sim.handle_world, connectionPos)
+        else
+            -- endEffector is not a idel position
+            endEffectorpos = sim.getObjectPosition(objectHandlesall[#objectHandlesall], sim.handle_world)
+            sim.setObjectPosition(tipHandle, sim.handle_world, endEffectorpos)
+            sim.setObjectPosition(targetHandle, sim.handle_world, endEffectorpos)
+        end 
+        -- set dummy point to the parent object
+        sim.setObjectParent(tipHandle,objectHandlesall[#objectHandlesall],true)
+        sim.setObjectParent(targetHandle,simBase,true)
+    end
     
     -- get joint Handles
     jointHandles = sim.getObjectsInTree(simBase,sim.object_joint_type,0)
@@ -69,17 +74,19 @@ function sysCall_init()
         initialJointPositions[i]=sim.getJointPosition(jointHandles[i])
     end
     
+    --init doCalculation parameters
+    divisions=6 -- the divisions used for each joint. The total nb of pts becomes (divisions+1)^7
+    checkCollision=true
+    usePointCloud=true -- if false, 3D spheres will be used
+    extractConvexHull=true
+    generateRandom=true -- Use random configurations instead of joint divisions
+    randomSteps=80000 -- Number of random configs to test
+        
 end
 
 -- create working space
 doCalculation=function()
-    local divisions=5 -- the divisions used for each joint. The total nb of pts becomes (divisions+1)^7
-    local checkCollision=true
-    local usePointCloud=true -- if false, 3D spheres will be used
-    local extractConvexHull=true
-    local generateRandom=true -- Use random configurations instead of joint divisions
-    local randomSteps=80000 -- Number of random configs to test
-    
+
     --local jointHandles={}
     local jointLimitLows={}
     local jointLimitRanges={}
@@ -137,25 +144,111 @@ doCalculation=function()
         end
     
     else
-        for i1=1,divisions+1,1 do
-            local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
-            sim.setJointPosition(jointHandles[1],p1)
-            for i2=1,divisions+1,1 do
-                local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
-                sim.setJointPosition(jointHandles[2],p2)
-                for i3=1,divisions+1,1 do
-                    local p3=jointLimitLows[3]+(i3-1)*jointLimitRanges[3]/divisions
-                    sim.setJointPosition(jointHandles[3],p3)
-                    for i4=1,divisions+1,1 do
-                        local p4=jointLimitLows[4]+(i4-1)*jointLimitRanges[4]/divisions
-                        sim.setJointPosition(jointHandles[4],p4)
-                        for i5=1,divisions+1,1 do
-                            local p5=jointLimitLows[5]+(i5-1)*jointLimitRanges[5]/divisions
-                            sim.setJointPosition(jointHandles[5],p5)
-                            for i6=1,divisions+1,1 do
-                                local p6=jointLimitLows[6]+(i6-1)*jointLimitRanges[6]/divisions
-                                sim.setJointPosition(jointHandles[6],p6)
+        local jointNum=#jointHandles
+        if jointNum==7 then
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                for i2=1,divisions+1,1 do
+                    local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
+                    sim.setJointPosition(jointHandles[2],p2)
+                    for i3=1,divisions+1,1 do
+                        local p3=jointLimitLows[3]+(i3-1)*jointLimitRanges[3]/divisions
+                        sim.setJointPosition(jointHandles[3],p3)
+                        for i4=1,divisions+1,1 do
+                            local p4=jointLimitLows[4]+(i4-1)*jointLimitRanges[4]/divisions
+                            sim.setJointPosition(jointHandles[4],p4)
+                            for i5=1,divisions+1,1 do
+                                local p5=jointLimitLows[5]+(i5-1)*jointLimitRanges[5]/divisions
+                                sim.setJointPosition(jointHandles[5],p5)
+                                for i6=1,divisions+1,1 do
+                                    local p6=jointLimitLows[6]+(i6-1)*jointLimitRanges[6]/divisions
+                                    sim.setJointPosition(jointHandles[6],p6)
+                                    for i7=1,divisions+1,1 do
+                                        local p7=jointLimitLows[7]+(i7-1)*jointLimitRanges[7]/divisions
+                                        sim.setJointPosition(jointHandles[7],p7)
 
+                                        local colliding=false
+                                        local matrix=sim.getObjectMatrix(tip,sim.handle_world)
+                                        -- local pos=sim.getObjectPosition(tip,sim.handle_world)
+                                        if checkCollision then
+                                            if sim.checkCollision(robotCollection,sim.handle_all)~=0 then
+                                                colliding=true
+                                            end
+                                        end
+                                        if not colliding then
+                                            points[#points+1]=matrix[4]
+                                            points[#points+1]=matrix[8]
+                                            points[#points+1]=matrix[12]
+                                            if not usePointCloud then
+                                                sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
+                                            end
+                                        end
+                                    
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        elseif jointNum==6 then
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                for i2=1,divisions+1,1 do
+                    local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
+                    sim.setJointPosition(jointHandles[2],p2)
+                    for i3=1,divisions+1,1 do
+                        local p3=jointLimitLows[3]+(i3-1)*jointLimitRanges[3]/divisions
+                        sim.setJointPosition(jointHandles[3],p3)
+                        for i4=1,divisions+1,1 do
+                            local p4=jointLimitLows[4]+(i4-1)*jointLimitRanges[4]/divisions
+                            sim.setJointPosition(jointHandles[4],p4)
+                            for i5=1,divisions+1,1 do
+                                local p5=jointLimitLows[5]+(i5-1)*jointLimitRanges[5]/divisions
+                                sim.setJointPosition(jointHandles[5],p5)
+                                for i6=1,divisions+1,1 do
+                                    local p6=jointLimitLows[6]+(i6-1)*jointLimitRanges[6]/divisions
+                                    sim.setJointPosition(jointHandles[6],p6)
+                                    local colliding=false
+                                    local matrix=sim.getObjectMatrix(tip,sim.handle_world)
+                                    -- local pos=sim.getObjectPosition(tip,sim.handle_world)
+                                    if checkCollision then
+                                        if sim.checkCollision(robotCollection,sim.handle_all)~=0 then
+                                            colliding=true
+                                        end
+                                    end
+                                    if not colliding then
+                                        points[#points+1]=matrix[4]
+                                        points[#points+1]=matrix[8]
+                                        points[#points+1]=matrix[12]
+                                        if not usePointCloud then
+                                            sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        elseif jointNum==5 then
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                for i2=1,divisions+1,1 do
+                    local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
+                    sim.setJointPosition(jointHandles[2],p2)
+                    for i3=1,divisions+1,1 do
+                        local p3=jointLimitLows[3]+(i3-1)*jointLimitRanges[3]/divisions
+                        sim.setJointPosition(jointHandles[3],p3)
+                        for i4=1,divisions+1,1 do
+                            local p4=jointLimitLows[4]+(i4-1)*jointLimitRanges[4]/divisions
+                            sim.setJointPosition(jointHandles[4],p4)
+                            for i5=1,divisions+1,1 do
+                                local p5=jointLimitLows[5]+(i5-1)*jointLimitRanges[5]/divisions
+                                sim.setJointPosition(jointHandles[5],p5)
                                 local colliding=false
                                 local matrix=sim.getObjectMatrix(tip,sim.handle_world)
                                 -- local pos=sim.getObjectPosition(tip,sim.handle_world)
@@ -172,9 +265,118 @@ doCalculation=function()
                                         sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                                     end
                                 end
-                                
                             end
                         end
+                    end
+                end
+            end
+        elseif jointNum==4 then
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                for i2=1,divisions+1,1 do
+                    local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
+                    sim.setJointPosition(jointHandles[2],p2)
+                    for i3=1,divisions+1,1 do
+                        local p3=jointLimitLows[3]+(i3-1)*jointLimitRanges[3]/divisions
+                        sim.setJointPosition(jointHandles[3],p3)
+                        for i4=1,divisions+1,1 do
+                            local p4=jointLimitLows[4]+(i4-1)*jointLimitRanges[4]/divisions
+                            sim.setJointPosition(jointHandles[4],p4)
+                            local colliding=false
+                            local matrix=sim.getObjectMatrix(tip,sim.handle_world)
+                            -- local pos=sim.getObjectPosition(tip,sim.handle_world)
+                            if checkCollision then
+                                if sim.checkCollision(robotCollection,sim.handle_all)~=0 then
+                                    colliding=true
+                                end
+                            end
+                            if not colliding then
+                                points[#points+1]=matrix[4]
+                                points[#points+1]=matrix[8]
+                                points[#points+1]=matrix[12]
+                                if not usePointCloud then
+                                    sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        elseif jointNum==3 then
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                for i2=1,divisions+1,1 do
+                    local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
+                    sim.setJointPosition(jointHandles[2],p2)
+                    for i3=1,divisions+1,1 do
+                        local p3=jointLimitLows[3]+(i3-1)*jointLimitRanges[3]/divisions
+                        sim.setJointPosition(jointHandles[3],p3)
+
+                        local colliding=false
+                        local matrix=sim.getObjectMatrix(tip,sim.handle_world)
+                        -- local pos=sim.getObjectPosition(tip,sim.handle_world)
+                        if checkCollision then
+                            if sim.checkCollision(robotCollection,sim.handle_all)~=0 then
+                                colliding=true
+                            end
+                        end
+                        if not colliding then
+                            points[#points+1]=matrix[4]
+                            points[#points+1]=matrix[8]
+                            points[#points+1]=matrix[12]
+                            if not usePointCloud then
+                                sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
+                            end
+                        end
+                    end
+                end
+            end
+        elseif jointNum==2 then
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                for i2=1,divisions+1,1 do
+                    local p2=jointLimitLows[2]+(i2-1)*jointLimitRanges[2]/divisions
+                    sim.setJointPosition(jointHandles[2],p2)
+                    local colliding=false
+                    local matrix=sim.getObjectMatrix(tip,sim.handle_world)
+                    -- local pos=sim.getObjectPosition(tip,sim.handle_world)
+                    if checkCollision then
+                        if sim.checkCollision(robotCollection,sim.handle_all)~=0 then
+                            colliding=true
+                        end
+                    end
+                    if not colliding then
+                        points[#points+1]=matrix[4]
+                        points[#points+1]=matrix[8]
+                        points[#points+1]=matrix[12]
+                        if not usePointCloud then
+                            sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
+                        end
+                    end
+                end
+            end
+        elseif jointNum==1 then
+        
+            for i1=1,divisions+1,1 do
+                local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
+                sim.setJointPosition(jointHandles[1],p1)
+                local colliding=false
+                local matrix=sim.getObjectMatrix(tip,sim.handle_world)
+                -- local pos=sim.getObjectPosition(tip,sim.handle_world)
+                if checkCollision then
+                    if sim.checkCollision(robotCollection,sim.handle_all)~=0 then
+                        colliding=true
+                    end
+                end
+                if not colliding then
+                    points[#points+1]=matrix[4]
+                    points[#points+1]=matrix[8]
+                    points[#points+1]=matrix[12]
+                    if not usePointCloud then
+                        sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                     end
                 end
             end
@@ -213,7 +415,10 @@ doCalculation=function()
         --print(sceneName)
         
         local filePath=string.gsub(scenePath,sceneName,robotName)
-        print(filePath)
+        
+        filePath=rootPath.."\\"..robotName
+        
+        --print(filePath)
         
         --sim.stopSimulation()
         
@@ -238,11 +443,20 @@ function sysCall_actuation()
     end
 end
 
-function generateWorkingspace()
-    --a = 0
-    doCalculation()
+function generateWorkingspace(randomState, div, savePath)
+    generateRandom=randomState -- Use random configurations instead of joint divisions
+    divisions=div
+    
+    rootPath=savePath
+    a = 0
+    --doCalculation()
         
     return "success"
+end
+
+function getState()
+
+    return a
 end
 
 -- This is a threaded script, and is just an example!
@@ -319,15 +533,13 @@ end
 -- 2. the number of joints
 -- 3. the joint limit
 -- 4. the position limit
-function robotInfo(robotType)
+function robotInfo()
     local robotInfo={}
     local jointLimitLows={}
     local jointLimitRanges={}
     
     -- get robot name
-    --robotName=sim.getObjectAlias(simBase,-1)
-    robotName=robotType
-    robotInfo.robotName=robotName
+    robotInfo.robotName=sim.getObjectAlias(simBase)
     
     -- get joint amount and limits
     for i=1,#jointHandles,1 do
@@ -345,28 +557,26 @@ function robotInfo(robotType)
     robotInfo.jointLimitHighs=jointLimitRanges
     
     -- get position limit
-    -- 21.01.2023 just according to object height to set limits
-    local model_x=sim.getObjectFloatParam(simBase, sim.objfloatparam_modelbbox_max_x)
-    local model_y=sim.getObjectFloatParam(simBase, sim.objfloatparam_modelbbox_max_y)
-    local model_z=sim.getObjectFloatParam(simBase, sim.objfloatparam_modelbbox_max_z)
+    -- 13.03.2023 seting based on shape x,y,z
+    local shapeHandle = sim.getObject("./Shape")
     
-    robotInfo.positionLimits=math.max(model_x,model_y,model_z)
+    local model_x=sim.getObjectFloatParam(shapeHandle, sim.objfloatparam_objbbox_max_x)
+    local model_y=sim.getObjectFloatParam(shapeHandle, sim.objfloatparam_objbbox_max_y)
+    local model_z=sim.getObjectFloatParam(shapeHandle, sim.objfloatparam_objbbox_max_z)
+    
+    posLimits={}
+    posLimits.x = model_x
+    posLimits.y = model_y
+    posLimits.z = 2*model_z
+    
+    robotInfo.positionLimits=posLimits
     
     return robotInfo
 end
 
 function coroutineMain()
-    local targetPos1={90*math.pi/180,90*math.pi/180,-90*math.pi/180,90*math.pi/180,90*math.pi/180,90*math.pi/180}
-    --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos1)
-    --moveTojoint(targetPos1)
-    local info=robotInfo()
-    --print(info)
     --generateWorkingspace()
-    
-    --moveToPosition({0.5,0.3,-0.5})
-    local targetPos2={-90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180}
-    --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos2)
+    --local info=robotInfo()
+    --print(info)
 
-    local targetPos3={0,0,0,0,0,0}
-    --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos3)
 end
