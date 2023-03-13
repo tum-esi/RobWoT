@@ -123,7 +123,7 @@ class robotDescriptiongenrate{
         let objectHandle = Number(await sim.getObject(this.robotName));
         let robotScripthandle = Number(await sim.getScript(1, objectHandle,this.robotName));
 
-        let generateState = false;
+        let generateState = true;
         let div = 7;
 
         let Path = savePath;
