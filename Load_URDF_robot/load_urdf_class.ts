@@ -63,6 +63,8 @@ class robotURDFload{
                     await sim.setObjectFloatParam(curTreejoints[j],await sim.jointfloatparam_maxvel,50);
                     // set the joint torque
                     await sim.setJointTargetForce(curTreejoints[j],1000);
+                    // rename the robot joint to name "joint"
+                    await sim.setObjectAlias(curTreejoints[j],"joint");
                 }
                 // get robotic link handles
                 let curTreelinks = (await sim.getObjectsInTree(curHandle, await sim.object_shape_type,0))[0];
@@ -76,7 +78,7 @@ class robotURDFload{
                     if (j%2 == 0){
                         await sim.setObjectInt32Param(curTreelinks[j], await sim.shapeintparam_respondable, 1);
                         await sim.setObjectInt32Param(curTreelinks[j], await sim.shapeintparam_static, 0);
-                        await sim.computeMassAndInertia(curTreelinks[j], 1000);
+                        await sim.computeMassAndInertia(curTreelinks[j], 1200);
 
                     }else if(j%2 == 1){
                         // for visual link, only set it to not respondable
@@ -86,14 +88,18 @@ class robotURDFload{
             }
         }
         // set the robot handle to object
-        // set the object "Object is model" for the model saving
+        // assume that current scene only has one robotic arm
         if (robotHandles.length > 0){
+            // set the object "Object is model" for the model saving
             let p = await sim.getModelProperty(robotHandles[0]);
             p = await (sim.boolOr32(p[0],await sim.modelproperty_not_model)) - await (sim.modelproperty_not_model);
             await sim.setModelProperty(robotHandles[0], p);
+            // rename the robot handles based on robot name
+            console.log(robotHandles);
+            await sim.setObjectAlias(robotHandles[0],this.robotName);
             // save the robot as model 
             let rootAddress = path.resolve(__dirname, '..');
-            let finalPath = rootAddress + "/Coppeliasim scene" + this.robotName + ".ttm";
+            let finalPath = rootAddress + "/Coppeliasim scene/" + this.robotName + ".ttm";
             await sim.saveModel(robotHandles[0], finalPath);
             console.log(finalPath);
         }
@@ -120,7 +126,8 @@ class robotURDFload{
             console.log(error);
         }
         await delay(1000);
-        console.log("hello");
+        console.log("Successfully load robot model to coppeliasim");
+        console.log("Now generate robot dynamic properties");
         // robot dynamic parameters modify and return the complete robot model
         await this.robotDynamic(sim);
         return "success"
@@ -132,8 +139,8 @@ async function main() {
 
     let sceneAddress = rootAddress + "/Coppeliasim scene/robot_urdf_load_scene.ttt";
     console.log(sceneAddress);
-    let fileAddress = rootAddress + "/Load_URDF_robot/URDF example/mypal_description/urdf/mypal_260.urdf";
-    let robotName = "/virtual_robot";
+    let fileAddress = rootAddress + "/Load_URDF_robot/URDF example/ur_description/urdf/ur3_robot.urdf";
+    let robotName = "virtual_robot";
     let robURDF = new robotURDFload(sceneAddress,fileAddress,robotName);
 
 
@@ -144,7 +151,7 @@ async function main() {
     
 
     await delay(500);
-    //process.exit(1); 
+    process.exit(1); 
 }
 
 main();
