@@ -5,7 +5,7 @@ Here you can check out the related code and result.
 
 >Prerequest: node.js, CoppeliaSim V4.4.0 installed
 
-<img src="./virtual_devices_WoT/Virtual_IoT_lab.png" width="600">
+<img src="./virtual_devices_WoT/Virtual_IoT_lab_new.png" width="600">
 
 ## Introduction
 
