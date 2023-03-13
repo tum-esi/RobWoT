@@ -42,6 +42,8 @@ async function main() {
 
     let pose2=[-0.25, -0.122, 0.015,0,0,1.0,0];
 
+    let pose3=[-0.25, -0.122, 0.15,0,0,1.0,0];
+
     await dobot.setGripperstate(false);
 
     await dobot.moveTopos(pose1);
@@ -52,9 +54,13 @@ async function main() {
 
     await dobot.moveTopos(pose1);
 
-    //await delay(5000);
+    await dobot.moveTopos(pose3);
 
-    //await sim.stopSimulation();
+    await delay(5000);
+
+    console.log("Stop simulation");
+
+    await sim.stopSimulation();
 
     //process.exit(1);
     
