@@ -2,7 +2,7 @@
 
 >Related files: load_urdf_class.ts
 
->Notes: Not all robot URDF can be successfully imported to coppeliasim, it requires complete mesh path
+>Notes: Not all robot URDF can be successfully imported to coppeliasim, it requires complete mesh path or proper package path
 
 1. Enter the folder **Load_URDF_robot**
 2. Run the following command, this is a simple demo to generate instace of class **robURDF**
