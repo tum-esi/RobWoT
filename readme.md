@@ -15,6 +15,7 @@ Here you can check out the related code and result.
 - [CoppeliaSim scens communication via Remote API](./Virtual_scenes/)
 - [Virtual device things description](./virtual_things_description/)
 - [Virtual IoT lab](./virtual_devices_WoT/)
+- [Automatic load robot URDF to Coppeliasim scene](./Load_URDF_robot/)
 - [Automatic generate robot things description](./Generate_robot_description/)
 
 ## Reference
