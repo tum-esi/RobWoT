@@ -110,7 +110,7 @@ class robotDescriptiongenrate{
         robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = - Number(robotInfo["positionLimits"]["z"]);
         robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]);   
 
-        robot_template["title"] = "virtualRobot-" + robotType;
+        robot_template["title"] = "virtualRobot_" + robotType;
 
         //link model stl location record
         //robot_template["links"][0]["href"] = "http://localhost:8080/robot_template" + "/robot_shape.stl";
