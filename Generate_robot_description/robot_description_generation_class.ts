@@ -186,7 +186,7 @@ class robotDescriptiongenrate{
         return robotName;  
     }
     // generate TD file and save it
-    async generateTD(filePath:string):Promise<string>{
+    async generateTD(filePath:string):Promise<object>{
         // load scene to coppeliasim and get sim
         let sim = await this.sceneInit();
         // load robot model to scene
@@ -210,7 +210,7 @@ class robotDescriptiongenrate{
         //await sim.stopSimulation();
         await delay(200);
 
-        return "success";
+        return robotInfo;
     }
 
 }
