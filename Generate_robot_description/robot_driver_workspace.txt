@@ -387,7 +387,44 @@ doCalculation=function()
     for i=1,#jointHandles,1 do
         sim.setJointPosition(jointHandles[i],initialJointPositions[i])
     end
+
+    -- get robot position in the world
+    -- in order to get accurate range of work space
+    simBasepos=sim.getObjectPosition(simBase,sim.handle_world)
+    maxValposX=points[1]-simBasepos[1]
+    maxValnegX=points[1]-simBasepos[1]
+    maxValposY=points[2]-simBasepos[2]
+    maxValnegY=points[2]-simBasepos[2]
+    maxValposZ=points[3]-simBasepos[3]
+    maxValnegZ=points[3]-simBasepos[3]
+    -- get max val in x-axis
+    for i=1,#points,1 do
+        if i%3==1 then
+            local curVal=points[i]-simBasepos[1]
+            if curVal>maxValposX then
+                maxValposX=curVal
+            elseif curVal<maxValnegX then
+                maxValnegX=curVal
+            end
+        elseif i%3==2 then
+            local curVal=points[i]-simBasepos[2]
+            if curVal>maxValposY then
+                maxValposY=curVal
+            elseif curVal<maxValnegY then
+                maxValnegY=curVal
+            end
+        elseif i%3==0 then
+            local curVal=points[i]-simBasepos[3]
+            if curVal>maxValposZ then
+                maxValposZ=curVal
+            elseif curVal<maxValnegZ then
+                maxValnegZ=curVal
+            end  
+        end
+    end
     
+    --print(maxValposX,maxValposY,maxValposZ)
+    --print(maxValnegX,maxValnegY,maxValnegZ)
     --print(points)
     if usePointCloud then
         local ptcld=sim.createPointCloud(0.05,1,0,2)
@@ -537,6 +574,7 @@ function robotInfo()
     local robotInfo={}
     local jointLimitLows={}
     local jointLimitRanges={}
+    local jointType={}
     
     -- get robot name
     robotInfo.robotName=sim.getObjectAlias(simBase)
@@ -551,23 +589,35 @@ function robotInfo()
             jointLimitLows[i]=interv[1]
             jointLimitRanges[i]=interv[2]
         end
+        jointType[i]=sim.getJointType(jointHandles[i])
+        if (jointType[i]== sim.joint_revolute_subtype) then
+            jointType[i]="Revolute_joint"
+        elseif (jointType[i]== sim.joint_prismatic_subtype) then
+            jointType[i]="Prismatic_joint"
+        elseif (jointType[i]== sim.joint_spherical_subtype) then
+            jointType[i]="Spherical_joint"
+        end
     end
+    
     robotInfo.jointAmount=#jointHandles
     robotInfo.jointLimitLows=jointLimitLows
     robotInfo.jointLimitHighs=jointLimitRanges
+    robotInfo.jointTypes=jointType
     
     -- get position limit
-    -- 13.03.2023 seting based on shape x,y,z
-    local shapeHandle = sim.getObject("./Shape")
-    
-    local model_x=sim.getObjectFloatParam(shapeHandle, sim.objfloatparam_objbbox_max_x)
-    local model_y=sim.getObjectFloatParam(shapeHandle, sim.objfloatparam_objbbox_max_y)
-    local model_z=sim.getObjectFloatParam(shapeHandle, sim.objfloatparam_objbbox_max_z)
-    
+    -- final calculate position limit based on point
     posLimits={}
-    posLimits.x = model_x
-    posLimits.y = model_y
-    posLimits.z = 2*model_z
+    posLimits.x={}
+    posLimits.y={}
+    posLimits.z={}
+    
+    posLimits.x.Highs = maxValposX
+    posLimits.x.Lows = maxValnegX
+    posLimits.y.Highs = maxValposY
+    posLimits.y.Lows = maxValnegY
+    posLimits.z.Highs = maxValposZ
+    posLimits.z.Lows = maxValnegZ
+
     
     robotInfo.positionLimits=posLimits
     
@@ -575,8 +625,7 @@ function robotInfo()
 end
 
 function coroutineMain()
-    --generateWorkingspace()
+    --generateWorkingspace(true,8,"D:\\master_thesis\\project\\robwot\\Generate_robot_description")
     --local info=robotInfo()
     --print(info)
-
 end
