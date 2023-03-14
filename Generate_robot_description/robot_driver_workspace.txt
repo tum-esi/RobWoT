@@ -159,7 +159,7 @@ doCalculation=function()
                 file:write(",")
                 file:write(1)  -- 1 represent not colliding
                 file:write('\n')
-            elseif colliding then
+            elseif colliding and matrix[12]>0 then
                 collisionpoints[#collisionpoints+1]=matrix[4]
                 collisionpoints[#collisionpoints+1]=matrix[8]
                 collisionpoints[#collisionpoints+1]=matrix[12]
@@ -469,7 +469,9 @@ doCalculation=function()
         local ptcld=sim.createPointCloud(0.05,1,0,2)
         sim.insertPointsIntoPointCloud(ptcld,0,points)
         local collPtcld=sim.createPointCloud(0.05,1,0,2)
-        --sim.insertPointsIntoPointCloud(collPtcld,0,collisionpoints,{255,0,0})
+        if #collisionpoints>0 then
+            sim.insertPointsIntoPointCloud(collPtcld,0,collisionpoints,{255,0,0})
+        end
     end
     
     if extractConvexHull then
