@@ -74,12 +74,12 @@ end
 
 -- create working space
 doCalculation=function()
-    local divisions=5 -- the divisions used for each joint. The total nb of pts becomes (divisions+1)^7
+    local divisions=8 -- the divisions used for each joint. The total nb of pts becomes (divisions+1)^7
     local checkCollision=true
     local usePointCloud=true -- if false, 3D spheres will be used
-    local extractConvexHull=false
-    local generateRandom=true -- Use random configurations instead of joint divisions
-    local randomSteps=50000 -- Number of random configs to test
+    local extractConvexHull=true
+    local generateRandom=false -- Use random configurations instead of joint divisions
+    local randomSteps=80000 -- Number of random configs to test
     
     --local jointHandles={}
     local jointLimitLows={}
@@ -98,13 +98,13 @@ doCalculation=function()
         end
         initialJointPositions[i]=sim.getJointPosition(jointHandles[i])
     end
-    
     local tip=sim.getObject('./tip')
     local base=sim.getObject('.')
     local robotCollection=sim.createCollection(0)
     sim.addItemToCollection(robotCollection,sim.handle_tree,base,0)
     
     local points={}
+    --sim.wait(3) -- just tem method make it in initial position
     
     if not usePointCloud then
         pointContainer=sim.addDrawingObject(sim.drawing_spherepts,0.01,0.01,base,99999,{1,1,1})
@@ -135,9 +135,7 @@ doCalculation=function()
                     sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                 end
             end
-            
         end
-    
     else
         for i1=1,divisions+1,1 do
             local p1=jointLimitLows[1]+(i1-1)*jointLimitRanges[1]/divisions
@@ -174,7 +172,7 @@ doCalculation=function()
                                         sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                                     end
                                 end
-                                
+                                    
                             end
                         end
                     end
@@ -183,99 +181,124 @@ doCalculation=function()
         end
     
     end
-
+    -- set every joint to inital positon
     for i=1,#jointHandles,1 do
         sim.setJointPosition(jointHandles[i],initialJointPositions[i])
     end
-    
+    print(#points)
     -- there are multiple shapes are non-convex, so use convex shapes to compose a non-convex shape
     -- divide 360 degree into several parts use convex shape to compose a non-convex or convex shape
     -- assume 30 degree to each part
-    local thetaDivisions=24
+    local thetaDivisions=12
     local half=math.floor(thetaDivisions/2)
     local angleDived=360/thetaDivisions
     local theta=0
     local count=0
     local newClassfiedpoints={}
     -- table variable has table
-    print("initial table")
-    for i=1,thetaDivisions,1 do
-        local tableName="pointsTable"..i
-        newClassfiedpoints[tableName] = {}
-    end
-    print("points is classified into sub tables")
-    for i=1,#points,3 do
-        vector1={points[i],points[i+1]}
-        vector2={1,0}
-        len1=1
-        len2=math.sqrt(points[i]^2+points[i+1]^2)
-        cosVal=(points[i])/(len1*len2)
-        theta=math.acos(cosVal)/math.pi*180
-        
-        if (points[i+1]>=0) then
-            local curInterval=math.ceil(theta/angleDived)
-            local tableName="pointsTable"..curInterval
-            table.insert(newClassfiedpoints[tableName],points[i])
-            table.insert(newClassfiedpoints[tableName],points[i+1])
-            table.insert(newClassfiedpoints[tableName],points[i+2])
-            
-            local int=math.floor(theta/angleDived)
-            local rem=theta/angleDived-math.floor(theta/angleDived)
-            if (rem<=0.1) and (curInterval~=1) then
-                local tableName="pointsTable"..(curInterval-1) 
-                table.insert(newClassfiedpoints[tableName],points[i])
-                table.insert(newClassfiedpoints[tableName],points[i+1])
-                table.insert(newClassfiedpoints[tableName],points[i+2])
-            elseif (rem<=0.1) and (curInterval==1) then
-                curInterval=half+1
-                local tableName="pointsTable"..curInterval
-                table.insert(newClassfiedpoints[tableName],points[i])
-                table.insert(newClassfiedpoints[tableName],points[i+1])
-                table.insert(newClassfiedpoints[tableName],points[i+2])
-            elseif (rem>=0.9) and (curInterval==half) then
-                curInterval=thetaDivisions
-                local tableName="pointsTable"..curInterval
-                table.insert(newClassfiedpoints[tableName],points[i])
-                table.insert(newClassfiedpoints[tableName],points[i+1])
-                table.insert(newClassfiedpoints[tableName],points[i+2])
-            end
-            
-        elseif(points[i+1]<0) then
-            local curInterval= math.ceil(theta/angleDived)+half
-            local tableName="pointsTable"..curInterval
-            table.insert(newClassfiedpoints[tableName],points[i])
-            table.insert(newClassfiedpoints[tableName],points[i+1])
-            table.insert(newClassfiedpoints[tableName],points[i+2])
-            
-            local int=math.floor(theta/angleDived)
-            local rem=theta/angleDived-math.floor(theta/angleDived)
-            if (rem<=0.1) and (curInterval~=(half+1)) then
-                local tableName="pointsTable"..(curInterval-1) 
-                table.insert(newClassfiedpoints[tableName],points[i])
-                table.insert(newClassfiedpoints[tableName],points[i+1])
-                table.insert(newClassfiedpoints[tableName],points[i+2])
-            elseif (rem<=0.1) and (curInterval==(half+1)) then
-                curInterval=1
-                local tableName="pointsTable"..curInterval
-                table.insert(newClassfiedpoints[tableName],points[i])
-                table.insert(newClassfiedpoints[tableName],points[i+1])
-                table.insert(newClassfiedpoints[tableName],points[i+2])
-            elseif (rem>=0.9) and (curInterval==thetaDivisions) then
-                curInterval=half
-                local tableName="pointsTable"..curInterval
-                table.insert(newClassfiedpoints[tableName],points[i])
-                table.insert(newClassfiedpoints[tableName],points[i+1])
-                table.insert(newClassfiedpoints[tableName],points[i+2])
-            end
+    if not extractConvexHull then
+        print("initial table")
+        for i=1,thetaDivisions,1 do
+            local tableName="pointsTable"..i
+            newClassfiedpoints[tableName] = {}
         end
-        
+        print("points is classified into sub tables")
+        for i=1,#points,3 do
+            vector1={points[i],points[i+1]}
+            vector2={1,0}
+            len1=1
+            len2=math.sqrt(points[i]^2+points[i+1]^2)
+            cosVal=(points[i])/(len1*len2)
+            theta=math.acos(cosVal)/math.pi*180
+            
+            if (points[i+1]>=0) then
+                local curInterval=math.ceil(theta/angleDived)
+                local tableName="pointsTable"..curInterval
+                table.insert(newClassfiedpoints[tableName],points[i])
+                table.insert(newClassfiedpoints[tableName],points[i+1])
+                table.insert(newClassfiedpoints[tableName],points[i+2])
+                
+                local int=math.floor(theta/angleDived)
+                local rem=theta/angleDived-math.floor(theta/angleDived)
+                if (rem<=0.1) and (curInterval~=1) then
+                    local tableName="pointsTable"..(curInterval-1) 
+                    table.insert(newClassfiedpoints[tableName],points[i])
+                    table.insert(newClassfiedpoints[tableName],points[i+1])
+                    table.insert(newClassfiedpoints[tableName],points[i+2])
+                elseif (rem<=0.1) and (curInterval==1) then
+                    curInterval=half+1
+                    local tableName="pointsTable"..curInterval
+                    table.insert(newClassfiedpoints[tableName],points[i])
+                    table.insert(newClassfiedpoints[tableName],points[i+1])
+                    table.insert(newClassfiedpoints[tableName],points[i+2])
+                elseif (rem>=0.9) and (curInterval==half) then
+                    curInterval=thetaDivisions
+                    local tableName="pointsTable"..curInterval
+                    table.insert(newClassfiedpoints[tableName],points[i])
+                    table.insert(newClassfiedpoints[tableName],points[i+1])
+                    table.insert(newClassfiedpoints[tableName],points[i+2])
+                end
+                
+            elseif(points[i+1]<0) then
+                local curInterval= math.ceil(theta/angleDived)+half
+                local tableName="pointsTable"..curInterval
+                table.insert(newClassfiedpoints[tableName],points[i])
+                table.insert(newClassfiedpoints[tableName],points[i+1])
+                table.insert(newClassfiedpoints[tableName],points[i+2])
+                
+                local int=math.floor(theta/angleDived)
+                local rem=theta/angleDived-math.floor(theta/angleDived)
+                if (rem<=0.1) and (curInterval~=(half+1)) then
+                    local tableName="pointsTable"..(curInterval-1) 
+                    table.insert(newClassfiedpoints[tableName],points[i])
+                    table.insert(newClassfiedpoints[tableName],points[i+1])
+                    table.insert(newClassfiedpoints[tableName],points[i+2])
+                elseif (rem<=0.1) and (curInterval==(half+1)) then
+                    curInterval=1
+                    local tableName="pointsTable"..curInterval
+                    table.insert(newClassfiedpoints[tableName],points[i])
+                    table.insert(newClassfiedpoints[tableName],points[i+1])
+                    table.insert(newClassfiedpoints[tableName],points[i+2])
+                elseif (rem>=0.9) and (curInterval==thetaDivisions) then
+                    curInterval=half
+                    local tableName="pointsTable"..curInterval
+                    table.insert(newClassfiedpoints[tableName],points[i])
+                    table.insert(newClassfiedpoints[tableName],points[i+1])
+                    table.insert(newClassfiedpoints[tableName],points[i+2])
+                end
+            end
+            
+        end
     end
-
+    
     if usePointCloud then
         local ptcld=sim.createPointCloud(0.05,1,0,2)
         sim.insertPointsIntoPointCloud(ptcld,0,points)
+        local shapeHandle = simSurfRec.reconstruct_scale_space(ptcld,10,200,1000)
+        print(shapeHandle)
+        local tem =sim.getPointCloudPoints(ptcld)
+        print(#tem)
     end
     
+    print("write points into local file")
+    local fileName="test.csv"
+    local scenePath=sim.getStringParam(sim.stringparam_scene_path_and_name)
+    local sceneName=sim.getStringParam(sim.stringparam_scene_name)
+    local filePath=string.gsub(scenePath,sceneName,fileName)
+    print(filePath)
+    local file=io.open(filePath,"w+")
+    file:write("X"..",".."Y"..",".."Z")
+    file:write('\n')
+    for i=1,#points,3 do
+        file:write(points[i])
+        file:write(",")
+        file:write(points[i+1])
+        file:write(",")
+        file:write(points[i+2])
+        file:write('\n')
+    end
+    file:close()
+
     if extractConvexHull then
         local vertices,indices=sim.getQHull(points)
         local shape=sim.createMeshShape(3,0,vertices,indices)
@@ -310,23 +333,23 @@ doCalculation=function()
             local tableName="pointsTable"..i
             local curPoints=newClassfiedpoints[tableName]
             print(i)
-            local vertices,indices=sim.getQHull(curPoints)
-            local curShape=sim.createMeshShape(3,0,vertices,indices)
-            sim.reorientShapeBoundingBox(curShape,-1)
-            sim.setShapeColor(curShape,nil,0,{1,0,1})
-            sim.setShapeColor(curShape,nil,4,{0.2})
-            
-            table.insert(shapesHandle,curShape)
+            if (#curPoints~=0) then
+                local vertices,indices=sim.getQHull(curPoints)
+                if (vertices~=nil) then
+                    local curShape=sim.createMeshShape(3,0,vertices,indices)
+                    sim.reorientShapeBoundingBox(curShape,-1)
+                    sim.setShapeColor(curShape,nil,0,{1,0,1})
+                    sim.setShapeColor(curShape,nil,4,{0.2})
+                    
+                    table.insert(shapesHandle,curShape)
+                end
+            end
         end
         
         local finalShape=sim.groupShapes(shapesHandle)
+        --sim.setObjectParent(finalShape,simBase,true)
     end
-    
-    -- set every joint to inital positon
-    print(initialJointPositions)
-    for i=1,#jointHandles,1 do
-        sim.setJointPosition(jointHandles[i],initialJointPositions[i])
-    end
+
 end
 
 function sysCall_actuation()
@@ -344,8 +367,8 @@ function sysCall_actuation()
 end
 
 function generateWorkingspace()
-    --a = 0
-    doCalculation()
+    a = 0
+    --doCalculation()
         
     return "success"
 end
@@ -467,7 +490,12 @@ function coroutineMain()
     local info=robotInfo()
     --print(info)
     generateWorkingspace()
-
+    
+    --local tem = sim.getObject("/Shape")
+    --sim.removeObject(tem)
+    --local tem1= sim.getObject("/PointCloud")
+    
+    
     local targetPos2={-90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180}
     --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos2)
 
