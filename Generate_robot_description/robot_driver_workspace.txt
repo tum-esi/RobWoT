@@ -110,10 +110,22 @@ doCalculation=function()
     local robotCollection=sim.createCollection(0)
     sim.addItemToCollection(robotCollection,sim.handle_tree,base,0)
     local points={}
+    local collisionpoints={}
     
     if not usePointCloud then
         pointContainer=sim.addDrawingObject(sim.drawing_spherepts,0.01,0.01,base,99999,{1,1,1})
+        collpointContainer=sim.addDrawingObject(sim.drawing_spherepts,0.01,0.01,base,99999,{1,0,0})
     end
+    
+    --init file for data point save
+    --print("write points into local file")
+    local csvFileName="data_poiht.csv"
+    local csvFilePath=rootPath.."\\"..csvFileName
+    --print(csvFilePath)
+    
+    local file=io.open(csvFilePath,"w+")
+    file:write("X"..",".."Y"..",".."Z"..",".."Collision_state")
+    file:write('\n')
     
     if generateRandom then
         for cnt=1,randomSteps,1 do
@@ -139,9 +151,36 @@ doCalculation=function()
                 if not usePointCloud then
                     sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                 end
+                file:write(points[#points-2])
+                file:write(",")
+                file:write(points[#points-1])
+                file:write(",")
+                file:write(points[#points])
+                file:write(",")
+                file:write(1)  -- 1 represent not colliding
+                file:write('\n')
+            elseif colliding then
+                collisionpoints[#collisionpoints+1]=matrix[4]
+                collisionpoints[#collisionpoints+1]=matrix[8]
+                collisionpoints[#collisionpoints+1]=matrix[12]
+                if not usePointCloud then
+                    sim.addDrawingObjectItem(collpointContainer,{matrix[4],matrix[8],matrix[12]})
+                end
+                file:write(collisionpoints[#collisionpoints-2])
+                file:write(",")
+                file:write(collisionpoints[#collisionpoints-1])
+                file:write(",")
+                file:write(collisionpoints[#collisionpoints])
+                file:write(",")
+                file:write(0)  -- 0 represent colliding
+                file:write('\n')            
+            
             end
             
         end
+        
+        -- only in generate random try to save data points in csv file
+        file:close()
     
     else
         local jointNum=#jointHandles
@@ -429,6 +468,8 @@ doCalculation=function()
     if usePointCloud then
         local ptcld=sim.createPointCloud(0.05,1,0,2)
         sim.insertPointsIntoPointCloud(ptcld,0,points)
+        local collPtcld=sim.createPointCloud(0.05,1,0,2)
+        --sim.insertPointsIntoPointCloud(collPtcld,0,collisionpoints,{255,0,0})
     end
     
     if extractConvexHull then
@@ -625,7 +666,7 @@ function robotInfo()
 end
 
 function coroutineMain()
-    --generateWorkingspace(true,8,"D:\\master_thesis\\project\\robwot\\Generate_robot_description")
+    generateWorkingspace(true,8,"D:\\master_thesis\\project\\robwot\\Generate_robot_description")
     --local info=robotInfo()
     --print(info)
 end
