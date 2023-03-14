@@ -73,42 +73,70 @@ class robotDescriptiongenrate{
         // modify the joint amount and position,cartesian limit
         // action moveTojointPosition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
-            let curJointname = "joint" + String(index+1);
-            let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
-            let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
-            robot_template["actions"]["moveTojointPosition"]["input"]["properties"][curJointname] = {
-                "type" : "number",
-                "unit" : "deg",
-                "minimum": min,
-                "maximum": max
-            }; 
+            let curJointtype = robotInfo["jointTypes"][index];
+            if (curJointtype == "Revolute_joint"){
+                let curJointname = "joint" + String(index+1);
+                let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
+                let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
+                robot_template["actions"]["moveTojointPosition"]["input"]["properties"][curJointname] = {
+                    "type" : "number",
+                    "unit" : "deg",
+                    "minimum": min,
+                    "maximum": max
+                };            
+            }
+            else if(curJointtype == "Prismatic_joint"){
+                let curJointname = "joint" + String(index+1);
+                let min = robotInfo["jointLimitLows"][index];
+                let max = robotInfo["jointLimitHighs"][index];
+                robot_template["actions"]["moveTojointPosition"]["input"]["properties"][curJointname] = {
+                    "type" : "number",
+                    "unit" : "meter",
+                    "minimum": min,
+                    "maximum": max
+                };                   
+            }
         }
         // action moveTocartesianPosition
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]["x"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]["x"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]["y"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]["y"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["minimum"] = - Number(robotInfo["positionLimits"]["z"]);
-        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["minimum"] = Number(robotInfo["positionLimits"]["x"]["Lows"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]["x"]["Highs"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["minimum"] = Number(robotInfo["positionLimits"]["y"]["Lows"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]["y"]["Highs"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["minimum"] = Number(robotInfo["positionLimits"]["z"]["Lows"]);
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]["Highs"]);
         // property getJointposition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
-            let curJointname = "joint" + String(index+1);
-            let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
-            let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
-            robot_template["properties"]["getJointposition"]["properties"][curJointname] = {
-                "type" : "number",
-                "unit" : "deg",
-                "minimum": min,
-                "maximum": max
-            }; 
+            let curJointtype = robotInfo["jointTypes"][index];
+            if (curJointtype == "Revolute_joint"){
+                let curJointname = "joint" + String(index+1);
+                let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
+                let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
+                robot_template["properties"]["getJointposition"]["properties"][curJointname] = {
+                    "type" : "number",
+                    "unit" : "deg",
+                    "minimum": min,
+                    "maximum": max
+                };            
+            }
+            else if(curJointtype == "Prismatic_joint"){
+                let curJointname = "joint" + String(index+1);
+                let min = robotInfo["jointLimitLows"][index];
+                let max = robotInfo["jointLimitHighs"][index];
+                robot_template["properties"]["getJointposition"]["properties"][curJointname] = {
+                    "type" : "number",
+                    "unit" : "meter",
+                    "minimum": min,
+                    "maximum": max
+                };                   
+            }
         }
         // property getCartesianposition
-        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["minimum"] = - Number(robotInfo["positionLimits"]["x"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]["x"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["minimum"] = - Number(robotInfo["positionLimits"]["y"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]["y"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = - Number(robotInfo["positionLimits"]["z"]);
-        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]);   
+        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["minimum"] = Number(robotInfo["positionLimits"]["x"]["Lows"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["maximum"] = Number(robotInfo["positionLimits"]["x"]["Highs"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["minimum"] = Number(robotInfo["positionLimits"]["y"]["Lows"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["maximum"] = Number(robotInfo["positionLimits"]["y"]["Highs"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = Number(robotInfo["positionLimits"]["z"]["Lows"]);
+        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = Number(robotInfo["positionLimits"]["z"]["Highs"]);   
 
         robot_template["title"] = "virtualRobot_" + robotType;
 
@@ -194,7 +222,7 @@ async function main() {
     let sceneAddress = rootAddress + "/Coppeliasim scene/robot_virtual_workspace.ttt";
     let rdg = new robotDescriptiongenrate(sceneAddress,modelAddress);
 
-    let shapePath = __dirname;
+    let shapePath = __dirname; //the path to save the shape
 
     await rdg.generateTD(shapePath);
 
