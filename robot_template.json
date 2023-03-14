@@ -83,7 +83,7 @@
                 "type":"string"
               },
               "positionLimits":{
-                "type":"number"
+                "type":"object"
               },
               "jointAmount":{
                 "type":"number"
@@ -92,6 +92,9 @@
                 "type":"array"
               },
               "jointLimitLows":{
+                "type":"array"
+              },
+              "jointTypes":{
                 "type":"array"
               }
             },
