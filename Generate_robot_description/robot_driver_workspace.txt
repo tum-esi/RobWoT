@@ -119,7 +119,7 @@ doCalculation=function()
     
     --init file for data point save
     --print("write points into local file")
-    local csvFileName="data_poiht.csv"
+    local csvFileName="data_point.csv"
     local csvFilePath=rootPath.."\\"..csvFileName
     --print(csvFilePath)
     
