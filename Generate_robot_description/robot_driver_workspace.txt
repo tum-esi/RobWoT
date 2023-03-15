@@ -119,7 +119,8 @@ doCalculation=function()
     
     --init file for data point save
     --print("write points into local file")
-    local csvFileName="data_point.csv"
+    local robotName=sim.getObjectAlias(simBase)
+    local csvFileName=robotName.."_data_point.csv"
     local csvFilePath=rootPath.."\\"..csvFileName
     --print(csvFilePath)
     
@@ -486,7 +487,8 @@ doCalculation=function()
         sim.setObjectParent(shape,simBase,true)
         
         -- export the shape as stl file to local computer
-        local robotName="robot_shape.stl"
+        local robotName=sim.getObjectAlias(simBase)
+        local robotShapename=robotName.."_shape.stl"
         --local aa,bb,cc =simAssimp.getExportFormat(4) -- only in this way return stl
         --print(cc)
         local scenePath=sim.getStringParam(sim.stringparam_scene_path_and_name)
@@ -494,9 +496,9 @@ doCalculation=function()
         local sceneName=sim.getStringParam(sim.stringparam_scene_name)
         --print(sceneName)
         
-        local filePath=string.gsub(scenePath,sceneName,robotName)
+        local filePath=string.gsub(scenePath,sceneName,robotShapename)
         
-        filePath=rootPath.."\\"..robotName
+        filePath=rootPath.."\\"..robotShapename
         
         --print(filePath)
         
