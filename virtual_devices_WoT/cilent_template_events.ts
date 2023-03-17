@@ -72,6 +72,7 @@ async function main() {
     await conveyor2Thing.invokeAction("startBeltForward");
 
     await sensor2Thing.subscribeEvent("detectedObject", async(data) =>{
+        await delay(700);
         await conveyor2Thing.invokeAction("stopBelt");
         console.log(await data.value());
         console.log("Cube detected, uarm will move cube to the colorsensor and put it in the another conveyor belt");
@@ -105,6 +106,7 @@ async function main() {
     })
 
     await sensor1Thing.subscribeEvent("detectedObject", async(data) =>{
+        await delay(700);
         await conveyor1Thing.invokeAction("stopBelt");
         console.log(await data.value());
         console.log("Cube detected, return the cube");
