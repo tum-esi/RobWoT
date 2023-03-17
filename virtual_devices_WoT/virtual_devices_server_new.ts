@@ -90,6 +90,24 @@ async function main() {
             // set objectPresence propety handlers
             thing.setPropertyReadHandler("objectPresence", async() => await (sensor1.objectDetect()))
 
+            // set detectedObject event handles
+            let flag = false;
+            thing.setEventSubscribeHandler("detectedObject", async() => {
+                setInterval(async() => {
+                    let state = await (sensor1.objectDetect());
+                    //console.log(state,flag);
+                    // when detect object, only publish event once
+                    if (state == true){
+                        if (flag==false){
+                            thing.emitEvent("detectedObject", true);
+                            flag = true;
+                        }
+                    }
+                    else{
+                        flag = false;
+                    }
+                }, 1000);
+            })
             // expose the thing
             thing.expose().then(() => {
                 console.info(thing.getThingDescription().title + " ready");
@@ -106,12 +124,30 @@ async function main() {
             //await sim.startSimulation();
             //await delay(500);
             
-            let sensor1 = new virtualSensor(sim,"/InfraredSensor2");
+            let sensor2 = new virtualSensor(sim,"/InfraredSensor2");
             
             // set property handlers (using async-await)
             // set objectPresence propety handlers
-            thing.setPropertyReadHandler("objectPresence", async() => await (sensor1.objectDetect()))
+            thing.setPropertyReadHandler("objectPresence", async() => await (sensor2.objectDetect()))
 
+            // set detectedObject event handles
+            let flag = false;
+            thing.setEventSubscribeHandler("detectedObject", async() => {
+                setInterval(async() => {
+                    let state = await (sensor2.objectDetect());
+                    //console.log(state,flag);
+                    // when detect object, only publish event once
+                    if (state == true){
+                        if (flag==false){
+                            thing.emitEvent("detectedObject", true);
+                            flag = true;
+                        }
+                    }
+                    else{
+                        flag = false;
+                    }
+                }, 1000);
+            })
             // expose the thing
             thing.expose().then(() => {
                 console.info(thing.getThingDescription().title + " ready");
