@@ -34,5 +34,24 @@
             ]
         }
 
+    },
+    "events": {
+      "detectedObject": {
+        "data": {
+          "type": "boolean"
+        },
+        "description": "Detects the rising edge of the signal of the infrared sensor.",
+        "forms": [
+          {
+            "contentType": "application/json",
+            "href": "http://localhost:9000/virtualinfraredsensor2/events/detectedObject",
+            "op": [
+              "subscribeevent"
+            ],
+            "subprotocol": "longpoll"
+          }
+        ],
+        "title": "Object detected"
+      }
     }
 }
