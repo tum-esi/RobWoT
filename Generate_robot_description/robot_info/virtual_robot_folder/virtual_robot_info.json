@@ -1,0 +1,1 @@
+{"robotName":"virtual_robot","jointAmount":4,"jointLimitLows":[0,-3.1415926535898,-3.1415926535898,-3.1415926535898],"jointLimitHighs":[0.25,6.2831853071796,6.2831853071796,6.2831853071796],"jointTypes":["Prismatic_joint","Revolute_joint","Revolute_joint","Revolute_joint"]}
