@@ -18,24 +18,19 @@ function sysCall_init()
         objectHandlesall = sim.getObjectsInTree(simBase,sim.handle_all,0)
         --print(sim.getObjectAlias(objectHandlesall[#objectHandlesall],-1))
         -- try to make the ik target,tip point closed to real end position
-        -- first check if it exist connection, if exist, use connection position, if not use endeffector pos
-        connectionHandle=sim.getObject("./connection",{noError=true} )
-        if connectionHandle ~= -1 then
-            connectionPos=sim.getObjectPosition(connectionHandle,sim.handle_world)
-            sim.setObjectPosition(tipHandle, sim.handle_world, connectionPos)
-            sim.setObjectPosition(targetHandle, sim.handle_world, connectionPos)
-        else
-            -- endEffector is not a idel position
-            endEffectorpos = sim.getObjectPosition(objectHandlesall[#objectHandlesall], sim.handle_world)
-            sim.setObjectPosition(tipHandle, sim.handle_world, endEffectorpos)
-            sim.setObjectPosition(targetHandle, sim.handle_world, endEffectorpos)
-        end 
+        -- finally use endeffector as final position
+        -- endEffector is not a idel position
+        endEffectorpos = sim.getObjectPosition(objectHandlesall[#objectHandlesall], sim.handle_world)
+        sim.setObjectPosition(tipHandle, sim.handle_world, endEffectorpos)
+        sim.setObjectPosition(targetHandle, sim.handle_world, endEffectorpos)
+
         -- set dummy point to the parent object
         sim.setObjectParent(tipHandle,objectHandlesall[#objectHandlesall],true)
         sim.setObjectParent(targetHandle,simBase,true)
     end
     
     -- get joint Handles
+    -- for common robot, assume all joints is controllable
     jointHandles = sim.getObjectsInTree(simBase,sim.object_joint_type,0)
     
     -- prepare handles for the IK calculation
@@ -117,6 +112,8 @@ doCalculation=function()
         collpointContainer=sim.addDrawingObject(sim.drawing_spherepts,0.01,0.01,base,99999,{1,0,0})
     end
     
+    -- get robot base position
+    simBasepos=sim.getObjectPosition(simBase,sim.handle_world)
     --init file for data point save
     --print("write points into local file")
     local robotName=sim.getObjectAlias(simBase)
@@ -152,11 +149,12 @@ doCalculation=function()
                 if not usePointCloud then
                     sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                 end
-                file:write(points[#points-2])
+                -- only save relative positon path to robot model
+                file:write(points[#points-2]-simBasepos[1])
                 file:write(",")
-                file:write(points[#points-1])
+                file:write(points[#points-1]-simBasepos[2])
                 file:write(",")
-                file:write(points[#points])
+                file:write(points[#points]-simBasepos[3])
                 file:write(",")
                 file:write(1)  -- 1 represent not colliding
                 file:write('\n')
@@ -167,11 +165,12 @@ doCalculation=function()
                 if not usePointCloud then
                     sim.addDrawingObjectItem(collpointContainer,{matrix[4],matrix[8],matrix[12]})
                 end
-                file:write(collisionpoints[#collisionpoints-2])
+                -- only save relative positon path to robot model
+                file:write(collisionpoints[#collisionpoints-2]-simBasepos[1])
                 file:write(",")
-                file:write(collisionpoints[#collisionpoints-1])
+                file:write(collisionpoints[#collisionpoints-1]-simBasepos[2])
                 file:write(",")
-                file:write(collisionpoints[#collisionpoints])
+                file:write(collisionpoints[#collisionpoints]-simBasepos[3])
                 file:write(",")
                 file:write(0)  -- 0 represent colliding
                 file:write('\n')            
@@ -428,6 +427,7 @@ doCalculation=function()
         sim.setJointPosition(jointHandles[i],initialJointPositions[i])
     end
 
+--[[
     -- get robot position in the world
     -- in order to get accurate range of work space
     simBasepos=sim.getObjectPosition(simBase,sim.handle_world)
@@ -462,10 +462,8 @@ doCalculation=function()
             end  
         end
     end
-    
-    --print(maxValposX,maxValposY,maxValposZ)
-    --print(maxValnegX,maxValnegY,maxValnegZ)
-    --print(points)
+--]]
+
     if usePointCloud then
         local ptcld=sim.createPointCloud(0.05,1,0,2)
         sim.insertPointsIntoPointCloud(ptcld,0,points)
@@ -489,20 +487,17 @@ doCalculation=function()
         -- export the shape as stl file to local computer
         local robotName=sim.getObjectAlias(simBase)
         local robotShapename=robotName.."_shape.stl"
+        --[[
         --local aa,bb,cc =simAssimp.getExportFormat(4) -- only in this way return stl
         --print(cc)
         local scenePath=sim.getStringParam(sim.stringparam_scene_path_and_name)
         --print(scenePath)
         local sceneName=sim.getStringParam(sim.stringparam_scene_name)
         --print(sceneName)
-        
         local filePath=string.gsub(scenePath,sceneName,robotShapename)
+        ]]--
         
-        filePath=rootPath.."\\"..robotShapename
-        
-        --print(filePath)
-        
-        --sim.stopSimulation()
+        local filePath=rootPath.."\\"..robotShapename
         
         simAssimp.exportShapes({shape},filePath,"stl",1)
         --sim.exportMesh(4,"d:\\robot_shape.stl",0,1,a,b)
@@ -649,6 +644,7 @@ function robotInfo()
     robotInfo.jointLimitHighs=jointLimitRanges
     robotInfo.jointTypes=jointType
     
+    --[[
     -- get position limit
     -- final calculate position limit based on point
     posLimits={}
@@ -663,8 +659,8 @@ function robotInfo()
     posLimits.z.Highs = maxValposZ
     posLimits.z.Lows = maxValnegZ
 
-    
     robotInfo.positionLimits=posLimits
+    ]]--
     
     return robotInfo
 end
