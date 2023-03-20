@@ -6,7 +6,13 @@
       "href": "http://example.com",
       "type": "model/stl",
       "rel": "workspace"
-    }],
+    },
+    {
+      "href": "http://example.com",
+      "type": "text/csv",
+      "rel": "dataset-points"     
+    }
+    ],
     "@context": [
         "https://www.w3.org/2019/wot/td/v1",
         {
@@ -47,16 +53,19 @@
             "properties":{
                 "x":{
                     "type" : "number",
+                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                 },
                 "y":{
                     "type" : "number",
+                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                 },
                 "z":{
                     "type" : "number",
+                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                 }
@@ -153,16 +162,19 @@
                 "properties": {
                   "x":{
                     "type" : "number",
+                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                   },
                   "y":{
                     "type" : "number",
+                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                   },
                   "z":{
                     "type" : "number",
+                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                   }  
