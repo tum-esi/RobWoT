@@ -61,9 +61,10 @@ class robotDescriptiongenrate{
 
         //return robotInfo[0];
     }
-    private async limitContentgenerate(robotInfo:any,robotType:string,stlFilepath:string,csvFilepath:string):Promise<any>{
+    private async limitContentgenerate(robotInfo:any,stlFilepath:string,csvFilepath:string):Promise<any>{
         // robot_template should be a fixed path
         let robot_template = JSON.parse(fs.readFileSync("../robot_template.json", "utf8"));
+        let robotType = robotInfo["robotName"];
 
         // parse the csv file, try to find max,min value of x,y,z
         let csvContent = fs.readFileSync(csvFilepath, "utf8");
@@ -119,8 +120,7 @@ class robotDescriptiongenrate{
             } 
         }
         let extremeVal = [maxValnegX,maxValposX,maxValnegY,maxValposY,maxValnegZ,maxValposZ];
-        console.log(extremeVal);
-        console.log(Number("-0.205"));
+
         // modify the joint amount and position,cartesian limit
         // action moveTojointPosition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
@@ -189,11 +189,12 @@ class robotDescriptiongenrate{
         robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = extremeVal[4];
         robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = extremeVal[5];   
 
-        robot_template["title"] = "virtualRobot_" + robotType;
+        robot_template["title"] = "coppeliasim_virtualrobot_" + robotType;
 
         //link model stl location record
         //robot_template["links"][0]["href"] = "http://localhost:8080/robot_template" + "/robot_shape.stl";
         robot_template["links"][0]["href"] = stlFilepath;
+        robot_template["links"][1]["href"] = csvFilepath;
         const data = JSON.stringify(robot_template); // data convert 
         
         return data;
@@ -298,10 +299,9 @@ class robotDescriptiongenrate{
             // when all files exist
             let robotInfo = JSON.parse(fs.readFileSync(jsonFilepath,"utf-8"));
 
-            let robotName = robotInfo["robotName"];
             // generate new content for the TD file now includes the joint limits or pos limit
             // then record the shape in the TD 
-            let infoNew = await this.limitContentgenerate(robotInfo,robotName,stlFilepath,csvFilepath);
+            let infoNew = await this.limitContentgenerate(robotInfo,stlFilepath,csvFilepath);
             // filter the data point, which is not in the shape
 
             let finalData = infoNew;
@@ -322,7 +322,7 @@ class robotDescriptiongenrate{
 
 async function main() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
-    let modelAddress = rootAddress + "/Coppeliasim scene/mypal_robot.ttm";
+    let modelAddress = rootAddress + "/Coppeliasim scene/virtual_robot.ttm";
     let sceneAddress = rootAddress + "/Coppeliasim scene/robot_virtual_workspace.ttt";
     let rdg = new robotDescriptiongenrate(sceneAddress);
 
@@ -337,7 +337,7 @@ async function main() {
     //console.log(robotInfo);
 
     // generate TD file base on robot name and necessary files in folder
-    let robotInfofolder = rootFolderPath + "/mypal_robot_folder";
+    let robotInfofolder = rootFolderPath + "/virtual_robot_folder";
     await rdg.generateTD(robotName, robotInfofolder); 
 
     await delay(500);
