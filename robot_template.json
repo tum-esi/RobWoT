@@ -1,6 +1,6 @@
 {
     "title": "coppeliasim_virtualrobot_undefined",
-    "id": "urn:dev:ops:32473-virtual robot",
+    "id": "urn:dev:ops:32473-virtual-robot",
     "description": "robot template",
     "links":[{
       "href": "http://example.com",
@@ -90,9 +90,6 @@
             "properties":{
               "robotName":{
                 "type":"string"
-              },
-              "positionLimits":{
-                "type":"object"
               },
               "jointAmount":{
                 "type":"number"
