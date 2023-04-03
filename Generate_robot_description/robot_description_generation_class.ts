@@ -7,7 +7,7 @@ function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
-class robotDescriptiongenrate{
+export class robotDescriptiongenrate{
     //variable
     sceneAddress:string;
     driverAddress:string;
@@ -31,8 +31,21 @@ class robotDescriptiongenrate{
         await client.websocket.open();
         let sim = await client.getObject('sim');
         console.log('Getting proxy object "sim"...');
-        // load the CoppeliaSim scene
-        await sim.loadScene(this.sceneAddress);
+
+        // check the simulation state
+        let simState =  Number(await sim.getSimulationState());
+
+        // the simulation is running, stop the simulation for new command
+        if (simState == Number(await sim.simulation_advancing_running)){
+            await sim.stopSimulation();
+
+        }
+        else if(simState == Number(await sim.simulation_stopped)){
+            // if the simulation is not running, the load the CoppeliaSim scene
+            await sim.loadScene(this.sceneAddress);
+            // after load scene, begin to simulation
+            //await sim.startSimulation();
+        }
 
         return sim;
     }
@@ -47,14 +60,16 @@ class robotDescriptiongenrate{
         let objectHandle = Number(await sim.getObject(this.robotName));
 
         let checkScripthandle = await sim.getScript(1, objectHandle, this.robotName);
-        if (checkScripthandle != -1){
-            await sim.removeScript(checkScripthandle[0]); // when the script exists, remove the previous script
+
+        if (checkScripthandle[0] != -1){
+            //console.log("hello");
+            await sim.removeScript(checkScripthandle[0]); // when the script exists, remove it and add new scripts
         }
-    
+        
         await sim.setScriptStringParam(scriptHandle,Number(await sim.scriptstringparam_text),fileContent); // load code to script
-    
-        await sim.associateScriptWithObject(scriptHandle, objectHandle); // success 
-    
+
+        await sim.associateScriptWithObject(scriptHandle, objectHandle); // success        
+
         let robotScripthandle = Number(await sim.getScript(1, objectHandle,this.robotName));
 
         //let robotInfo = await sim.callScriptFunction("robotInfo", robotScripthandle,name);
@@ -199,7 +214,7 @@ class robotDescriptiongenrate{
         
         return data;
     }
-    private async workShapegenerate(sim:any, savePath:string,state:boolean,divisions:number):Promise<any>{
+    private async workShapegenerate(sim:any, savePath:string,state:boolean,divisions:number,posRefence?:object):Promise<any>{
         await sim.startSimulation();
 
         await delay(300);
@@ -228,6 +243,15 @@ class robotDescriptiongenrate{
 
         return robotInfo[0];
     }
+    posRefparse(pos:object){
+        // we need to parse the position first
+        // make sure two position will exists/
+        /*
+        if ((pos["postion_real"] != null) && (pos["position_virtual"] != null)){
+        }
+        */
+
+    }
     // load robot model to scene
     async loadModel(modelPath:string):Promise<any> {
         let sim:any;
@@ -254,7 +278,7 @@ class robotDescriptiongenrate{
         return robotName;  
     }
     // the robots with common structure, looking forward to using the a common script to generate working space in copperliasim
-    async robotInfogeneration(robotName:string, filePath:string):Promise<any>{
+    async robotInfogeneration(robotName:string, filePath:string,posRefence?:object):Promise<any>{
         let sim:any;
         // load scene to coppeliasim and get sim
         // if sim don't exist, init scene first to get scene
@@ -307,10 +331,10 @@ class robotDescriptiongenrate{
             let finalData = infoNew;
             console.log("write infomation into things description")
             // file save
-            this.robotInstancename = "./generated_robot_td/" + robotInfo["robotName"] +"_instance" + ".json";
+            this.robotInstancename = rootPath + "/" + robotInfo["robotName"] +"_instance" + ".json";
             fs.writeFileSync(this.robotInstancename, finalData);
 
-            await delay(10000);
+            await delay(5000);
             //await sim.stopSimulation();
 
             return "success";
@@ -339,6 +363,7 @@ async function main() {
     // generate TD file base on robot name and necessary files in folder
     let robotInfofolder = rootFolderPath + "/virtual_robot_folder";
     await rdg.generateTD(robotName, robotInfofolder); 
+    
 
     await delay(500);
     process.exit(1);
@@ -346,4 +371,4 @@ async function main() {
     
 }
 
-main();
+//main();

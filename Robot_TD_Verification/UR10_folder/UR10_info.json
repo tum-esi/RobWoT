@@ -1,0 +1,21 @@
+{
+  "jointAmount": 7,
+  "jointTypes": [
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint"
+  ],
+  "robotName": "UR10",
+  "jointLimitLows": [
+    -6.2831854820251, -6.2831854820251, -6.2831854820251, -6.2831854820251,
+    -6.2831854820251, -6.2831854820251, -0.95993107557297
+  ],
+  "jointLimitHighs": [
+    6.2831854820251, 6.2831854820251, 6.2831854820251, 6.2831854820251,
+    6.2831854820251, 6.2831854820251, 0.43633228540421
+  ]
+}
