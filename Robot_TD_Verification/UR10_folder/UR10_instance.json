@@ -59,12 +59,6 @@
           "unit": "deg",
           "minimum": -360.00001001791,
           "maximum": 360.00001001791
-        },
-        "joint7": {
-          "type": "number",
-          "unit": "deg",
-          "minimum": -54.99999925378485,
-          "maximum": 24.999998418958924
         }
       },
       "readOnly": true,
@@ -85,21 +79,18 @@
       "properties": {
         "x": {
           "type": "number",
-          "unit": "millimeter",
-          "minimum": -1.4892968535423,
-          "maximum": 1.4527755379677
+          "minimum": -1063.3850902547,
+          "maximum": 1493.0747387419
         },
         "y": {
           "type": "number",
-          "unit": "millimeter",
-          "minimum": -1.4642963707447,
-          "maximum": 1.4672068059444
+          "minimum": -1540.5477398921,
+          "maximum": 1533.1262795966
         },
         "z": {
           "type": "number",
-          "unit": "millimeter",
-          "minimum": -0.96486443281174,
-          "maximum": 1.5856938362122
+          "minimum": -956.44587680185,
+          "maximum": 1659.9664443523
         }
       },
       "observable": true,
@@ -178,12 +169,6 @@
             "unit": "deg",
             "minimum": -360.00001001791,
             "maximum": 360.00001001791
-          },
-          "joint7": {
-            "type": "number",
-            "unit": "deg",
-            "minimum": -54.99999925378485,
-            "maximum": 24.999998418958924
           }
         }
       },
@@ -204,21 +189,18 @@
         "properties": {
           "x": {
             "type": "number",
-            "unit": "meter",
-            "minimum": -1.4892968535423,
-            "maximum": 1.4527755379677
+            "minimum": -1063.3850902547,
+            "maximum": 1493.0747387419
           },
           "y": {
             "type": "number",
-            "unit": "meter",
-            "minimum": -1.4642963707447,
-            "maximum": 1.4672068059444
+            "minimum": -1540.5477398921,
+            "maximum": 1533.1262795966
           },
           "z": {
             "type": "number",
-            "unit": "meter",
-            "minimum": -0.96486443281174,
-            "maximum": 1.5856938362122
+            "minimum": -956.44587680185,
+            "maximum": 1659.9664443523
           }
         }
       },

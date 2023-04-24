@@ -14,17 +14,15 @@ function delay(ms: number) {
 
 class robotMotioncheck{
     // variable
-    coppeliasimSupport:boolean; // check if needs to connect with coppeliasim
     dataPointfilepath:string;
     workShapefilepath:string;
 
     jsonSTL:any;
     csvArray:string[][]; // csv file to array is quite special situation....
 
-    constructor(workShapepath:string,dataPointpath:string, coppeliasimSupportstate:boolean){
+    constructor(workShapepath:string,dataPointpath:string){
         this.workShapefilepath = workShapepath;
         this.dataPointfilepath = dataPointpath;
-        this.coppeliasimSupport = coppeliasimSupportstate;
 
         // read data value from data point and convert it to array
         let csvContent = fs.readFileSync(this.dataPointfilepath, "utf8");
@@ -145,40 +143,22 @@ class robotMotioncheck{
 
     // the position value can be [x,y,z] or [x,y,z,dx,dy,dz,R]
     async posSafetycheck(position:number[]) {
-        // first check if it needs coppeliasim
-        if (this.coppeliasimSupport == true){
-            let pos = this.posCheck(position); // check the format of position, make sure it is correct
+        let pos = this.posCheck(position); // check the format of position, make sure it is correct
 
-            if (typeof pos == "string"){
-                console.log(pos); // if return value is string, return "invalid position"
-            }
-            else{
-                let shapeState = this.pointInworkshape(pos); // check if the point in the working space
-                console.log(shapeState);
-                let cloudState = this.pointIncloud(pos); // check if the point in the point cloud
-
-                console.log(cloudState);
-            }
+        if (typeof pos == "string"){
+            console.log(pos); // if return value is string, return "invalid position"
         }
-        else if(this.coppeliasimSupport == false){
-            let pos = this.posCheck(position); // check the format of position, make sure it is correct
-    
-            if (typeof pos == "string"){
-                console.log(pos); // if return value is string, return "invalid position"
-            }
-            else{
-                let shapeState = this.pointInworkshape(pos); // check if the point in the working space
-                console.log(shapeState);
+        else{
+            let shapeState = this.pointInworkshape(pos); // check if the point in the working space
+            console.log(shapeState);
 
-                let cloudState = this.pointIncloud(pos); // check if the point in the point cloud
+            let cloudState = this.pointIncloud(pos); // check if the point in the point cloud
 
-                console.log(cloudState);
+            console.log(cloudState);
 
-                console.log("Safety check without coppeliasim verification is rough estimate, normally safe area is bigger than real area");
-            }
-            
-        }
-
+            console.log("Safety check without coppeliasim verification is rough estimate, normally safe area is bigger than real area");
+        }       
+        
     }
 
 }
@@ -189,10 +169,8 @@ async function main() {
     let shapePath = "../dobot_uarm_TD_Verification/robot_info/uarm_folder/uarm_shape.stl";
     let pointPath = "../dobot_uarm_TD_Verification/robot_info/uarm_folder/uarm_data_point.csv";
     let coppeState = false;
-    let coppeScene = "../dobot_uarm_TD_Verification/Virtual_IoT_lab_verification.ttt";
 
-
-    let rMC = new robotMotioncheck(shapePath,pointPath,coppeState);
+    let rMC = new robotMotioncheck(shapePath,pointPath);
 
     let point = [195,370,90];
 
@@ -200,4 +178,4 @@ async function main() {
     
 }
 
-main();
+//main();

@@ -18,9 +18,15 @@ async function main() {
     let robotName = "UR10";
 
     let rdg = new robotDescriptiongenrate(sceneAddress);
-    rdg.driverAddress = rootRepo + "/Generate_robot_description/robot_driver_workspace.txt";
+    //rdg.driverAddress = rootRepo + "/Generate_robot_description/robot_driver_workspace.txt";
 
-    let robotInfo = await rdg.robotInfogeneration(robotName,filePath);
+    let posOutput = [[-0.68, -489.75, 1426.52],[691, 1.63, 737.38]];
+    let posInput = [[-0.89988, -0.093933, 2.2941],[-0.21258, 0.38856, 1.6054]];
+    //let tem = rdg.posRefparse(posOutput,posInput);
+
+    //console.log(tem);
+
+    let robotInfo = await rdg.robotInfogeneration(robotName,filePath,posOutput,posInput);
     console.log(robotInfo);
 
     let robotInfofolder = rootAddress + "/UR10_folder";
