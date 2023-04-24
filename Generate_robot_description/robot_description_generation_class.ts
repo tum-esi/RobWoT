@@ -18,7 +18,8 @@ export class robotDescriptiongenrate{
     constructor(sceneAddress:string){
         this.sceneAddress = sceneAddress;
         this.modelAddress = "";
-        this.driverAddress = "./robot_driver_workspace.txt";
+        console.log(__dirname);
+        this.driverAddress = __dirname + "/robot_driver_workspace.txt";
         this.robotName = "/virtual_robot";
         this.robotInstancename = "./generated_robot_td/robot_" + "instance" + ".json";
         this.sim = null;
@@ -214,7 +215,17 @@ export class robotDescriptiongenrate{
         
         return data;
     }
-    private async workShapegenerate(sim:any, savePath:string,state:boolean,divisions:number,posRefence?:object):Promise<any>{
+    private async workShapegenerate(sim:any, savePath:string,state:boolean,divisions:number,posReal?:number[][],posVirtual?:number[][]):Promise<any>{
+        let k = [1,1,1];
+        let b = [0,0,0]; 
+        // if need to convert
+        if ((posReal != null)&&(posVirtual != null)){
+            let kbVal = this.posRefparse(posReal,posVirtual);
+            //console.log(kbVal);
+            k = kbVal[0];
+            b = kbVal[1];
+        }
+        
         await sim.startSimulation();
 
         await delay(300);
@@ -227,8 +238,8 @@ export class robotDescriptiongenrate{
 
         let Path = savePath;
 
-        await sim.callScriptFunction("generateWorkingspace", robotScripthandle, generateState, div, Path);
-        console.log("generate working space shape, it requires a few seconds")
+        await sim.callScriptFunction("generateWorkingspace", robotScripthandle, generateState, div, Path,k,b);
+        console.log("generate working space shape, it requires a few seconds or minutes")
         await delay(3000);
         while(true){
             await delay(1000);
@@ -243,14 +254,29 @@ export class robotDescriptiongenrate{
 
         return robotInfo[0];
     }
-    posRefparse(pos:object){
-        // we need to parse the position first
-        // make sure two position will exists/
-        /*
-        if ((pos["postion_real"] != null) && (pos["position_virtual"] != null)){
-        }
-        */
+    // transform virtual position to the real position
+    posRefparse(posReal:number[][],posVirtual:number[][]){
+        // check correctness of position
+        if ((posReal.length >=2) &&(posVirtual.length >=2)){
+            let k:number[] = [0,0,0];
+            let b:number[] = [0,0,0];
 
+            for (let i = 0; i < 3; i++) {
+                if (posVirtual[0][i] == posVirtual[1][i]){
+                    k[i] = 1;
+                    b[i] = posReal[1][i] - posVirtual[1][i];
+                }
+                else{
+                    k[i] = (posReal[0][i] - posReal[1][i]) / (posVirtual[0][i] - posVirtual[1][i]);
+                    b[i] = posReal[1][i] - (posReal[0][i] - posReal[1][i]) / (posVirtual[0][i] - posVirtual[1][i]) * posVirtual[1][i];               
+                }
+            }
+
+            return [k,b];
+        }
+        else{
+            return [[1,1,1],[0,0,0]];
+        }
     }
     // load robot model to scene
     async loadModel(modelPath:string):Promise<any> {
@@ -278,7 +304,7 @@ export class robotDescriptiongenrate{
         return robotName;  
     }
     // the robots with common structure, looking forward to using the a common script to generate working space in copperliasim
-    async robotInfogeneration(robotName:string, filePath:string,posRefence?:object):Promise<any>{
+    async robotInfogeneration(robotName:string, filePath:string,posReal?:number[][],posVirtual?:number[][]):Promise<any>{
         let sim:any;
         // load scene to coppeliasim and get sim
         // if sim don't exist, init scene first to get scene
@@ -298,7 +324,7 @@ export class robotDescriptiongenrate{
         // load driver script to robot with common structure in the coppeliasim scene 
         await this.loadDrivertoRobot(sim,robotName); 
         // begin to simulation to generation working space and save the necessary file into folder
-        let robotInfo = await this.workShapegenerate(sim, robotFolderpath,true,8);
+        let robotInfo = await this.workShapegenerate(sim, robotFolderpath,true,8,posReal,posVirtual);
         // save the shape and csv file to folder, then save robot info into folder
         let robotJson = JSON.stringify(robotInfo);
         let robotJsonpath = robotFolderpath + "/" + robotName + "_info.json";
