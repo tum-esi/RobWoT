@@ -86,6 +86,18 @@ export class virtualUarm{
         this.scriptHandle = 0
         this.previousPos = [0.22,0,0];
     }
+    posParse(realPos:number[]){
+        let z = realPos[2] + 1.054 ;
+        let x = realPos[0] + 1.157;
+        let y = 1.26*realPos[1] - 0.3;
+
+        let finalPos = [x,y,z];
+
+        //console.log(finalPos);
+
+        return finalPos;
+
+    }
     async computeAnglefromPosition(pos:Number[]){
         this.uarmHandle = Number(await this.sim.getObject(this.name));
         this.scriptHandle = Number(await this.sim.getScript(1, this.uarmHandle,this.name));
@@ -116,11 +128,13 @@ export class virtualUarm{
 
         return "success";
     }
-    async goWithspeed(pos:Number[],speed:number):Promise<string> {
+    async goWithspeed(pos:number[],speed:number):Promise<string> {
         this.uarmHandle = Number(await this.sim.getObject(this.name));
         this.scriptHandle = Number(await this.sim.getScript(1, this.uarmHandle,this.name));
 
-        await this.sim.callScriptFunction("goWithspeed", this.scriptHandle,pos,speed); //this is non-blocking function
+        let finalPos = this.posParse(pos);
+        
+        await this.sim.callScriptFunction("goWithspeed", this.scriptHandle,finalPos,speed); //this is non-blocking function
         //await delay(2000);
         // now change it to blocking function
         /*

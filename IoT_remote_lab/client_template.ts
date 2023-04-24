@@ -60,7 +60,7 @@ async function main() {
     let P1 = {
         "x":192,
         "y":192,
-        "z":70
+        "z":87
     };
     let P4 = {
         "x":192,
@@ -103,6 +103,7 @@ async function main() {
     console.log("current color RGB is");
     console.log(await color.readProperty("color"));
 
+    
     await delay(2000);
     await uarm.invokeAction("goTo",P2);
     await delay(4000);
@@ -116,16 +117,17 @@ async function main() {
     await conveyor1.invokeAction("startBeltBackward");
     while (true){
         if (await sensor1.readProperty("objectPresence") == true){
-            await delay(500);
+            await delay(600);
             await conveyor1.invokeAction("stopBelt");
             break
         }
-        await delay(1000);
+        await delay(1500);
     } 
 
     await delay(4000);
     
     await dobot.invokeAction("returnCube");
+
     
 }
 
