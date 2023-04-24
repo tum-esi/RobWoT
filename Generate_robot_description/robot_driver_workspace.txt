@@ -85,7 +85,8 @@ function sysCall_init()
     extractConvexHull=true
     generateRandom=true -- Use random configurations instead of joint divisions
     randomSteps=80000 -- Number of random configs to test
-        
+    
+    
 end
 
 -- create working space
@@ -164,11 +165,11 @@ doCalculation=function()
                     sim.addDrawingObjectItem(pointContainer,{matrix[4],matrix[8],matrix[12]})
                 end
                 -- only save relative positon path to robot model
-                file:write(points[#points-2]-simBasepos[1])
+                file:write(kArr[1]*points[#points-2]+bArr[1])
                 file:write(",")
-                file:write(points[#points-1]-simBasepos[2])
+                file:write(kArr[2]*points[#points-1]+bArr[2])
                 file:write(",")
-                file:write(points[#points]-simBasepos[3])
+                file:write(kArr[3]*points[#points]+bArr[3])
                 file:write(",")
                 file:write(1)  -- 1 represent not colliding
                 file:write('\n')
@@ -180,11 +181,11 @@ doCalculation=function()
                     sim.addDrawingObjectItem(collpointContainer,{matrix[4],matrix[8],matrix[12]})
                 end
                 -- only save relative positon path to robot model
-                file:write(collisionpoints[#collisionpoints-2]-simBasepos[1])
+                file:write(kArr[1]*collisionpoints[#collisionpoints-2]+bArr[1])
                 file:write(",")
-                file:write(collisionpoints[#collisionpoints-1]-simBasepos[2])
+                file:write(kArr[2]*collisionpoints[#collisionpoints-1]+bArr[2])
                 file:write(",")
-                file:write(collisionpoints[#collisionpoints]-simBasepos[3])
+                file:write(kArr[3]*collisionpoints[#collisionpoints]+bArr[3])
                 file:write(",")
                 file:write(0)  -- 0 represent colliding
                 file:write('\n')            
@@ -497,11 +498,14 @@ function sysCall_actuation()
     end
 end
 
-function generateWorkingspace(randomState, div, savePath)
+function generateWorkingspace(randomState, div, savePath,k,b)
     generateRandom=randomState -- Use random configurations instead of joint divisions
     divisions=div
     
     rootPath=savePath
+    kArr=k
+    bArr=b
+    
     a = 0
     --doCalculation()
         
@@ -562,7 +566,7 @@ end
 function moveToPosition(targetPosition)
     -- convert the targetPosition to targetPose
     local targetDummy = sim.createDummy(0.01)
-    sim.setObjectPosition(targetDummy,sim.getObject('.'), targetPosition)
+    sim.setObjectPosition(targetDummy,sim.handle_world, targetPosition)
     
     local targetPose = sim.getObjectPose(targetDummy,sim.handle_world)
     sim.removeObject(targetDummy)

@@ -142,19 +142,16 @@
                 "properties": {
                   "x":{
                     "type" : "number",
-                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                   },
                   "y":{
                     "type" : "number",
-                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                   },
                   "z":{
                     "type" : "number",
-                    "unit": "meter",
                     "minimum": -100,
                     "maximum": 100
                   }  
