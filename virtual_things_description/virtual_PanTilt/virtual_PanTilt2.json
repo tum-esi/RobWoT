@@ -21,7 +21,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/properties/panPosition",
+            "href": "https://localhost:9000/PanTilt2/properties/panPosition",
             "htv:methodName": "GET",
             "op": ["readproperty"]
           }
@@ -40,7 +40,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/properties/tiltPosition",
+            "href": "https://localhost:9000/PanTilt2/properties/tiltPosition",
             "htv:methodName": "GET",
             "op": ["readproperty"]
           }
@@ -62,7 +62,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/actions/goHome",
+            "href": "https://localhost:9000/PanTilt2/actions/goHome",
             "htv:methodName": "POST",
             "op": ["invokeaction"]
           }
@@ -76,7 +76,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/actions/moveTo",
+            "href": "https://localhost:9000/PanTilt2/actions/moveTo",
             "htv:methodName": "POST",
             "op": ["invokeaction"]
           }
@@ -110,7 +110,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/actions/panContinuously",
+            "href": "https://localhost:9000/PanTilt2/actions/panContinuously",
             "htv:methodName": "POST",
             "op": ["invokeaction"]
           }
@@ -131,7 +131,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/actions/panTo",
+            "href": "https://localhost:9000/PanTilt2/actions/panTo",
             "htv:methodName": "POST",
             "op": ["invokeaction"]
           }
@@ -152,7 +152,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/actions/stopMovement",
+            "href": "https://localhost:9000/PanTilt2/actions/stopMovement",
             "htv:methodName": "POST",
             "op": ["invokeaction"]
           }
@@ -167,7 +167,7 @@
         "forms": [
           {
             "contentType": "application/json",
-            "href": "https://localhost:8088/PanTilt2/actions/tiltTo",
+            "href": "https://localhost:9000/PanTilt2/actions/tiltTo",
             "htv:methodName": "POST",
             "op": ["invokeaction"]
           }
