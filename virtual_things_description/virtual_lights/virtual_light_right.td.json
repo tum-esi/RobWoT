@@ -6,7 +6,7 @@
         }
       ],
     "@type":"Thing",
-    "title": "virtualLightright",
+    "title": "virtualLight2",
     "id": "urn:dev:ops:32473-virtualLight-right",
     "description": "virtual light right in coppeliasim",
     "security": "nosec_sc",
@@ -25,7 +25,7 @@
             "writeOnly": false,
             "forms": [
               {
-                "href": "http://localhost:8080/virtualLightright/properties/lightState",
+                "href": "http://localhost:9000/virtualLightright/properties/lightState",
                 "contentType": "application/json",
                 "op": [
                   "readproperty"
@@ -33,7 +33,7 @@
                 "htv:methodName": "GET"
               },
               {
-                "href": "http://localhost:8080/virtualLightright/properties/lightState",
+                "href": "http://localhost:9000/virtualLightright/properties/lightState",
                 "contentType": "application/json",
                 "op": [
                   "writeproperty"
@@ -58,7 +58,7 @@
             "writeOnly": false,
             "forms": [
               {
-                "href": "http://localhost:8080/virtualLightright/properties/lightColor",
+                "href": "http://localhost:9000/virtualLightright/properties/lightColor",
                 "contentType": "application/json",
                 "op": [
                   "readproperty"
@@ -66,7 +66,7 @@
                 "htv:methodName": "GET"
               },
               {
-                "href": "http://localhost:8080/virtualLightright/properties/lightColor",
+                "href": "http://localhost:9000/virtualLightright/properties/lightColor",
                 "contentType": "application/json",
                 "op": [
                   "writeproperty"
