@@ -10,7 +10,7 @@ import * as fs from 'fs';
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
 // load virtual sensor class
-import {virtualSensor,virtualConveyor, virtualUarm, virtualDobot} from "./virtualDevices";
+import {virtualSensor,virtualConveyor, virtualUarm, virtualDobot,virtualLight} from "./virtualDevices";
 import { makeWoTinteraction } from './clientClass';
 
 // add delay function
@@ -36,6 +36,9 @@ let dobotTD =JSON.parse(fs.readFileSync("../virtual_things_description/virtual_r
 // read the color sensor TD file
 let colorTD =JSON.parse(fs.readFileSync("../virtual_things_description/virtual_color_sensor/virtual_color_sensor.td.json", "utf8"));
 
+// read the spotlight TD file
+let spotlightTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_lights/virtual_light_left.td.json", "utf8"));
+let spotlightTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_lights/virtual_light_right.td.json", "utf8"));
 
 // set virtual scene address
 //console.log(__dirname); // get current file absolute path
@@ -510,6 +513,90 @@ async function main() {
                 console.info("TD : " + JSON.stringify(thing.getThingDescription()));
             });
         });
+        //Spotlight1
+        WoT.produce(spotlightTD1).then(async(thing) => {
+            console.log("Produced " + thing.getThingDescription().title);
+
+            let light1 = new virtualLight(sim,"/Spotlight1");
+
+            //// property lightState
+            thing.setPropertyReadHandler("lightState", async() => (await (light1.getLightinfo()))[0]);
+            thing.setPropertyWriteHandler("lightState", async(intOutput) =>{
+                try{
+                    let state = await intOutput.value();
+                    await light1.setLightstate(Boolean(state));
+                    //return ;   
+                }
+                catch{
+                    console.log("failed");
+                    //return ;         
+                }
+            });
+            // property lightColor
+            thing.setPropertyReadHandler("lightColor", async() => (await (light1.getLightinfo()))[2]);
+            thing.setPropertyWriteHandler("lightColor", async(intOutput) =>{
+                try{
+                    let color:any = await intOutput.value();
+
+                    await light1.setLightcolor(color);
+                    //return ;   
+                }
+                catch{
+                    console.log("failed");
+                    //return ;         
+                }
+            });
+
+            // expose the thing
+            thing.expose().then(() => {
+                console.info(thing.getThingDescription().title + " ready");
+                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
+            });       
+        });
+        //Spotlight2
+        WoT.produce(spotlightTD2).then(async(thing) => {
+            console.log("Produced " + thing.getThingDescription().title);
+
+            let light2 = new virtualLight(sim,"/Spotlight2");
+
+            //// property lightState
+            thing.setPropertyReadHandler("lightState", async() => (await (light2.getLightinfo()))[0]);
+            thing.setPropertyWriteHandler("lightState", async(intOutput) =>{
+                try{
+                    let state = await intOutput.value();
+                    await light2.setLightstate(Boolean(state));
+                    //return ;   
+                }
+                catch{
+                    console.log("failed");
+                    //return ;         
+                }
+            });
+            // property lightColor
+            thing.setPropertyReadHandler("lightColor", async() => (await (light2.getLightinfo()))[2]);
+            thing.setPropertyWriteHandler("lightColor", async(intOutput) =>{
+                try{
+                    let color:any = await intOutput.value();
+
+                    await light2.setLightcolor(color);
+                    //return ;   
+                }
+                catch{
+                    console.log("failed");
+                    //return ;         
+                }
+            });
+
+            // expose the thing
+            thing.expose().then(() => {
+                console.info(thing.getThingDescription().title + " ready");
+                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
+            });       
+        });
+
+
+
+
     });
 
 }

@@ -303,3 +303,58 @@ export class virtualDobot{
         return "success";
     }
 }
+
+export class virtualLight{
+    // variable
+    lightHandle:Number;
+    lightAddress:String;
+    lightState:Number;
+    specularPart:Number[];
+    diffusePart:Number[];
+    sim:any;
+    // constructor
+    constructor(s:any,address:String){
+        this.sim = s;
+        this.lightHandle = 0;
+        this.lightAddress = address;
+        this.lightState = 1;
+        this.specularPart = [0,0,0];
+        this.diffusePart = [1,0,0];  
+    }
+
+    async getLightinfo(){
+        // get light handle
+        this.lightHandle = Number(await this.sim.getObject(this.lightAddress)); 
+
+        let info = await this.sim.getLightParameters(this.lightHandle);
+        
+        return info;
+    }
+    // set light open or close
+    async setLightstate(state:boolean){
+        // get light handle
+        this.lightHandle = Number(await this.sim.getObject(this.lightAddress)); 
+
+        if (state == true){
+            this.lightState = 1;
+        }
+        else{
+            this.lightState = 0;
+        }
+        await this.sim.setLightParameters(this.lightHandle,this.lightState,[0,0,0],this.diffusePart, this.specularPart);
+    }
+    // set light color based on rgb (value must in 0-255)
+    async setLightcolor(color:number[]){
+        // get light handle
+        this.lightHandle = Number(await this.sim.getObject(this.lightAddress)); 
+
+        //for (let i = 0; i < color.length; i++) {
+        //    color[i] = color[i] / 255;
+        //}
+ 
+        this.diffusePart = color;
+        await this.sim.setLightParameters(this.lightHandle,this.lightState,[0,0,0],this.diffusePart, this.specularPart);
+    
+    }
+
+}
