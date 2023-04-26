@@ -53,8 +53,12 @@ class virtualLights{
             await this.sim.setLightParameters(this.lightHandle,this.lightState,[0,0,0],this.diffusePart, this.specularPart);
         }
     }
-    // set light color based on rgb (value must in 0-1)
-    async setLightcolor(color:Number[]){
+    // set light color based on rgb (value must in 0-255)
+    async setLightcolor(color:number[]){
+        for (let i = 0; i < color.length; i++) {
+            color[i] = color[i] / 255;
+        }
+
         if (this.check()){
             this.diffusePart = color;
             await this.sim.setLightParameters(this.lightHandle,this.lightState,[0,0,0],this.diffusePart, this.specularPart);
@@ -99,7 +103,7 @@ async function main() {
     //console.log(tem1,tem2);
 
     // example: a complex color convert 
-    let val1 = 1;
+    let val1 = 255;
     let val2 = 0;
     let color1 = [val1,val2,0];
     let color2 = [val2,val1,0];
@@ -108,9 +112,9 @@ async function main() {
 
     await delay (2000);
 
-    while (val2 < 1){
-        val1 = val1 - 0.05;
-        val2 = val2 + 0.05;
+    while (val2 < 255){
+        val1 = val1 - 1;
+        val2 = val2 + 1;
         color1 = [val1,val2,0];
         color2 = [val2,val1,0];
 
