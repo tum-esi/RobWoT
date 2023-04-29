@@ -7,6 +7,8 @@ Here you can check out the related code and result.
 
 <img src="./virtual_devices_WoT/Virtual_IoT_lab_new.png" width="600">
 
+<img src="./Picture folder/IoT remote lab.JPG" width="600">
+
 ## Introduction
 
 
