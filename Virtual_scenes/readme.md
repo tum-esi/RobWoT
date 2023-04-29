@@ -2,6 +2,8 @@
 
 >Related files: .ttt, .ts
 
+>Note: Make sure the coppeliasim is state of "stop simulation" before run the following command
+
 1. Run the ```npm install``` command to install necessary packages in the repository root directory
 2. Please open the Coppeliasim and load the scene file(.ttt) manually
 3. According to the scene name, just open corresponding typescript file ```<scene name>_template.ts```
@@ -10,3 +12,12 @@
 ```
 ts-node Virtual_lab_template.ts
 ```
+
+## Virtual light devices in coppeliasim
+<img src="../Picture folder/scene1 virtual light.JPG" width="400">
+
+## Virtual robot devices in coppeliasim
+<img src="../Picture folder/scene2 virtual robot.JPG" width="400">
+
+## Virtual lab devices in coppeliasim
+<img src="../Picture folder/scene3 virtual lab.JPG" width="400">
