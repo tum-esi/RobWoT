@@ -13,10 +13,14 @@ Here you can check out the related code and result.
 ## Content
 
 - [CoppeliaSim scens communication via Remote API](./Virtual_scenes/)
-- [Virtual device things description](./virtual_things_description/)
-- [Virtual IoT lab](./virtual_devices_WoT/)
-- [Automatic load robot URDF to Coppeliasim scene](./Load_URDF_robot/)
+- [Virtual device Thing description](./virtual_things_description/)
+- [Virtual IoT robot platform](./virtual_devices_WoT/)
+- [Automatic load URDF in Coppeliasim scene to generate robot model](./Load_URDF_robot/)
+- [Automatic implemetation of inverse kinematics calculation for robots](./Robot_WoT_server/)
 - [Automatic generate robot things description](./Generate_robot_description/)
+- [Uarm robot TD verification](./Uarm_TD_Verification/)
+- [UR10 robot TD verification](./UR10_TD_Verification/)
+- [Virtual IoT lab](./IoT_remote_lab/)
 
 ## Reference
 
