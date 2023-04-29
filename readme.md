@@ -7,8 +7,6 @@ Here you can check out the related code and result.
 
 <img src="./virtual_devices_WoT/Virtual_IoT_lab_new.png" width="600">
 
-<img src="./Picture folder/IoT remote lab.JPG" width="600">
-
 ## Introduction
 
 
@@ -23,6 +21,9 @@ Here you can check out the related code and result.
 - [Uarm robot TD verification](./Uarm_TD_Verification/)
 - [UR10 robot TD verification](./UR10_TD_Verification/)
 - [Virtual IoT lab](./IoT_remote_lab/)
+
+## IoT remote lab
+<img src="./Picture folder/IoT remote lab.JPG" width="600">
 
 ## Reference
 
