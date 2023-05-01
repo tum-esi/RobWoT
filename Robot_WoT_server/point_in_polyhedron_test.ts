@@ -1,18 +1,19 @@
 import * as fs from 'fs';
 var parseSTL = require("parse-stl");
 
-let fileContent = fs.readFileSync("../Generate_robot_description/robot_info/virtual_robot_folder/virtual_robot_shape.stl", "utf8")
+let fileContent = fs.readFileSync("./robot_info/ur3_robot_shape.stl", "utf8")
 let jsonSTL = parseSTL(fileContent);
 
 let posArray = jsonSTL["positions"];
 let cellsArray = jsonSTL["cells"];
 let normalsArray = jsonSTL["faceNormals"];
 
-//console.log(cellsArray.length);
-//console.log(posArray.length);
-//console.log(normalsArray.length);
-
+// ------------------------------------------------------------------------
+// You can input the target point in here
 let targetPoint = [-0.18116630613804,-0.21765702590346,0.22863501310349];
+// ------------------------------------------------------------------------
+
+
 
 var start = performance.now();
 
