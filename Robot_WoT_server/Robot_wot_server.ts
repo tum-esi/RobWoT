@@ -23,10 +23,24 @@ async function init(address:String){
     console.log('Getting proxy object "sim"...');
     let sim = await client.getObject('sim');
 
-    // load the CoppeliaSim scene
-    await sim.loadScene(address);
+    // check the simulation state
+    let simState =  Number(await sim.getSimulationState());
 
-    await delay(1000);
+    // the simulation is running, stop the simulation and load the scene based on scene address
+    if (simState == Number(await sim.simulation_advancing_running)){
+        // if the simulation is running, stop the simulation first
+        await sim.stopSimulation();
+        await delay(500);
+        await sim.loadScene(address);
+
+    }
+    else if(simState == Number(await sim.simulation_stopped)){
+        // if the simulation is not running, the load the CoppeliaSim scene
+        await sim.loadScene(address);
+        await delay(500);
+    }
+
+    await delay(500);
 
     return sim;
 }
@@ -40,7 +54,7 @@ async function loadRobotdriver(sim:any, robotName:string) {
     let objectHandle = Number(await sim.getObject(robotName));
 
     let checkScripthandle = await sim.getScript(1, objectHandle, robotName);
-    if (checkScripthandle != -1){
+    if (checkScripthandle[0] != -1){
         console.log(checkScripthandle);
         await sim.removeScript(checkScripthandle[0]); // when the script exists
     }
@@ -64,7 +78,7 @@ server.addServer(
 );
 
 // read the robot TD file
-let robotInstance = JSON.parse(fs.readFileSync("../Generate_robot_description/generated_robot_td/robot_instance.json", "utf8"));
+let robotInstance = JSON.parse(fs.readFileSync("./robot_info/ur3_robot_instance.json", "utf8"));
 
 // get joint length
 var joints = Object.keys(robotInstance["properties"]["getJointposition"]["properties"]);
@@ -76,9 +90,9 @@ server.start().then((WoT) => {
     WoT.produce(robotInstance).then(async(thing) => {
         console.log("Produced " + thing.getThingDescription().title);
         // init the coppeliasim
-        let sceneAddress:String = __dirname + "/robot_virtual_workspace.ttt";
+        let sceneAddress:String = __dirname + "/robot_digital_twins.ttt";
         var sim = await init(sceneAddress); // initialize scene and sim
-        let scriptHandle = await loadRobotdriver(sim,"/virtual_robot"); // robot could be fetched from the td 
+        let scriptHandle = await loadRobotdriver(sim,"/ur3_robot"); // robot could be fetched from the td 
 
         console.log("loadScript" + scriptHandle);
         await sim.startSimulation();
@@ -99,6 +113,8 @@ server.start().then((WoT) => {
 
 
         // set action handlers (using async-await)
+        // remove this action
+        /*
         // set moveToinitialPosition action handlers
         thing.setActionHandler("moveToinitialPosition", async() =>{
             try {
@@ -110,6 +126,7 @@ server.start().then((WoT) => {
                 return "failed";
             }
         });
+        */
 
         // set moveTojointPosition action handlers
         thing.setActionHandler("moveTojointPosition", async(data) =>{
@@ -118,7 +135,7 @@ server.start().then((WoT) => {
                 let jointPosval = new Array();
                 for (let index = 1; index <= joints.length; index++) {
                     let curJointname = "joint" + String(index);
-                    jointPosval[index-1] = jointPos[curJointname];
+                    jointPosval[index-1] = jointPos[curJointname] * Math.PI / 180;
                 }
                 await sim.callScriptFunction("moveTojoint", scriptHandle, jointPosval);
                 return "success";
@@ -132,7 +149,7 @@ server.start().then((WoT) => {
         thing.setActionHandler("moveTocartesianPosition", async(data) =>{
             try {
                 let cartPos:any = await data.value();
-                let cartPosval = [cartPos["x"], cartPos["y"], cartPos["z"]];
+                let cartPosval = [cartPos["x"], cartPos["y"], cartPos["z"],0,0.707,0,0.707];
                 await sim.callScriptFunction("moveToPosition", scriptHandle, cartPosval);
                 return "success";
             }

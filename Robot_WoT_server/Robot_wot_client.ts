@@ -19,7 +19,7 @@ client.addClientFactory(new HttpClientFactory());
 
 let wotHelper = new Helpers(client);
 wotHelper
-    .fetch("http://localhost:8080/virtualrobot-ur_robot")
+    .fetch("http://localhost:8080/coppeliasim_virtualrobot_ur3_robot")
     .then(async (td: any) => {
         // using await for serial execution (note 'async' in then() of fetch())
         const WoT = await client.start();
@@ -27,20 +27,19 @@ wotHelper
 
         let tem0 = (await (await thing.readProperty("getRobotinfo")).value());
         console.log(tem0);
-
+        // -90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180
+        await thing.invokeAction("moveTojointPosition",{"joint1":-90,"joint2":45,"joint3":90,"joint4":135,"joint5":90,"joint6":90});
+        await delay(8000);
         let tem1 = (await (await thing.readProperty("getJointposition")).value()); // need to modify the dataschema in WoT
         console.log(tem1); 
         let tem2 = (await (await thing.readProperty("getCartesianposition")).value());
         console.log(tem2);
-        //thing.writeProperty()
-        await thing.invokeAction("moveTocartesianPosition", {"x":0.2,"y":0.4,"z":0.25});
-        await delay(5000);
+        await thing.invokeAction("moveTocartesianPosition", {"x":0.3,"y":0.5,"z":0.35});
+        await delay(8000);
         let tem3 = (await (await thing.readProperty("getCartesianposition")).value());
         console.log(tem3);
         let tem4 = (await (await thing.readProperty("getJointposition")).value()); // need to modify the dataschema in WoT
         console.log(tem4); 
-        await thing.invokeAction("moveToinitialPosition");
-        await delay(5000);
 
         
          
