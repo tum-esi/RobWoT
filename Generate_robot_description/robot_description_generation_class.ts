@@ -252,6 +252,11 @@ export class robotDescriptiongenrate{
 
         let robotInfo = await sim.callScriptFunction("robotInfo", robotScripthandle);
 
+        // workspace successfully generate, stop simulation
+        await delay(300);
+        console.log("workspace successfully generate, stop simulation");
+        await sim.stopSimulation();
+
         return robotInfo[0];
     }
     // transform virtual position to the real position
@@ -316,7 +321,8 @@ export class robotDescriptiongenrate{
             sim = this.sim;  // if exist, directly use sim
         }
         // based on file path and robot name to create a folder for saving information for this robot
-        let robotFolderpath = filePath + "/" + robotName + "_folder";
+        //let robotFolderpath = filePath + "/" + robotName + "_folder";
+        let robotFolderpath = filePath;
         if (!fs.existsSync(robotFolderpath)){
             fs.mkdirSync(robotFolderpath);
         }
