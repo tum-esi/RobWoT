@@ -2,7 +2,8 @@
 
 >Related files: Robot_wot_server.ts, Robot_wot_client.ts, robot_digital_twins.ttt, robot_driver.txt
 
->Note: automatic inverse kinematics calcualation code is saved in robot_driver.txt
+>Note: 1. automatic inverse kinematics calcualation code is saved in robot_driver.txt, which is a Lua script in the coppeliasim
+2. ur3_robot_td_generate.ts shows how to get infomation from robot and how to generate related TD based on current robot
 
 It is a little complicated job to realize inverse kinematics calculation for different robotic arm in coppeliasim. I hope that my single script could finish inverse kinematics calculation for the most of robotic arm with common structure in the world. Besides, I also want to prove correctness of automatically generated TD file by wot server.
 
