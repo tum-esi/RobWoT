@@ -260,7 +260,7 @@ export class robotDescriptiongenrate{
         return robotInfo[0];
     }
     // transform virtual position to the real position
-    posRefparse(posReal:number[][],posVirtual:number[][]){
+    private posRefparse(posReal:number[][],posVirtual:number[][]){
         // check correctness of position
         if ((posReal.length >=2) &&(posVirtual.length >=2)){
             let k:number[] = [0,0,0];
