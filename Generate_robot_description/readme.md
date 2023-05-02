@@ -13,19 +13,19 @@ ts-node robot_description_generation_class.ts
 
 ## robotDescriptiongenrate manual instruction
 
-**let robotName = loadModel(modelPath:string)** 
+**let robotName = loadModel(modelPath:string)**  
 
-modelPath: the path file of coppeliasim model
-robotName: return the name of robot model
-We can use this function load coppeliasim model to coppeliasim scene by code. Or we can directly import the model manually in coppeliasim interface
+modelPath: the path file of coppeliasim model  
+robotName: return the name of robot model  
+We can use this function load coppeliasim model to coppeliasim scene by code. Or we can directly import the model manually in coppeliasim interface  
 
-**robotInfogeneration(robotName:string, rootFolderPath:string)**
+**robotInfogeneration(robotName:string, rootFolderPath:string)**  
 
-This function will get all necessary information from the virtual. These infomation are saved in rootFolderPath and we can use these infomation to generate robotic Things description
+This function will get all necessary information from the virtual. These infomation are saved in rootFolderPath and we can use these infomation to generate robotic Things description  
 
-**generateTD(robotName:string, rootFolderPath:string)**
+**generateTD(robotName:string, rootFolderPath:string)**  
 
-Based on information of robot, it could automatically generate the robotic Things description. For some robot with special structure, we manually write script to generate infomation instead of the second function and directly use this function
+Based on information of robot, it could automatically generate the robotic Things description. For some robot with special structure, we manually write script to generate infomation instead of the second function and directly use this function  
 
 
 
