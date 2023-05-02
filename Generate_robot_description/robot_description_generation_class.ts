@@ -378,23 +378,22 @@ export class robotDescriptiongenrate{
 
 async function main() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
-    let modelAddress = rootAddress + "/Coppeliasim scene/virtual_robot.ttm";
+    let modelAddress = rootAddress + "/Coppeliasim scene/default robot models/mypal_robot.ttm";
     let sceneAddress = rootAddress + "/Coppeliasim scene/robot_virtual_workspace.ttt";
     let rdg = new robotDescriptiongenrate(sceneAddress);
 
-    let rootFolderPath = __dirname + "/robot_info"; //the path of folder to save necessary files
+    let rootFolderPath = __dirname + "/robot_info/mypal_robot"; //the path of folder to save necessary files
 
     // choose the model that you want load to the scene
     let robotName = await rdg.loadModel(modelAddress); 
     console.log(robotName);
 
     // generate related info based on robot model in coppeliasim
-    //let robotInfo = await rdg.robotInfogeneration(robotName, rootFolderPath);
-    //console.log(robotInfo);
+    let robotInfo = await rdg.robotInfogeneration(robotName, rootFolderPath);
+    console.log(robotInfo);
 
     // generate TD file base on robot name and necessary files in folder
-    let robotInfofolder = rootFolderPath + "/virtual_robot_folder";
-    await rdg.generateTD(robotName, robotInfofolder); 
+    await rdg.generateTD(robotName, rootFolderPath); 
     
 
     await delay(500);
