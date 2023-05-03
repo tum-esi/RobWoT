@@ -1,0 +1,14 @@
+{
+    "jointTypes": [
+      "Revolute_joint",
+      "Revolute_joint",
+      "Revolute_joint",
+      "Revolute_joint"
+    ],
+    "jointLimitLows": [0, 0, 0.73303830623627, 0],
+    "jointLimitHighs": [
+      3.1415927410126, 2.3561944961548, 2.4783675670624, 3.1415927410126
+    ],
+    "jointAmount": 4,
+    "robotName": "uarm"
+  }
