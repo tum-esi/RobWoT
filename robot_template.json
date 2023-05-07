@@ -79,40 +79,6 @@
                   "htv:methodName": "GET"
                 }
               ]
-        },
-        "getRobotinfo":{
-            "title": "get the robot basic information",
-            "description": "",
-            "type": "object",
-            "properties":{
-              "robotName":{
-                "type":"string"
-              },
-              "jointAmount":{
-                "type":"number"
-              },
-              "jointLimitHighs":{
-                "type":"array"
-              },
-              "jointLimitLows":{
-                "type":"array"
-              },
-              "jointTypes":{
-                "type":"array"
-              }
-            },
-            "observable": true,
-            "readOnly": true,
-            "forms": [
-                {
-                  "href": "http://localhost:8080/robot_template/properties/getRobotinfo",
-                  "contentType": "application/json",
-                  "op": [
-                    "readproperty"
-                  ],
-                  "htv:methodName": "GET"
-                }
-              ]
         }
     },
     "actions": {
