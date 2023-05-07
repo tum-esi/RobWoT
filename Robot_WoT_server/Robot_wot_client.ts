@@ -19,14 +19,12 @@ client.addClientFactory(new HttpClientFactory());
 
 let wotHelper = new Helpers(client);
 wotHelper
-    .fetch("http://localhost:8080/coppeliasim_virtualrobot_ur3_robot")
+    .fetch("http://localhost:8081/coppeliasim_virtualrobot_ur3_robot")
     .then(async (td: any) => {
         // using await for serial execution (note 'async' in then() of fetch())
         const WoT = await client.start();
         const thing = await WoT.consume(td);
 
-        let tem0 = (await (await thing.readProperty("getRobotinfo")).value());
-        console.log(tem0);
         // -90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180
         await thing.invokeAction("moveTojointPosition",{"joint1":-90,"joint2":45,"joint3":90,"joint4":135,"joint5":90,"joint6":90});
         await delay(8000);

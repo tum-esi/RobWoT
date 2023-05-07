@@ -73,7 +73,7 @@ async function loadRobotdriver(sim:any, robotName:string) {
 let server = new Servient();
 server.addServer(
     new HttpServer({
-        port: 8080, // set port 8080 as request
+        port: 8081, // set port 8081 as request
     })
 );
 
@@ -108,8 +108,8 @@ server.start().then((WoT) => {
         (await sim.callScriptFunction("getCartesianposition", scriptHandle))[0]);
 
         // set getRobotinfo	property handlers
-        thing.setPropertyReadHandler("getRobotinfo", async() => 
-        (await sim.callScriptFunction("robotInfo", scriptHandle))[0]);
+        //thing.setPropertyReadHandler("getRobotinfo", async() => 
+        //(await sim.callScriptFunction("robotInfo", scriptHandle))[0]);
 
 
         // set action handlers (using async-await)
