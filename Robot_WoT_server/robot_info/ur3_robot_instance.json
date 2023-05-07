@@ -16,7 +16,7 @@
     {
       "href": "http://localhost:4000/ur3_robot/robot_digital_twins.ttt",
       "type": "application/octet-stream",
-      "rel": "coppliasim scene"
+      "rel": "coppeliasim scene"
     }
   ],
   "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],

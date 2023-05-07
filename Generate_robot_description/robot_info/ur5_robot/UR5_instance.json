@@ -1,17 +1,22 @@
 {
   "title": "coppeliasim_virtualrobot_UR5",
-  "id": "urn:dev:ops:32473-virtual-robot",
-  "description": "robot template",
+  "id": "urn:dev:ops:32473-virtual-UR5",
+  "description": "The TD document for digital twins of UR5",
   "links": [
     {
-      "href": "D:\\master_thesis\\project\\robwot\\Generate_robot_description/robot_info/ur5_robot/UR5_shape.stl",
+      "href": "http://localhost:4000/ur5_robot/ur5_shape.stl",
       "type": "model/stl",
       "rel": "workspace"
     },
     {
-      "href": "D:\\master_thesis\\project\\robwot\\Generate_robot_description/robot_info/ur5_robot/UR5_data_point.csv",
+      "href": "http://localhost:4000/ur5_robot/ur5_data_point.csv",
       "type": "text/csv",
       "rel": "dataset-points"
+    },
+    {
+      "href": "http://localhost:4000/ur5_robot/UR5.ttm",
+      "type": "application/octet-stream",
+      "rel": "coppeliasim scene"
     }
   ],
   "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],
@@ -65,7 +70,7 @@
       "observable": true,
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/properties/getJointposition",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_UR5/properties/getJointposition",
           "contentType": "application/json",
           "op": ["readproperty"],
           "htv:methodName": "GET"
@@ -79,47 +84,28 @@
       "properties": {
         "x": {
           "type": "number",
-          "minimum": -0.91322785615921,
-          "maximum": 0.92320072650909
+          "minimum": -0.92270636558533,
+          "maximum": 0.93399941921234,
+          "unit": "meter"
         },
         "y": {
           "type": "number",
-          "minimum": -0.93805420398712,
-          "maximum": 0.93129366636276
+          "minimum": -0.91608905792236,
+          "maximum": 0.92075818777084,
+          "unit": "meter"
         },
         "z": {
           "type": "number",
-          "minimum": 0.013093447312713,
-          "maximum": 1.0516628026962
+          "minimum": 0.020708836615086,
+          "maximum": 1.0519223213196,
+          "unit": "meter"
         }
       },
       "observable": true,
       "readOnly": true,
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/properties/getCartesianposition",
-          "contentType": "application/json",
-          "op": ["readproperty"],
-          "htv:methodName": "GET"
-        }
-      ]
-    },
-    "getRobotinfo": {
-      "title": "get the robot basic information",
-      "description": "",
-      "type": "object",
-      "properties": {
-        "robotName": { "type": "string" },
-        "jointAmount": { "type": "number" },
-        "jointLimitHighs": { "type": "array" },
-        "jointLimitLows": { "type": "array" },
-        "jointTypes": { "type": "array" }
-      },
-      "observable": true,
-      "readOnly": true,
-      "forms": [
-        {
-          "href": "http://localhost:8080/robot_template/properties/getRobotinfo",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_UR5/properties/getCartesianposition",
           "contentType": "application/json",
           "op": ["readproperty"],
           "htv:methodName": "GET"
@@ -174,7 +160,7 @@
       },
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/actions/moveTojointPosition",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_UR5/actions/moveTojointPosition",
           "contentType": "application/json",
           "op": ["invokeaction"],
           "htv:methodName": "PUT"
@@ -189,24 +175,27 @@
         "properties": {
           "x": {
             "type": "number",
-            "minimum": -0.91322785615921,
-            "maximum": 0.92320072650909
+            "minimum": -0.92270636558533,
+            "maximum": 0.93399941921234,
+            "unit": "meter"
           },
           "y": {
             "type": "number",
-            "minimum": -0.93805420398712,
-            "maximum": 0.93129366636276
+            "minimum": -0.91608905792236,
+            "maximum": 0.92075818777084,
+            "unit": "meter"
           },
           "z": {
             "type": "number",
-            "minimum": 0.013093447312713,
-            "maximum": 1.0516628026962
+            "minimum": 0.020708836615086,
+            "maximum": 1.0519223213196,
+            "unit": "meter"
           }
         }
       },
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/actions/moveTocartesianPosition",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_UR5/actions/moveTocartesianPosition",
           "contentType": "application/json",
           "op": ["invokeaction"],
           "htv:methodName": "PUT"

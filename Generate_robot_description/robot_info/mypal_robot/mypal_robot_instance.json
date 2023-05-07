@@ -1,17 +1,22 @@
 {
   "title": "coppeliasim_virtualrobot_mypal_robot",
-  "id": "urn:dev:ops:32473-virtual-robot",
-  "description": "robot template",
+  "id": "urn:dev:ops:32473-virtual-mypal_robot",
+  "description": "The TD document for digital twins of mypal_robot",
   "links": [
     {
-      "href": "D:\\master_thesis\\project\\robwot\\Generate_robot_description/robot_info/mypal_robot/mypal_robot_shape.stl",
+      "href": "http://localhost:4000/mypal_robot/mypal_robot_shape.stl",
       "type": "model/stl",
       "rel": "workspace"
     },
     {
-      "href": "D:\\master_thesis\\project\\robwot\\Generate_robot_description/robot_info/mypal_robot/mypal_robot_data_point.csv",
+      "href": "http://localhost:4000/mypal_robot/mypal_robot_data_point.csv",
       "type": "text/csv",
       "rel": "dataset-points"
+    },
+    {
+      "href": "http://localhost:4000/mypal_robot/mypal_robot.ttm",
+      "type": "application/octet-stream",
+      "rel": "coppeliasim scene"
     }
   ],
   "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],
@@ -59,7 +64,7 @@
       "observable": true,
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/properties/getJointposition",
+          "href": "http://localhost:8091/coppeliasim_virtualrobot_mypal_robot/properties/getJointposition",
           "contentType": "application/json",
           "op": ["readproperty"],
           "htv:methodName": "GET"
@@ -73,47 +78,28 @@
       "properties": {
         "x": {
           "type": "number",
-          "minimum": -0.31123459339142,
-          "maximum": 0.19269461929798
+          "minimum": -0.31324943900108,
+          "maximum": 0.19246558845043,
+          "unit": "meter"
         },
         "y": {
           "type": "number",
-          "minimum": -0.25973415374756,
-          "maximum": 0.26160418987274
+          "minimum": -0.25821101665497,
+          "maximum": 0.25923126935959,
+          "unit": "meter"
         },
         "z": {
           "type": "number",
-          "minimum": 0.011817812919617,
-          "maximum": 0.37165498733521
+          "minimum": 0.01147392205894,
+          "maximum": 0.37231081724167,
+          "unit": "meter"
         }
       },
       "observable": true,
       "readOnly": true,
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/properties/getCartesianposition",
-          "contentType": "application/json",
-          "op": ["readproperty"],
-          "htv:methodName": "GET"
-        }
-      ]
-    },
-    "getRobotinfo": {
-      "title": "get the robot basic information",
-      "description": "",
-      "type": "object",
-      "properties": {
-        "robotName": { "type": "string" },
-        "jointAmount": { "type": "number" },
-        "jointLimitHighs": { "type": "array" },
-        "jointLimitLows": { "type": "array" },
-        "jointTypes": { "type": "array" }
-      },
-      "observable": true,
-      "readOnly": true,
-      "forms": [
-        {
-          "href": "http://localhost:8080/robot_template/properties/getRobotinfo",
+          "href": "http://localhost:8091/coppeliasim_virtualrobot_mypal_robot/properties/getCartesianposition",
           "contentType": "application/json",
           "op": ["readproperty"],
           "htv:methodName": "GET"
@@ -162,7 +148,7 @@
       },
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/actions/moveTojointPosition",
+          "href": "http://localhost:8091/coppeliasim_virtualrobot_mypal_robot/actions/moveTojointPosition",
           "contentType": "application/json",
           "op": ["invokeaction"],
           "htv:methodName": "PUT"
@@ -177,24 +163,27 @@
         "properties": {
           "x": {
             "type": "number",
-            "minimum": -0.31123459339142,
-            "maximum": 0.19269461929798
+            "minimum": -0.31324943900108,
+            "maximum": 0.19246558845043,
+            "unit": "meter"
           },
           "y": {
             "type": "number",
-            "minimum": -0.25973415374756,
-            "maximum": 0.26160418987274
+            "minimum": -0.25821101665497,
+            "maximum": 0.25923126935959,
+            "unit": "meter"
           },
           "z": {
             "type": "number",
-            "minimum": 0.011817812919617,
-            "maximum": 0.37165498733521
+            "minimum": 0.01147392205894,
+            "maximum": 0.37231081724167,
+            "unit": "meter"
           }
         }
       },
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/actions/moveTocartesianPosition",
+          "href": "http://localhost:8091/coppeliasim_virtualrobot_mypal_robot/actions/moveTocartesianPosition",
           "contentType": "application/json",
           "op": ["invokeaction"],
           "htv:methodName": "PUT"
