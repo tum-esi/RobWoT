@@ -77,7 +77,7 @@ export class robotDescriptiongenrate{
 
         //return robotInfo[0];
     }
-    private async limitContentgenerate(robotInfo:any,stlFilepath:string,csvFilepath:string):Promise<any>{
+    private async limitContentgenerate(robotInfo:any,stlFilepath:string,csvFilepath:string,options?:any):Promise<any>{
         // robot_template should be a fixed path
         let robot_template = JSON.parse(fs.readFileSync("../robot_template.json", "utf8"));
         let robotType = robotInfo["robotName"];
@@ -137,6 +137,13 @@ export class robotDescriptiongenrate{
         }
         let extremeVal = [maxValnegX,maxValposX,maxValnegY,maxValposY,maxValnegZ,maxValposZ];
 
+        // check unit of distance
+        let unitDis = "meter";
+
+        if (options["unit of distance"] != null){
+            unitDis = options["unit of distance"];
+        }
+        // ------------------------ set the dynamics parameters of robotic TD --------------------------------------------
         // modify the joint amount and position,cartesian limit
         // action moveTojointPosition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
@@ -171,6 +178,12 @@ export class robotDescriptiongenrate{
         robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["maximum"] = extremeVal[3];
         robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["minimum"] = extremeVal[4];
         robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["maximum"] = extremeVal[5];
+        // add unit for action moveTocartesianPosition
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["x"]["unit"] = unitDis;
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["y"]["unit"] = unitDis;
+        robot_template["actions"]["moveTocartesianPosition"]["input"]["properties"]["z"]["unit"] = unitDis;
+
+
         // property getJointposition
         for (let index = 0; index < Number(robotInfo["jointAmount"]); index++) {
             let curJointtype = robotInfo["jointTypes"][index];
@@ -204,13 +217,59 @@ export class robotDescriptiongenrate{
         robot_template["properties"]["getCartesianposition"]["properties"]["y"]["maximum"] = extremeVal[3];
         robot_template["properties"]["getCartesianposition"]["properties"]["z"]["minimum"] = extremeVal[4];
         robot_template["properties"]["getCartesianposition"]["properties"]["z"]["maximum"] = extremeVal[5];   
+        // add unit for property getCartesianposition
+        robot_template["properties"]["getCartesianposition"]["properties"]["x"]["unit"] = unitDis; 
+        robot_template["properties"]["getCartesianposition"]["properties"]["y"]["unit"] = unitDis; 
+        robot_template["properties"]["getCartesianposition"]["properties"]["z"]["unit"] = unitDis; 
 
+        // ---------------------------------------------------------------------------------------------------
+
+        // ------------------------ set the other parameters of robotic TD --------------------------------------------
+        // modify title and id
         robot_template["title"] = "coppeliasim_virtualrobot_" + robotType;
+        robot_template["id"] = "urn:dev:ops:32473-virtual-" + robotType;
+
+        // modify description, if description of options doesn't exist, use default description
+        let robot_description = "The TD document for digital twins of " + robotType;
+        if (options["description"] != null){
+            robot_description = options["description"];
+        }
+        robot_template["description"] = robot_description
 
         //link model stl location record
-        //robot_template["links"][0]["href"] = "http://localhost:8080/robot_template" + "/robot_shape.stl";
+        //now change it to the address of http file server
+        if (options["stlFilepath"] != null){
+            stlFilepath = options["stlFilepath"];
+        }
+        if (options["csvFilepath"] != null){
+            csvFilepath = options["csvFilepath"];
+        }
+        // link to stl and data csv file
         robot_template["links"][0]["href"] = stlFilepath;
         robot_template["links"][1]["href"] = csvFilepath;
+        // link to the virtual scene
+        if (options["sceneFilepath"] != null){
+            robot_template["links"][2] = 
+            {
+                "href": options["sceneFilepath"],
+                "type": "application/octet-stream",
+                "rel": "coppeliasim scene"  
+            }
+        }
+
+        // then begin to modify the href
+        let basicHref = "http://localhost:8080/" + robot_template["title"];
+
+        if (options["href"] != null){
+            basicHref = options["href"] + robot_template["title"];
+            // modify for property and actions
+            robot_template["properties"]["getJointposition"]["forms"][0]["href"] = basicHref + "/properties/getJointposition";
+            robot_template["properties"]["getCartesianposition"]["forms"][0]["href"] = basicHref + "/properties/getCartesianposition";
+            robot_template["actions"]["moveTojointPosition"]["forms"][0]["href"] = basicHref + "/actions/moveTojointPosition";
+            robot_template["actions"]["moveTocartesianPosition"]["forms"][0]["href"] = basicHref + "/actions/moveTocartesianPosition";
+        }
+
+
         const data = JSON.stringify(robot_template); // data convert 
         
         return data;
@@ -340,7 +399,7 @@ export class robotDescriptiongenrate{
         return robotInfo;
     }
     // based on the exist info or file to generate TD file and save it
-    async generateTD(robotName:string, rootPath:string):Promise<any>{
+    async generateTD(robotName:string, rootPath:string,options?:any):Promise<any>{
         let stlFilepath = rootPath + "/" + robotName + "_shape.stl";
         let jsonFilepath = rootPath + "/" + robotName + "_info.json";
         let csvFilepath = rootPath + "/" + robotName + "_data_point.csv";
@@ -357,7 +416,7 @@ export class robotDescriptiongenrate{
 
             // generate new content for the TD file now includes the joint limits or pos limit
             // then record the shape in the TD 
-            let infoNew = await this.limitContentgenerate(robotInfo,stlFilepath,csvFilepath);
+            let infoNew = await this.limitContentgenerate(robotInfo,stlFilepath,csvFilepath,options);
             // filter the data point, which is not in the shape
 
             let finalData = infoNew;
@@ -391,9 +450,26 @@ async function main() {
     // generate related info based on robot model in coppeliasim
     let robotInfo = await rdg.robotInfogeneration(robotName, rootFolderPath);
     console.log(robotInfo);
+    let optionsUR5 = {
+        "unit of distance": "meter",
+        "stlFilepath": "http://localhost:4000/ur5_robot/ur5_shape.stl",
+        "csvFilepath": "http://localhost:4000/ur5_robot/ur5_data_point.csv",
+        "sceneFilepath": "http://localhost:4000/ur5_robot/UR5.ttm",
+        "href":"http://localhost:8090/",
+        "port": 8090
+    }
+
+    let optionsMypal = {
+        "unit of distance": "meter",
+        "stlFilepath": "http://localhost:4000/mypal_robot/mypal_robot_shape.stl",
+        "csvFilepath": "http://localhost:4000/mypal_robot/mypal_robot_data_point.csv",
+        "sceneFilepath": "http://localhost:4000/mypal_robot/mypal_robot.ttm",
+        "href":"http://localhost:8091/",
+        "port": 8091
+    }
 
     // generate TD file base on robot name and necessary files in folder
-    await rdg.generateTD(robotName, rootFolderPath); 
+    await rdg.generateTD(robotName, rootFolderPath,optionsMypal); 
     
 
     await delay(500);
