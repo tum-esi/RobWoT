@@ -330,6 +330,23 @@ export class virtualLight{
         
         return info;
     }
+    async getLightstate():Promise<any>{
+        // get light handle
+        this.lightHandle = Number(await this.sim.getObject(this.lightAddress)); 
+
+        let info = await this.sim.getLightParameters(this.lightHandle);
+        //console.log(info);
+        let lightState = info[0];
+        //console.log(lightState);
+        
+        if (lightState == 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
     // set light open or close
     async setLightstate(state:boolean){
         // get light handle
@@ -357,4 +374,115 @@ export class virtualLight{
     
     }
 
+}
+
+export class virtualPanTilt{
+    // variable
+    deviceName:string;
+    sim:any;
+    panPos:number;
+    tiltPos:number;
+    // constructor
+    constructor(s:any,name:string){
+        this.sim = s;
+        this.deviceName = name;
+        this.panPos = 0;
+        this.tiltPos = -90;
+    }
+    async goHome():Promise<string>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        
+        await this.sim.callScriptFunction("goHome", scriptHandle);   
+        
+        await delay(3000);
+
+        return "success";
+    }
+    async moveTo(pos:number[]):Promise<string>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        // convert it to joint pos coordinates in scene
+        let finalPos = [pos[0]*Math.PI/180, (pos[1]-90)*Math.PI/180];
+        
+        await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos);   
+
+        //await delay(1000);
+        return "success";
+    }
+    async panPosition():Promise<any>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        
+        let val = await this.sim.callScriptFunction("panPosition", scriptHandle); 
+        this.panPos = val[0];  
+
+        return val[0];
+    }
+    async tiltPosition():Promise<any>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        
+        let val = await this.sim.callScriptFunction("tiltPosition", scriptHandle); 
+        this.tiltPos = val[0];  
+
+        return val[0];
+    }
+    async panTo(panPosition:number):Promise<any>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        // convert it to joint pos coordinates in scene
+        let finalPos = [panPosition*Math.PI/180, this.tiltPos*Math.PI/180];
+        
+        await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos);   
+
+        //await delay(3000);
+        return "success";      
+    }
+    async tiltTo(tiltPosition:number):Promise<any>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        // convert it to joint pos coordinates in scene
+        let finalPos = [this.panPos*Math.PI/180, (tiltPosition-90)*Math.PI/180];
+        
+        await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos);   
+
+        //await delay(3000);
+        return "success";      
+    }
+    async stopMovement():Promise<any>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        
+        this.panPos = await this.panPosition();
+        this.tiltPos = await this.tiltPosition();
+        let finalPos = [this.panPos*Math.PI/180, (this.tiltPos-90)*Math.PI/180];
+        
+        await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos);   
+
+        await delay(3000);
+        return "success";
+    }
+    async panContinuously():Promise<any>{
+        let panHandle = Number(await this.sim.getObject(this.deviceName));
+        let scriptHandle = Number(await this.sim.getScript(1, panHandle ,this.deviceName));
+        
+        this.panPos = -89;
+
+        while(true){
+            let finalPos = [this.panPos*Math.PI/180, -90*Math.PI/180];
+            await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos); 
+
+            await delay(50);
+            this.panPos = this.panPos + 1;
+            if (this.panPos > 89){
+                break;
+            }
+        }
+        await delay(300);
+        
+        return "success";
+    }
+
+    
 }

@@ -10,7 +10,7 @@ import * as fs from 'fs';
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
 // load virtual sensor class
-import {virtualSensor,virtualConveyor, virtualUarm, virtualDobot,virtualLight} from "./virtualDevices";
+import {virtualSensor,virtualConveyor, virtualUarm, virtualDobot,virtualLight,virtualPanTilt} from "./virtualDevices";
 import { makeWoTinteraction } from './clientClass';
 
 // add delay function
@@ -39,6 +39,10 @@ let colorTD =JSON.parse(fs.readFileSync("../virtual_things_description/virtual_c
 // read the spotlight TD file
 let spotlightTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_lights/virtual_light_left.td.json", "utf8"));
 let spotlightTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_lights/virtual_light_right.td.json", "utf8"));
+
+// read the pantilt TD file
+let pantiltTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_PanTilt/virtual_PanTilt1.json", "utf8"));
+let pantiltTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_PanTilt/virtual_PanTilt2.json", "utf8"));
 
 // set virtual scene address
 //console.log(__dirname); // get current file absolute path
@@ -520,7 +524,7 @@ async function main() {
             let light1 = new virtualLight(sim,"/Spotlight1");
 
             //// property lightState
-            thing.setPropertyReadHandler("lightState", async() => (await (light1.getLightinfo()))[0]);
+            thing.setPropertyReadHandler("lightState", async() => await light1.getLightstate());
             thing.setPropertyWriteHandler("lightState", async(intOutput) =>{
                 try{
                     let state = await intOutput.value();
@@ -560,7 +564,7 @@ async function main() {
             let light2 = new virtualLight(sim,"/Spotlight2");
 
             //// property lightState
-            thing.setPropertyReadHandler("lightState", async() => (await (light2.getLightinfo()))[0]);
+            thing.setPropertyReadHandler("lightState", async() => await light2.getLightstate());
             thing.setPropertyWriteHandler("lightState", async(intOutput) =>{
                 try{
                     let state = await intOutput.value();
@@ -593,7 +597,212 @@ async function main() {
                 console.info("TD : " + JSON.stringify(thing.getThingDescription()));
             });       
         });
+        // pantilt 1
+        WoT.produce(pantiltTD1).then(async(thing) => {
+            console.log("Produced " + thing.getThingDescription().title);
 
+            let pantilt1 = new virtualPanTilt(sim,"/pantilt_base1");
+
+            //// property panPosition
+	
+            thing.setPropertyReadHandler("panPosition", async() => (await pantilt1.panPosition()));
+
+            // property tiltPosition
+            thing.setPropertyReadHandler("tiltPosition", async() => (await pantilt1.tiltPosition()));
+
+            // action goHome
+            thing.setActionHandler("goHome", async() =>{
+                try {
+                    await pantilt1.goHome();
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });
+            // action moveTo
+            thing.setActionHandler("moveTo", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+                    let finalPos = [pos["panAngle"], pos["tiltAngle"]];
+
+
+                    await pantilt1.moveTo(finalPos);
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });
+            
+            // action panContinuously
+            thing.setActionHandler("panContinuously", async() =>{
+                try {
+                    await pantilt1.panContinuously();
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });
+
+            // action panTo
+            thing.setActionHandler("panTo", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+
+                    await pantilt1.panTo(pos);
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });  
+            
+            // action stopMovement
+            thing.setActionHandler("stopMovement", async(data) =>{
+                try {
+                    await pantilt1.stopMovement();
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });        
+            // action tiltTo
+            thing.setActionHandler("tiltTo", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+
+                    await pantilt1.tiltTo(pos);
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });  
+
+            // expose the thing
+            thing.expose().then(() => {
+                console.info(thing.getThingDescription().title + " ready");
+                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
+            });       
+        });
+        // pantilt 2
+        WoT.produce(pantiltTD2).then(async(thing) => {
+            console.log("Produced " + thing.getThingDescription().title);
+
+            let pantilt2 = new virtualPanTilt(sim,"/pantilt_base2");
+
+            //// property panPosition
+	
+            thing.setPropertyReadHandler("panPosition", async() => (await pantilt2.panPosition()));
+
+            // property tiltPosition
+            thing.setPropertyReadHandler("tiltPosition", async() => (await pantilt2.tiltPosition()));
+
+            // action goHome
+            thing.setActionHandler("goHome", async() =>{
+                try {
+                    await pantilt2.goHome();
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });
+            // action moveTo
+            thing.setActionHandler("moveTo", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+                    let finalPos = [pos["panAngle"], pos["tiltAngle"]];
+
+
+                    await pantilt2.moveTo(finalPos);
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });
+            
+            // action panContinuously
+            thing.setActionHandler("panContinuously", async() =>{
+                try {
+                    await pantilt2.panContinuously();
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });
+
+            // action panTo
+            thing.setActionHandler("panTo", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+
+                    await pantilt2.panTo(pos);
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });  
+            
+            // action stopMovement
+            thing.setActionHandler("stopMovement", async(data) =>{
+                try {
+                    await pantilt2.stopMovement();
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });        
+            // action tiltTo
+            thing.setActionHandler("tiltTo", async(data) =>{
+                try {
+                    let pos:any = await data.value();
+
+                    await pantilt2.tiltTo(pos);
+
+                    return undefined;
+                }
+                catch{
+                    console.log("failed");
+                    return undefined;
+                }
+            });  
+
+            // expose the thing
+            thing.expose().then(() => {
+                console.info(thing.getThingDescription().title + " ready");
+                console.info("TD : " + JSON.stringify(thing.getThingDescription()));
+            });       
+        });
 
 
 
