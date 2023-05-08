@@ -416,6 +416,9 @@ export class robotDescriptiongenrate{
 
             // generate new content for the TD file now includes the joint limits or pos limit
             // then record the shape in the TD 
+            if (options == null){
+                options = {};
+            }
             let infoNew = await this.limitContentgenerate(robotInfo,stlFilepath,csvFilepath,options);
             // filter the data point, which is not in the shape
 
