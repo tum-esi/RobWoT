@@ -110,8 +110,6 @@ export class robotMotioncontrol{
         const fileName = driverAddress;
         let fileContent = fs.readFileSync(fileName, 'utf8');
 
-        this.robotName = "/" + this.robotName;
-
         let sim = await this.getSim();
 
         // because we need to load the driver script again, first we need to stop the simulation
@@ -182,7 +180,7 @@ export class robotMotioncontrol{
 
         return robotInfo;
     }
-    async moveTojointpos(jointPos:number[]){
+    async moveTojointpos(jointPos:number[]):Promise<any>{
         // get sim, robothandle and script handle
         let sim = await this.getSim();
         let objectHandle = Number(await sim.getObject(this.robotName));
@@ -229,10 +227,10 @@ export class robotMotioncontrol{
         }  
 
         if (successState == true){
-            return "This robot motion is success";
+            return {"Point accessible":successState,"state": "This robot motion is success"};
             
         }else if(successState == false){
-            return "Collision happens, the robot will go to previous position";
+            return {"Point accessible":successState,"state": "Collision happens, the robot will go to previous position"};
         }     
         
     }
@@ -262,7 +260,7 @@ export class robotMotioncontrol{
             finalCartpos = [cartPos[0]*para[0][0] + para[1][0], cartPos[1]*para[0][1] + para[1][1], cartPos[2]*para[0][2] + para[1][2], cartPos[3], cartPos[4], cartPos[5],cartPos[6]];
         }
         else{
-            finalCartpos = [cartPos[0]*para[0][0] + para[1][0], cartPos[1]*para[0][1] + para[1][1], cartPos[2]*para[0][2] + para[1][2],0,0,0,1]
+            finalCartpos = [cartPos[0]*para[0][0] + para[1][0], cartPos[1]*para[0][1] + para[1][1], cartPos[2]*para[0][2] + para[1][2],0,0.707,0,0.707]
         }
         
 
@@ -320,13 +318,13 @@ export class robotMotioncontrol{
                         break;
                     }
                 }
-                return "There is a large deviation from the target point, and the robot automatically returns to the previous position"              
+                return {"Point accessible":successState,"state": "There is a large deviation from the target point, and the robot automatically returns to the previous position"};              
             }else{
-                return "This robot motion is success";
+                return {"Point accessible":successState,"state": "This robot motion is success"};
             }
             
         }else if(successState == false){
-            return "Collision happens, the robot will go to previous position";
+            return {"Point accessible":successState,"state": "Collision happens, the robot will go to previous position"};
         }
     }
 
@@ -340,14 +338,16 @@ async function main() {
     let rootAddress = __dirname;
     let sceneAddress = rootAddress + "/UR10_TD_verification.ttt";
 
-    let driverAddress = path.resolve(__dirname, '..') + "/Robot_WoT_server/robot_driver.txt"
+    let driverAddress = path.resolve(__dirname, '..') + "/Robot_WoT_server/robot_driver.txt";
     let posOutput = [[-0.68, -489.75, 1426.52],[687, -0.7, 741]];
     let posInput = [[-0.89988, -0.093933, 2.2941],[-0.21258, 0.38856, 1.6054]];
 
 
     let UR_robot = new robotMotioncontrol(sceneAddress,"UR10",posOutput,posInput);
-
+    
+    await UR_robot.loadDrivertoRobot(driverAddress);
     await UR_robot.sceneInit();
+
     let result0 = await UR_robot.moveTojointpos([0,-30*Math.PI/180,0,0,0,0]);
     console.log(result0);
 
@@ -357,6 +357,7 @@ async function main() {
     let pos = await UR_robot.getCartpos();
     console.log(pos);
 
+    // for some casee, it needs compensate to convert virtual joint pos to real robotic joint pos
     let jointPos = await UR_robot.getJointpos([0,-90,0,-90,0,0]);
     console.log(jointPos);
 
