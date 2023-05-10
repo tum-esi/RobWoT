@@ -204,7 +204,7 @@ export class uarmMotioncheck{
         }else {
             let state= false;
 
-            return {"Point accessbile":state};
+            return {"Point accessbile":state,"Probability of collision": "invalid position"};
         }
     }
 
@@ -243,7 +243,7 @@ export class uarmMotioncheck{
             if (typeof pos == "string"){
                 console.log(pos); // if return value is string, return "invalid position"
 
-                return false;
+                return {"state":"invalid position"};
             }
             else{
                 let shapeState = this.pointInworkshape(pos); // check if the point in the working space
@@ -265,7 +265,9 @@ export class uarmMotioncheck{
     
                     let objectHandle = Number(await sim.getObject(this.robotName));
                     let robotScripthandle = Number(await sim.getScript(1, objectHandle,this.robotName));
-    
+                    
+                    // ---------------------------------------------------------------------------------------
+                    // position convert part
                     // in the uarm, needs to convert the position based on coppeliasim coordinates
                     let z = (pos[2] + 30) / 1000;
                     let x = (-pos[0] + 120) / 1000;
@@ -277,6 +279,9 @@ export class uarmMotioncheck{
                         y = - (pos[1] - 45) / 1000;
                     }
                     let finalPos = [x,y,z];
+                    // ---------------------------------------------------------------------------------------
+
+
                     let speed = 800;
                     console.log(finalPos);
     
@@ -343,19 +348,20 @@ export class uarmMotioncheck{
                         if (coppCollState==true){
                             finalState = false; // means it exists collision
                         }
-                        return finalState;
+                        return {"state":finalState,"Probability of collision": cloudState["Probability of collision"]};
                     }
                     // there many reasons that Ik don't get solution, here we just assume it means the point isn't accessible
                     else if(Anglestate == "failed"){
                         console.log("This Motion is impossible");
                         finalState = false;
-                        return finalState;
+                        return {"state":finalState,"Probability of collision": cloudState["Probability of collision"]};
                     }
                     
                 }
                 else{
                     finalState = false;
-                    return finalState;
+
+                    return {"state":finalState,"Probability of collision": cloudState["Probability of collision"]};
                 }
 
             }
@@ -365,7 +371,8 @@ export class uarmMotioncheck{
     
             if (typeof pos == "string"){
                 console.log(pos); // if return value is string, return "invalid position"
-                return false;
+
+                return {"state":"invalid position"};
             }
             else{
                 let shapeState = this.pointInworkshape(pos); // check if the point in the working space
@@ -381,7 +388,7 @@ export class uarmMotioncheck{
                 if ((shapeState==false)||(cloudState["Point accessbile"]==false)){
                     finalState = false;
                 }
-                return finalState;
+                return {"state":finalState,"Probability of collision": cloudState["Probability of collision"]};
             }  
         }
 
@@ -407,7 +414,7 @@ async function main() {
     let point3 = [200,-240,100];
     let point4 = [180,-200,70];
 
-    let access = await rMC.posSafetycheck(point1);
+    //let access = await rMC.posSafetycheck(point1);
 
     //await rMC.posSafetycheck(point2);
     //await rMC.posSafetycheck(point3);

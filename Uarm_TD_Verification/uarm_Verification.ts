@@ -40,7 +40,7 @@ async function main() {
     //[340,0,110] // behind of color sensor
     let x = 180;
     let y = 0;
-    let z = 100;
+    let z = 60;
 
     let Ptem = {
         "x":x,
@@ -56,12 +56,16 @@ async function main() {
         "z":60
     };
 
-    const WoT = await Consumer.start();
-    let dobotThing = await WoT.consume(uarm);
+    let state = await rMC.posSafetycheck(Ptemcheck);
+    console.log(state);
 
 
-    await dobotThing.invokeAction("goTo",P_init);
-    await delay(3000);
+    //const WoT = await Consumer.start();
+    //let dobotThing = await WoT.consume(uarm);
+
+
+    //await dobotThing.invokeAction("goTo",P_init);
+    //await delay(3000);
     
     /*
     let state = await rMC.posSafetycheck(Ptemcheck);
