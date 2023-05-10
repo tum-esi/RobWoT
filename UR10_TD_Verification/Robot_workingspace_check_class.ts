@@ -128,25 +128,26 @@ class robotMotioncheck{
         }
         console.log(count);
         // assume at least 6 points in this target area
-        if (count>=10){
+        if (count> 0){
             let state = true;
             let collisionProbability = collisionCount / (collisionCount + nonCollisioncount);
 
-            return {"Point accessbile":state,"Probability of collision": collisionProbability};
+            return {"Point accessible":state,"Probability of collision": collisionProbability};
 
         }else {
             let state= false;
 
-            return {"Point accessbile":state};
+            return {"Point accessible":state,"Probability of collision": "invalid position"};
         }
     }
 
     // the position value can be [x,y,z] or [x,y,z,dx,dy,dz,R]
-    async posSafetycheck(position:number[]) {
+    async posSafetycheck(position:number[]):Promise<any> {
         let pos = this.posCheck(position); // check the format of position, make sure it is correct
 
         if (typeof pos == "string"){
             console.log(pos); // if return value is string, return "invalid position"
+            return {"state": "invalid position"};
         }
         else{
             let shapeState = this.pointInworkshape(pos); // check if the point in the working space
@@ -157,6 +158,8 @@ class robotMotioncheck{
             console.log(cloudState);
 
             console.log("Safety check without coppeliasim verification is rough estimate, normally safe area is bigger than real area");
+            
+            return {"state":shapeState, "cloudState":cloudState["Probability of collision"]};
         }       
         
     }
@@ -166,16 +169,16 @@ class robotMotioncheck{
 
 
 async function main() {
-    let shapePath = "../dobot_uarm_TD_Verification/robot_info/uarm_folder/uarm_shape.stl";
-    let pointPath = "../dobot_uarm_TD_Verification/robot_info/uarm_folder/uarm_data_point.csv";
-    let coppeState = false;
+    let shapePath = "../UR10_TD_Verification/UR10_folder/UR10_shape.stl";
+    let pointPath = "../UR10_TD_Verification/UR10_folder/UR10_data_point.csv";
 
-    let rMC = new robotMotioncheck(shapePath,pointPath);
+    let rMC = new robotMotioncheck(shapePath,pointPath);  // it can only check the convex shape
 
-    let point = [195,370,90];
+    let point = [500,-890,1000];
 
-    rMC.posSafetycheck(point);
+    let state = await rMC.posSafetycheck(point);  // only accept the position from the real robot
+    console.log(state);
     
 }
 
-//main();
+main();
