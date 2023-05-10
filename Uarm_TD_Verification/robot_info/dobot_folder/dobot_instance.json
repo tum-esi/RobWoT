@@ -1,17 +1,22 @@
 {
   "title": "coppeliasim_virtualrobot_dobot",
-  "id": "urn:dev:ops:32473-virtual-robot",
-  "description": "robot template",
+  "id": "urn:dev:ops:32473-virtual-dobot",
+  "description": "things description for dobot in current coppeliasim scene",
   "links": [
     {
-      "href": "D:\\master_thesis\\project\\robwot\\Robotic_arm_TD_Verification/robot_info/dobot_folder/dobot_shape.stl",
+      "href": "http://localhost:4000/uarm_robot/dobot_shape.stl",
       "type": "model/stl",
       "rel": "workspace"
     },
     {
-      "href": "D:\\master_thesis\\project\\robwot\\Robotic_arm_TD_Verification/robot_info/dobot_folder/dobot_data_point.csv",
+      "href": "http://localhost:4000/uarm_robot/dobot_data_point.csv",
       "type": "text/csv",
       "rel": "dataset-points"
+    },
+    {
+      "href": "http://localhost:4000/uarm_robot/Virtual_IoT_lab_verification.ttt",
+      "type": "application/octet-stream",
+      "rel": "coppeliasim scene"
     }
   ],
   "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],
@@ -53,7 +58,7 @@
       "observable": true,
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/properties/getJointposition",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_dobot/properties/getJointposition",
           "contentType": "application/json",
           "op": ["readproperty"],
           "htv:methodName": "GET"
@@ -67,50 +72,28 @@
       "properties": {
         "x": {
           "type": "number",
-          "unit": "meter",
-          "minimum": -0.26930525898933,
-          "maximum": 0.2323317527771
+          "minimum": -0.27001866698265,
+          "maximum": 0.23005098104477,
+          "unit": "meter"
         },
         "y": {
           "type": "number",
-          "unit": "meter",
-          "minimum": -0.29573716968298,
-          "maximum": 0.29463102668524
+          "minimum": -0.29606012254953,
+          "maximum": 0.29487999528646,
+          "unit": "meter"
         },
         "z": {
           "type": "number",
-          "unit": "meter",
-          "minimum": -0.047061838209629,
-          "maximum": 0.22721559554338
+          "minimum": -0.10120844095945,
+          "maximum": 0.2269290164113,
+          "unit": "meter"
         }
       },
       "observable": true,
       "readOnly": true,
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/properties/getCartesianposition",
-          "contentType": "application/json",
-          "op": ["readproperty"],
-          "htv:methodName": "GET"
-        }
-      ]
-    },
-    "getRobotinfo": {
-      "title": "get the robot basic information",
-      "description": "",
-      "type": "object",
-      "properties": {
-        "robotName": { "type": "string" },
-        "jointAmount": { "type": "number" },
-        "jointLimitHighs": { "type": "array" },
-        "jointLimitLows": { "type": "array" },
-        "jointTypes": { "type": "array" }
-      },
-      "observable": true,
-      "readOnly": true,
-      "forms": [
-        {
-          "href": "http://localhost:8080/robot_template/properties/getRobotinfo",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_dobot/properties/getCartesianposition",
           "contentType": "application/json",
           "op": ["readproperty"],
           "htv:methodName": "GET"
@@ -119,18 +102,6 @@
     }
   },
   "actions": {
-    "moveToinitialPosition": {
-      "title": "let robot go to the initial position",
-      "description": "",
-      "forms": [
-        {
-          "href": "http://localhost:8080/robot_template/actions/moveToinitialPosition",
-          "contentType": "application/json",
-          "op": ["invokeaction"],
-          "htv:methodName": "PUT"
-        }
-      ]
-    },
     "moveTojointPosition": {
       "title": "let robot move according to joint position",
       "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
@@ -165,7 +136,7 @@
       },
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/actions/moveTojointPosition",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_dobot/actions/moveTojointPosition",
           "contentType": "application/json",
           "op": ["invokeaction"],
           "htv:methodName": "PUT"
@@ -180,27 +151,27 @@
         "properties": {
           "x": {
             "type": "number",
-            "unit": "meter",
-            "minimum": -0.26930525898933,
-            "maximum": 0.2323317527771
+            "minimum": -0.27001866698265,
+            "maximum": 0.23005098104477,
+            "unit": "meter"
           },
           "y": {
             "type": "number",
-            "unit": "meter",
-            "minimum": -0.29573716968298,
-            "maximum": 0.29463102668524
+            "minimum": -0.29606012254953,
+            "maximum": 0.29487999528646,
+            "unit": "meter"
           },
           "z": {
             "type": "number",
-            "unit": "meter",
-            "minimum": -0.047061838209629,
-            "maximum": 0.22721559554338
+            "minimum": -0.10120844095945,
+            "maximum": 0.2269290164113,
+            "unit": "meter"
           }
         }
       },
       "forms": [
         {
-          "href": "http://localhost:8080/robot_template/actions/moveTocartesianPosition",
+          "href": "http://localhost:8090/coppeliasim_virtualrobot_dobot/actions/moveTocartesianPosition",
           "contentType": "application/json",
           "op": ["invokeaction"],
           "htv:methodName": "PUT"
