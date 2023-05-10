@@ -199,12 +199,12 @@ export class uarmMotioncheck{
             let state = true;
             let collisionProbability = collisionCount / (collisionCount + nonCollisioncount);
 
-            return {"Point accessbile":state,"Probability of collision": collisionProbability};
+            return {"Point accessible":state,"Probability of collision": collisionProbability};
 
         }else {
             let state= false;
 
-            return {"Point accessbile":state,"Probability of collision": "invalid position"};
+            return {"Point accessible":state,"Probability of collision": "invalid position"};
         }
     }
 
@@ -251,7 +251,7 @@ export class uarmMotioncheck{
                 let cloudState = this.pointIncloud(pos); // check if the point in the point cloud
                 console.log(cloudState);
 
-                if ((shapeState==true)&&(cloudState["Point accessbile"]==true)){
+                if ((shapeState==true)&&(cloudState["Point accessible"]==true)){
                     console.log("Then check point safety in coppeliasim");
                     let sim:any;
                     // now check everything in the copperliasim
@@ -385,7 +385,7 @@ export class uarmMotioncheck{
                 console.log("Safety check without coppeliasim verification is rough estimate, normally safe area is bigger than real area");
 
                 // any false means collisions exists
-                if ((shapeState==false)||(cloudState["Point accessbile"]==false)){
+                if ((shapeState==false)||(cloudState["Point accessible"]==false)){
                     finalState = false;
                 }
                 return {"state":finalState,"Probability of collision": cloudState["Probability of collision"]};
