@@ -382,12 +382,14 @@ export class virtualPanTilt{
     sim:any;
     panPos:number;
     tiltPos:number;
+    stopState:boolean;
     // constructor
     constructor(s:any,name:string){
         this.sim = s;
         this.deviceName = name;
         this.panPos = 0;
         this.tiltPos = -90;
+        this.stopState = false;
     }
     async goHome():Promise<string>{
         let panHandle = Number(await this.sim.getObject(this.deviceName));
@@ -457,9 +459,10 @@ export class virtualPanTilt{
         this.panPos = await this.panPosition();
         this.tiltPos = await this.tiltPosition();
         let finalPos = [this.panPos*Math.PI/180, (this.tiltPos-90)*Math.PI/180];
-        
-        await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos);   
 
+        this.stopState = true;
+        await this.sim.callScriptFunction("moveTo", scriptHandle,finalPos);   
+        
         await delay(3000);
         return "success";
     }
@@ -476,6 +479,11 @@ export class virtualPanTilt{
             await delay(50);
             this.panPos = this.panPos + 1;
             if (this.panPos > 89){
+                break;
+            }
+            // stop in stop state
+            if(this.stopState == true){
+                this.stopState = false;
                 break;
             }
         }
