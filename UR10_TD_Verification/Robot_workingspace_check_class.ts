@@ -12,7 +12,7 @@ function delay(ms: number) {
 }
 
 
-class robotMotioncheck{
+export class robotMotioncheck{
     // variable
     dataPointfilepath:string;
     workShapefilepath:string;
@@ -79,7 +79,7 @@ class robotMotioncheck{
                 count++;
             }
         }
-        console.log(count,normalsArray.length);
+        //console.log(count,normalsArray.length);
         if (count==normalsArray.length){
             console.log("the point is in the inside of robotic working shape");
 
@@ -126,7 +126,7 @@ class robotMotioncheck{
                 }               
             }
         }
-        console.log(count);
+        //console.log(count);
         // assume at least 6 points in this target area
         if (count> 0){
             let state = true;
@@ -151,15 +151,15 @@ class robotMotioncheck{
         }
         else{
             let shapeState = this.pointInworkshape(pos); // check if the point in the working space
-            console.log(shapeState);
+            //console.log(shapeState);
 
             let cloudState = this.pointIncloud(pos); // check if the point in the point cloud
 
-            console.log(cloudState);
+            //console.log(cloudState);
 
             console.log("Safety check without coppeliasim verification is rough estimate, normally safe area is bigger than real area");
             
-            return {"state":shapeState, "cloudState":cloudState["Probability of collision"]};
+            return {"Point accessible":shapeState, "Probability of collision":cloudState["Probability of collision"]};
         }       
         
     }
@@ -181,4 +181,4 @@ async function main() {
     
 }
 
-main();
+//main();
