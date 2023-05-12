@@ -72,12 +72,14 @@ export class robotMotioncontrol{
         // the simulation is running, stop the simulation and load the scene based on scene address
         if (simState == Number(await sim.simulation_advancing_running)){
             // if the simulation is running, stop the simulation first
+            /*
             await sim.stopSimulation();
             await delay(500);
             await sim.loadScene(this.sceneAddress);
             // after load scene, begin to simulation
             await sim.startSimulation();
             await delay(500);
+            */
 
         }
         else if(simState == Number(await sim.simulation_stopped)){
@@ -131,7 +133,9 @@ export class robotMotioncontrol{
         
         await sim.setScriptStringParam(scriptHandle,Number(await sim.scriptstringparam_text),fileContent); // load code to script
 
-        await sim.associateScriptWithObject(scriptHandle, objectHandle); // success asociate driver script with robot        
+        await sim.associateScriptWithObject(scriptHandle, objectHandle); // success asociate driver script with robot  
+        
+        await sim.saveScene(this.sceneAddress); // after associate, autoamtically save scene
 
         //let robotScripthandle = Number(await sim.getScript(1, objectHandle,this.robotName));
     }
