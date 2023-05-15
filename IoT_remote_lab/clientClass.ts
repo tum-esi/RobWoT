@@ -72,7 +72,6 @@ export class makeWoTinteraction{
                 console.error("write property error:", err);
             });  
     }
-    //24.01.23 consider if it needs subscribeEvent
 }
 
 
