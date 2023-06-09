@@ -277,21 +277,9 @@ end
 
 function coroutineMain()
     local targetPos1={90*math.pi/180,90*math.pi/180,-90*math.pi/180,90*math.pi/180,90*math.pi/180,90*math.pi/180}
-    --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos1)
-    --moveTojoint(targetPos1)
-    --local info=robotInfo()
-    --print(info)
-    
-    
-    local targetPos2={-90*math.pi/180,45*math.pi/180,90*math.pi/180,135*math.pi/180,90*math.pi/180,90*math.pi/180}
-    --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos2)
 
-    local targetPos3={0,0,0,0,0,0}
-    --moveToConfig(jointHandles,maxVel,maxAccel,maxJerk,targetPos3)
-    
-    --moveToPosition({-0.95,-0.05,2.35})
-    --moveTojoint(targetPos2)
-    
+    --moveToPosition({-0.15,0.25,0.35,0,0.707,0,0.707})
+    --moveTojoint(targetPos1)
     
     --local tem=getCartesianposition()
     --print(tem)
