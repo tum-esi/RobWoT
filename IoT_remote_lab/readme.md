@@ -28,7 +28,7 @@ ts-node client_template.ts
 5. It requires 5-7 seconds for the server to initialization. So it needs a little time interval between commands.
 6. You can write your own client script, or you can directly use **client_template.ts** 
 
-## Extra
+## Plus: Some scripts can be used for debug
 
 >light_pantilt_template.ts : It is template to show how to interact with virtual light and pantilt
 
