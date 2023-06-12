@@ -1,27 +1,11 @@
-// load remote api for coppeliasim
-const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 var path = require('path');   // for root path
 
-import {robotMotioncontrol} from "./Robot_motion_control_class";
+import {robotWoTserver} from "../Robot_WoT_server/WoT_server_generation_class";
 
-import {robotMotioncheck} from "./Robot_workingspace_check_class";
-
-import {Servient} from '@node-wot/core';
-import {HttpServer, HttpClientFactory, HttpsClientFactory} from '@node-wot/binding-http'
-import {Helpers} from '@node-wot/core';
-
-import { writeFileSync, readFileSync } from 'fs';
+import {robotMotioncheck} from "./robotMotioncheck_class";
 
 import {makeWoTinteraction} from "../virtual_devices_WoT/clientClass";
 
-
-const UR10 = JSON.parse(readFileSync("./real_UR10_TD.json","utf-8"));
-
-const URL = "";
-
-
-// for reading local file
-import * as fs from 'fs';
 
 // add delay function
 function delay(ms: number) {
@@ -30,78 +14,64 @@ function delay(ms: number) {
 
 
 async function main() {
-    // wot initialization
-    let Consumer = new Servient();
-
-    Consumer.addClientFactory(new HttpClientFactory());
-    Consumer.addClientFactory(new HttpsClientFactory({allowSelfSigned:true}));
-
-    const WoT = await Consumer.start();
-    let ur10Thing = await WoT.consume(UR10);
-    //console.log(ur10Thing);
-
 
     let rootAddress = __dirname;
     let sceneAddress = rootAddress + "/UR10_TD_verification.ttt";
 
     let driverAddress = path.resolve(__dirname, '..') + "/Robot_WoT_server/robot_driver.txt";
+    let UR10TD = rootAddress + "/UR10_folder/UR10_instance.json";
+
     let posOutput = [[-0.68, -489.75, 1426.52],[687, -0.7, 741]];
     let posInput = [[-0.89988, -0.093933, 2.2941],[-0.21258, 0.38856, 1.6054]];
+
+    let compensateVal = [0,-90,0,-90,0,0];
 
     let shapePath = "../UR10_TD_Verification/UR10_folder/UR10_shape.stl";
     let pointPath = "../UR10_TD_Verification/UR10_folder/UR10_data_point.csv";
 
     let rMC = new robotMotioncheck(shapePath,pointPath);  // it can only check the convex shape and don not require coppeliasim
 
-    let UR_robot = new robotMotioncontrol(sceneAddress,"UR10",posOutput,posInput); // it requires coppeliaism
+    let UR_robot = new robotWoTserver(sceneAddress,driverAddress,UR10TD,"UR10",posOutput,posInput,compensateVal); // it requires coppeliaism
 
-    //await UR_robot.loadDrivertoRobot(driverAddress); // this part only needs to be executed once
-    //await UR_robot.sceneInit();
+    //initial the virtual robot WoT server
+    await UR_robot.serverInit();
+
+    await delay(3000);
 
 
-    // set initial pos you want
-    let x = 500;
-    let y = -890
-    let z = 1000;
-    let pos = [x,y,z];
-    let cartPos = [x,y,z,0,0.707,0,0.707];
+    // WoT client (You can also write your own client)-----------------------
+    
+    let UR10_URL = "http://localhost:8081/coppeliasim_virtualrobot_ur10";
+    let ur10 = new makeWoTinteraction(UR10_URL);
 
-    // first check if the point in work space shape
-    let state = await rMC.posSafetycheck(pos);  // only accept the position from the real robot
-    console.log(state);
+    let res1 = await ur10.readProperty("getCartesianposition");
+    console.log(res1);
+
+    let res2 = await ur10.readProperty("getJointposition");
+    console.log(res2);
+
+    let res3 = await rMC.posSafetycheck([500,-890,1000]); // check if the point in workspace, it doesn't require Coppeliasim
+    console.log(res3);
+
+    await ur10.invokeAction("moveTocartesianPosition", {"x":500,"y":-890,"z":-500});
+
+    await delay(8000);
+
+    let res4 = await ur10.readProperty("getCartesianposition");
+    console.log(res4);
+
+    await ur10.invokeAction("moveTojointPosition",{"joint1":0,"joint2":-30,"joint3":40,"joint4":135,"joint5":20,"joint6":50});
+    await delay(8000);
+
+    let res5 = await ur10.readProperty("getJointposition");
+    console.log(res5);
+    //-----------------------------------------------------------------------
 
     
-    // joint verifaction
-    let result0 = await UR_robot.moveTojointpos([0,-30*Math.PI/180,0,0,0,0]);
-    console.log(result0);
-    let jointPos = await UR_robot.getJointpos([0,-90,0,-90,0,0]); //need a compensate for this
-    console.log(jointPos);
-    
-
-    let jointDegree = {"base":jointPos["joint1"], "elbow":jointPos["joint2"], "shoulder":jointPos["joint3"],"wrist1":jointPos["joint4"],"wrist2":jointPos["joint5"],"wrist3":jointPos["joint6"]};
-    console.log(jointDegree);
-
-    //await ur10Thing.invokeAction("setJointDegrees",jointDegree);
-    //await delay(3000);
+    // Add interaction code with real robot --------------------
 
 
-    // ik or cartiesian verification
-    let result = await UR_robot.moveToCartpos(cartPos);
-    console.log(result);
-
-    let curPos = await UR_robot.getCartpos();
-    console.log(curPos);
-    let curjointPos = await UR_robot.getJointpos([0,-90,0,-90,0,0]);
-    console.log(curjointPos);
-
-    let realPos = {"a":0.1, "s":0.1, "x":curPos[0],"y":curPos[1],"z":curPos[2]};
-    console.log(realPos);
-
-    await ur10Thing.invokeAction("goTo",realPos);
-
-    let curRealpos = await (await ur10Thing.readProperty("currentCoordinates")).value();
-    console.log(curRealpos); 
-
+    // ---------------------------------------------------------
 }
 
 
