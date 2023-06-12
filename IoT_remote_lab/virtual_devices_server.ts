@@ -416,6 +416,8 @@ async function main() {
                     await dobot.dobotMove(0.113); //0.112 - 0.115
                 
                     await dobot.moveTopos([0.98, 0.113, 1.12, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
+
+                    await dobot.moveTopos([0.98, 0.113, 1.11, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                     
                     await dobot.setGripperstate(false);
 
