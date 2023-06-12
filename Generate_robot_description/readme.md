@@ -11,6 +11,8 @@
 ts-node robot_description_generation_class.ts
 ```
 
+3. You can also directly use this class in other folder and file
+
 ## robotDescriptiongenrate manual instruction
 
 **let robotName = loadModel(modelPath:string)**  
