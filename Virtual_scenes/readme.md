@@ -10,6 +10,7 @@
 4. Run the following command in the current folder path(use Virtual_lab.ttt as example)
 
 ```
+cd Virtual_scenes
 ts-node Virtual_lab_template.ts
 ```
 

@@ -5,6 +5,8 @@ Here you can check out the related code and result.
 
 >Prerequest: node.js, CoppeliaSim V4.4.0 installed
 
+>Note: Run the ```npm install``` command to install necessary packages in the repository root directory
+
 <img src="./virtual_devices_WoT/Virtual_IoT_lab_new.png" width="600">
 
 ## Introduction

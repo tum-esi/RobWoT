@@ -13,6 +13,7 @@ It is a little complicated job to realize inverse kinematics calculation for dif
 4. You can test the template wot client first, or you can directly write your own wot client part
 
 ```
+cd Robot_WoT_server
 ts-node Robot_wot_server.ts
 ts-node Robot_wot_client.ts
 ```
@@ -21,3 +22,8 @@ ts-node Robot_wot_client.ts
 >Related files: point_in_polyhedron_test.ts
 
 The automatical generated TD file includes robotic workspace shape. It is a convex shape. Here I want to show how to use mathematical methods to check if a point is in the robotic workspace
+
+## Plus: Generate the TD of UR3 robot
+>Related files: ur3_robot_td_generate.ts
+
+UR3 robot Thing Description could generate via this file
