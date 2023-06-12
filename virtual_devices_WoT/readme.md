@@ -32,6 +32,12 @@ ts-node virtual_devices_server_new.ts
 ts-node client_template.ts
 ```
 
+or you can try to interact with WoT server via subscribe event
+
+```
+ts-node client_template_event.ts
+```
+
 4. Don't run two scene and corresponding server at the same time, which will cause port conflict.
 5. It requires 5-7 seconds for the server to initialization. So it needs a little time interval between commands.
-5. You can write your own client script, or you can directly use **client_template.ts** 
+6. You can write your own client script, or you can directly use **client_template.ts** 
