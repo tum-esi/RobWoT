@@ -19,6 +19,7 @@ Furthermore, object such as cube or gripper shaking is a normal phenomenon in Co
 3. Enter the **virtual_devices_WoT** folder and run the following command
 
 ```
+cd IoT_remote_lab
 ts-node virtual_devices_server.ts
 ts-node client_template.ts
 ```
