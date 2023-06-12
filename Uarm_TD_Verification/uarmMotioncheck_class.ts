@@ -247,9 +247,9 @@ export class uarmMotioncheck{
             }
             else{
                 let shapeState = this.pointInworkshape(pos); // check if the point in the working space
-                console.log(shapeState);
+                //console.log(shapeState);
                 let cloudState = this.pointIncloud(pos); // check if the point in the point cloud
-                console.log(cloudState);
+                //console.log(cloudState);
 
                 if ((shapeState==true)&&(cloudState["Point accessible"]==true)){
                     console.log("Then check point safety in coppeliasim");
