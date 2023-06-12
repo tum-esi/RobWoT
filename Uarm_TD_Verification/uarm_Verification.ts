@@ -11,7 +11,8 @@ function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
-const uarm = JSON.parse(readFileSync("./uarm_real.json","utf-8"));
+//const uarm = JSON.parse(readFileSync("./uarm_real.json","utf-8"));  // uarm_real is used for Wifi in lab
+const uarm = JSON.parse(readFileSync("../Real-Devices-TDs/Uarm_remote.json","utf-8")); // uarm_remote is used for Wifi in Uni
 
 main()
 
@@ -19,7 +20,7 @@ async function main() {
     let Consumer = new Servient();
 
     Consumer.addCredentials({
-        "de:tum:ei:esi:dobot": {
+        "de.tum:ei:esi:uArm:192.168.0.112:8080": {
             username: "admin",
             password: "hunter2"
         }
@@ -34,7 +35,7 @@ async function main() {
     let coppeState = true;
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
     console.log(rootAddress);
-    let coppeScene = rootAddress + "/Uarm_TD_Verification/Virtual_IoT_lab_verification.ttt";
+    let coppeScene = rootAddress + "/Uarm_TD_Verification/Uarm_TD_verification.ttt";
 
     let rMC = new uarmMotioncheck(shapePath,pointPath,coppeState,coppeScene);
     //[340,0,110] // behind of color sensor
@@ -56,25 +57,28 @@ async function main() {
         "z":60
     };
 
-    let state = await rMC.posSafetycheck(Ptemcheck);
-    console.log(state);
+    let state:any;
+    //state = await rMC.posSafetycheck(Ptemcheck);
+    //console.log(state);
 
-
+    
     const WoT = await Consumer.start();
     let uarmThing = await WoT.consume(uarm);
 
 
-    await uarmThing.invokeAction("goTo",P_init);
-    await delay(3000);
+    //await uarmThing.invokeAction("goTo",P_init);
+    //await delay(3000);
     
     
     state = await rMC.posSafetycheck(Ptemcheck);
-    console.log("the point access abiltiy is "+state);
+    console.log(state);
 
-    if (state["finalState"]==true){
+    if (state["state"]==true){
         console.log("Safety verification, then real robot will go to position");
-        //await dobotThing.invokeAction("goTo",Ptem);
+        // invoken the action in real Uarm robot
+        //await uarmThing.invokeAction("goTo",Ptem);
     }
+    
     
     
     
