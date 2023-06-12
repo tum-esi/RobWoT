@@ -2,7 +2,7 @@ import {Servient} from '@node-wot/core';
 import {HttpServer, HttpClientFactory, HttpsClientFactory} from '@node-wot/binding-http'
 import {Helpers} from '@node-wot/core';
 
-import {uarmMotioncheck} from './uarm_workingspace_check';
+import {uarmMotioncheck} from './uarmMotioncheck_class';
 var path = require('path');   // for root path
 
 import { writeFileSync, readFileSync } from 'fs';
@@ -60,22 +60,22 @@ async function main() {
     console.log(state);
 
 
-    //const WoT = await Consumer.start();
-    //let dobotThing = await WoT.consume(uarm);
+    const WoT = await Consumer.start();
+    let uarmThing = await WoT.consume(uarm);
 
 
-    //await dobotThing.invokeAction("goTo",P_init);
-    //await delay(3000);
+    await uarmThing.invokeAction("goTo",P_init);
+    await delay(3000);
     
-    /*
-    let state = await rMC.posSafetycheck(Ptemcheck);
+    
+    state = await rMC.posSafetycheck(Ptemcheck);
     console.log("the point access abiltiy is "+state);
 
-    if (state==true){
+    if (state["finalState"]==true){
         console.log("Safety verification, then real robot will go to position");
         //await dobotThing.invokeAction("goTo",Ptem);
     }
-    */
+    
     
     
 
