@@ -28,7 +28,7 @@ Besides, in the simulation framework, it introduces how to correctly build two d
 - [Virtual IoT remote lab](./IoT_remote_lab/)
 
 ## IoT remote lab
-<img src="./Picture folder/IoT remote lab.JPG" width="600">
+<img src="./Picture folder/IoT remote lab.jpg" width="600">
 
 ## Reference
 
