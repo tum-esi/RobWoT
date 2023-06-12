@@ -1,5 +1,5 @@
 import {Servient} from '@node-wot/core';
-import {HttpServer, HttpClientFactory} from '@node-wot/binding-http'
+import {HttpServer, HttpClientFactory, HttpsClientFactory} from '@node-wot/binding-http'
 
 import {Helpers} from '@node-wot/core'; 
 
@@ -21,6 +21,7 @@ export class makeWoTinteraction{
         // init WoT server
         // create Servient and add HTTP binding
         this.client = new Servient();
+        this.client.addClientFactory(new HttpsClientFactory());
         this.client.addClientFactory(new HttpClientFactory());
         this.wotHelper = new Helpers(this.client);
 
