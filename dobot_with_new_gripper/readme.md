@@ -8,5 +8,6 @@
 2. Run the following command, this is a simple demo to control new gripper in the dobot
 
 ```
+cd dobot_with_new_gripper
 ts-node dobot_test.ts
 ```
