@@ -53,7 +53,7 @@ async function main() {
     let res3 = await rMC.posSafetycheck([500,-890,1000]); // check if the point in workspace, it doesn't require Coppeliasim
     console.log(res3);
 
-    await ur10.invokeAction("moveTocartesianPosition", {"x":500,"y":-890,"z":-500});
+    await ur10.invokeAction("moveTocartesianPosition", {"x":500,"y":-890,"z":1000});
 
     await delay(8000);
 
