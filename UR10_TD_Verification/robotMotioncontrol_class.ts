@@ -116,6 +116,8 @@ export class robotMotioncontrol{
 
         // because we need to load the driver script again, first we need to stop the simulation
         await sim.stopSimulation();
+        await delay(200);
+
         await sim.loadScene(this.sceneAddress);
         
         await delay(200);
@@ -125,7 +127,7 @@ export class robotMotioncontrol{
         let objectHandle = Number(await sim.getObject(this.robotName));
 
         let checkScripthandle = await sim.getScript(1, objectHandle, this.robotName);
-
+        //console.log(checkScripthandle);
         if (checkScripthandle[0] != -1){
             //console.log("hello");
             await sim.removeScript(checkScripthandle[0]); // when the script exists, remove it and add new scripts
@@ -169,7 +171,7 @@ export class robotMotioncontrol{
         curCartpos = curCartpos[0];
 
         let para = this.posRefparse(this.posReal,this.posVirtual);
-        curCartpos = [curCartpos["x"]*para[0][0] + para[1][0], curCartpos["y"]*para[0][1] + para[1][1], curCartpos["z"]*para[0][2] + para[1][2]];
+        curCartpos = {"x":curCartpos["x"]*para[0][0] + para[1][0], "y": curCartpos["y"]*para[0][1] + para[1][1], "z":curCartpos["z"]*para[0][2] + para[1][2]};
 
         return curCartpos;
     }
