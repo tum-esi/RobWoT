@@ -11,7 +11,9 @@ Here you can check out the related code and result.
 
 ## Introduction
 
-This thesis tends to propose the common method to automatically generate Thing Description based on Robotic simulation framework. This robotic TD document could indicate the kinematics properties of robotic arm and contain the essential metadata about the robotic workspace and digital twin. It also includes a method to automatically implement inverse kinematics conversion, which is suitable for both real robot and its digital twin. Besides, in the simulation framework, we successfully build two digital twin scenes about IoT platform. These two virtual scenes with full functionality and same response-ability as real scene can be used in research and teaching in the future.
+This thesis tends to propose the common method to automatically generate Thing Description based on Robotic simulation framework. This robotic TD document could indicate the kinematics properties of robotic arm and contain the essential metadata about the robotic workspace and digital twin. It also includes a method to automatically implement inverse kinematics conversion, which is suitable for both real robot and its digital twin. 
+
+Besides, in the simulation framework, it introduces how to correctly build two digital twin scenes about IoT platform. These two virtual scenes with full functionality and same response-ability as real scene can be used in research and teaching in the future. In this repository, you can check the code implementation in my thesis.
 
 ## Content
 
