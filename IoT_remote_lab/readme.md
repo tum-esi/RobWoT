@@ -30,4 +30,5 @@ ts-node client_template.ts
 ## Extra
 
 >light_pantilt_template.ts : It is template to show how to interact with virtual light and pantilt
+
 >debug_code.ts: It shows how to automatically generate the robotic TD and it could also debug Coppeliasim remote API interaction without WoT server
