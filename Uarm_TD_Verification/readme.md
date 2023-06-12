@@ -1,4 +1,4 @@
-## The verification of Uarm Thing Description and robot motion by coppeliasim
+## The verification of Uarm Thing Description and robot motion by Coppeliasim
 
 >Related files: Uarm_TD_Verification.ttt, uarmMotioncheck_class.ts,  uarm_Verification.ts
 

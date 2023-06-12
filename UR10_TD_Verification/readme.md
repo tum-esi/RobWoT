@@ -1,4 +1,4 @@
-## The verification of UR10 robot Thing Description and robot motion by coppeliasim
+## The verification of UR10 robot Thing Description and robot motion by Coppeliasim
 
 >Related files: UR10_TD_Verification.ttt, robotMotioncontrol_class.ts, UR10_TD_verification.ts
 
