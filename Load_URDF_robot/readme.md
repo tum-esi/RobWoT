@@ -9,6 +9,7 @@
 3. In the folder **URDF example**, it has some robot URDF file, which can be correctly imported into coppeliasim
 
 ```
+cd Load_URDF_robot
 ts-node load_urdf_class.ts
 ```
 
