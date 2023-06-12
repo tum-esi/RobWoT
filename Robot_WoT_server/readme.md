@@ -18,6 +18,13 @@ ts-node Robot_wot_server.ts
 ts-node Robot_wot_client.ts
 ```
 
+## Automatic robot WoT server generation
+
+>Related files: WoT_server_generation_class.ts
+
+For the robot with common structures such as UR robot, we can directly use this class to generate the robot WoT server. You can check ```UR10_TD_verification.ts``` to see the demo.
+
+
 ## Plus: check if a point exists in the convex shape
 >Related files: point_in_polyhedron_test.ts
 
