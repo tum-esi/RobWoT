@@ -8,6 +8,7 @@
 2. Run the following command, it includes simple demo to generate Thing description based on robot in the Coppeliasim scene
 
 ```
+cd Generate_robot_description
 ts-node robot_description_generation_class.ts
 ```
 
