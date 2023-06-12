@@ -4,6 +4,8 @@
 
 >Note: Make sure the coppeliasim is state of "stop simulation" before run the following command
 
+>virtual_test_code.ts: This script could be used as debug
+
 1. Run the ```npm install``` command to install necessary packages in the repository root directory
 2. Please open the Coppeliasim and load the scene file(.ttt) manually
 3. According to the scene name, just open corresponding typescript file ```<scene name>_template.ts```
@@ -11,6 +13,8 @@
 
 ```
 cd Virtual_scenes
+ts-node Virtual_light_template.ts
+ts-node virtual_robot_template.ts
 ts-node Virtual_lab_template.ts
 ```
 
