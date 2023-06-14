@@ -21,13 +21,13 @@ ts-node robotMotioncontrol_class.ts
 
 ## Plus: Check if the point in workspace without Coppeliasim
 
->Related files: robotMotioncheck_class.ts
+>Related files: robotPositioncheck_class.ts
 
 Here it provides a method to check if point in robot workspace without Coppeliasim
 
 ```
 cd UR10_TD_Verification
-ts-node robotMotioncheck_class.ts
+ts-node robotPositioncheck_class.ts
 ```
 
 ## Plus: UR10 robot TD generation

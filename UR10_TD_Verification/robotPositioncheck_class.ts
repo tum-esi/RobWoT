@@ -12,7 +12,7 @@ function delay(ms: number) {
 }
 
 
-export class robotMotioncheck{
+export class robotPositioncheck{
     // variable
     dataPointfilepath:string;
     workShapefilepath:string;
@@ -172,7 +172,7 @@ async function main() {
     let shapePath = "../UR10_TD_Verification/UR10_folder/UR10_shape.stl";
     let pointPath = "../UR10_TD_Verification/UR10_folder/UR10_data_point.csv";
 
-    let rMC = new robotMotioncheck(shapePath,pointPath);  // it can only check the convex shape
+    let rMC = new robotPositioncheck(shapePath,pointPath);  // it can only check the convex shape
 
     let point = [500,-890,1000];
 

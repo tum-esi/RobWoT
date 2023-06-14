@@ -2,7 +2,7 @@ var path = require('path');   // for root path
 
 import {robotWoTserver} from "../Robot_WoT_server/WoT_server_generation_class";
 
-import {robotMotioncheck} from "./robotMotioncheck_class";
+import {robotPositioncheck} from "./robotPositioncheck_class";
 
 import {makeWoTinteraction} from "../virtual_devices_WoT/clientClass";
 
@@ -29,7 +29,7 @@ async function main() {
     let shapePath = "../UR10_TD_Verification/UR10_folder/UR10_shape.stl";
     let pointPath = "../UR10_TD_Verification/UR10_folder/UR10_data_point.csv";
 
-    let rMC = new robotMotioncheck(shapePath,pointPath);  // it can only check the convex shape and don not require coppeliasim
+    let rMC = new robotPositioncheck(shapePath,pointPath);  // it can only check the convex shape and don not require coppeliasim
 
     let UR_robot = new robotWoTserver(sceneAddress,driverAddress,UR10TD,"UR10",posOutput,posInput,compensateVal); // it requires coppeliaism
 
