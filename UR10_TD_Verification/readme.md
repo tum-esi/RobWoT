@@ -5,19 +5,21 @@
 >Note: UR10 robot belongs to the robot with common mechanical structure, so we can interact with virtual UR10 robot in automatically generated WoT server. Or we can directly interact with virtual UR10 robot locally.
 
 1. Enter the folder **UR10_TD_Verification**
-2. Run the following command, this is a simple demo to use the instace of class **WoT_server_generation_class.ts**
+2. Run the following command, this is a simple demo to use the instace of class **robotWoTserver** in the file **WoT_server_generation_class.ts**
 
 ```
 cd UR10_TD_Verification
 ts-node UR10_TD_verification.ts
 ```
 
-3. Or run the following command, this is a simple demo to use the instace of class **robotMotioncontrol_class**
+3. Or run the following command, this is a simple demo to use the instace of class **robotMotioncontrol**
 
 ```
 cd UR10_TD_Verification
 ts-node robotMotioncontrol_class.ts
 ```
+
+4. The class **robotMotioncontrol**, **robotPositioncheck**, **robotWoTserver** will be suitable for the robots with common strucures, such as the robot models in the **Load_URDF_robot** folder.
 
 ## Plus: Check if the point in workspace without Coppeliasim
 
