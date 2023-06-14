@@ -24,14 +24,14 @@ async function main() {
     let posOutput = [[-0.68, -489.75, 1426.52],[687, -0.7, 741]];
     let posInput = [[-0.89988, -0.093933, 2.2941],[-0.21258, 0.38856, 1.6054]];
 
-    let compensateVal = [0,-90,0,-90,0,0];
+    let compensateVal = [0,-90,0,-90,0,0]; // the initial joint degree in real robot and virtual robot at same posture exists a fix value deviation, so add a compensate value
 
-    let shapePath = "../UR10_TD_Verification/UR10_folder/UR10_shape.stl";
-    let pointPath = "../UR10_TD_Verification/UR10_folder/UR10_data_point.csv";
+    let shapePath = path.resolve(__dirname, '..') + "/UR10_TD_Verification/UR10_folder/UR10_shape.stl";
+    let pointPath = path.resolve(__dirname, '..') + "/UR10_TD_Verification/UR10_folder/UR10_data_point.csv";
 
     let rMC = new robotPositioncheck(shapePath,pointPath);  // it can only check the convex shape and don not require coppeliasim
 
-    let UR_robot = new robotWoTserver(sceneAddress,driverAddress,UR10TD,"UR10",posOutput,posInput,compensateVal); // it requires coppeliaism
+    let UR_robot = new robotWoTserver(sceneAddress,driverAddress,UR10TD,"UR10",posOutput,posInput,compensateVal,shapePath,pointPath); // it requires coppeliaism
 
     //initial the virtual robot WoT server
     await UR_robot.serverInit();
@@ -55,7 +55,7 @@ async function main() {
 
     await ur10.invokeAction("moveTocartesianPosition", {"x":500,"y":-890,"z":1000});
 
-    await delay(8000);
+    await delay(15000);
 
     let res4 = await ur10.readProperty("getCartesianposition");
     console.log(res4);
@@ -65,6 +65,8 @@ async function main() {
 
     let res5 = await ur10.readProperty("getJointposition");
     console.log(res5);
+    
+    
     //-----------------------------------------------------------------------
 
     

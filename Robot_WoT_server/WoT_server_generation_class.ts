@@ -9,7 +9,9 @@ import * as fs from 'fs';
 // load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
-import {robotMotioncontrol} from "../UR10_TD_Verification/robotMotioncontrol_class" 
+import {robotMotioncontrol} from "../UR10_TD_Verification/robotMotioncontrol_class"
+
+import {robotPositioncheck} from "../UR10_TD_Verification/robotPositioncheck_class"
 
 
 // add delay function
@@ -27,9 +29,11 @@ export class robotWoTserver{
     driverAddress:string;
     robotTDAddress:string;
     compensateVal:any;
+    shapePath:string;
+    pointPath:string;
     sim:any;
 
-    constructor(sceneAddress:string,driverAddress:string,robotTDAddress:string,robotName:string,posReal?:number[][],posVirtual?:number[][],compensate?:any){
+    constructor(sceneAddress:string,driverAddress:string,robotTDAddress:string,robotName:string,posReal?:number[][],posVirtual?:number[][],compensate?:any,shapePath?:any,pointPath?:any){
         this.sceneAddress = sceneAddress;
         this.driverAddress = driverAddress;
         this.robotTDAddress = robotTDAddress;
@@ -46,6 +50,10 @@ export class robotWoTserver{
         }
 
         this.compensateVal = compensate;
+
+        this.shapePath = shapePath;
+        this.pointPath = pointPath;
+
     }
 
     async serverInit(){
@@ -109,6 +117,15 @@ export class robotWoTserver{
                     try {
                         let cartPos:any = await data.value();
                         let cartPosval = [cartPos["x"], cartPos["y"], cartPos["z"],0,0.707,0,0.707];
+
+                        // if it has shape and csv file, generate instance of class robotPositioncheck
+                        if ((this.shapePath !=null)&&(this.pointPath != null)){
+                            let rMC = new robotPositioncheck(this.shapePath,this.pointPath);
+
+                            let state = await rMC.posSafetycheck([cartPos["x"], cartPos["y"], cartPos["z"]]);
+                            console.log(state);
+                        }
+
                         await Robot.moveToCartpos(cartPosval);
 
                         await delay(200);
