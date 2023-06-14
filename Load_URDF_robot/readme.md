@@ -15,7 +15,7 @@ ts-node load_urdf_class.ts
 
 4. After successfully imported URDF to coppeliasim, the robot model will be automatically saved in the folder **Coppeliasim scene/default robot models**
 
-~~More available robotic arm models and URDF will be added in the future......     ~~
+~~More available robotic arm models and URDF will be added in the future~~
 
 **You can also add your own robotic arm models and URDF file......**
 
