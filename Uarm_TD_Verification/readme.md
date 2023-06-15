@@ -13,5 +13,5 @@ Based on coppeliasim scene, we can verify the precision of Uarm TD files. Since 
 cd Uarm_TD_Verification
 ts-node uarm_Verification.ts
 ```
-
+3. If you want to generate the information about Uarm robot, you can open the scene **Uarm_TD_Verification.ttt** and uncomment the function **generateWorkingspace()** in the Lua script of uarm. You can also change the file save path in variable **fileSavepath**. After modification, you need to start simulation in Coppeliasim, this Uarm robot information will be saved in the folder
 
