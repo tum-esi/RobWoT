@@ -39,9 +39,9 @@ async function main() {
 
     let rMC = new uarmMotioncheck(shapePath,pointPath,coppeState,coppeScene);
     //[340,0,110] // behind of color sensor
-    let x = 180;
-    let y = 0;
-    let z = 60;
+    let x = 192;
+    let y = 192;
+    let z = 80;
 
     let Ptem = {
         "x":x,
