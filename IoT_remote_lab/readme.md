@@ -15,7 +15,7 @@ Furthermore, object such as cube or gripper shaking is a normal phenomenon in Co
 >Note: the client_template.ts file is just an example WoT client, you can write your own WoT client
 
 1. Run the ```npm install``` command to install necessary packages in the repository root directory
-2. Please open the Coppeliasim and load the scene file **Virtual_IoT_lab.ttt** or **Virtual_IoT_lab_new.ttt** manually
+2. Please open the Coppeliasim and load the scene file **IoT_remote_lab.ttt** manually
 3. Enter the **virtual_devices_WoT** folder and run the following command
 
 ```
@@ -24,7 +24,7 @@ ts-node virtual_devices_server.ts
 ts-node client_template.ts
 ```
 
-4. Don't run two scene and corresponding server at the same time, which will cause port conflict.
+4. Don't run multiple scene and corresponding server at the same time, which will cause port conflict.
 5. It requires 5-7 seconds for the server to initialization. So it needs a little time interval between commands.
 6. You can write your own client script, or you can directly use **client_template.ts** 
 

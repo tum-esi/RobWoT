@@ -24,11 +24,11 @@ We can use this function load coppeliasim model to coppeliasim scene by code. Or
 
 **robotInfogeneration(robotName:string, rootFolderPath:string)**  
 
-This function will get all necessary information from the virtual. These infomation are saved in rootFolderPath and we can use these infomation to generate robotic Things description  
+This function will get all necessary information from the virtual robot. These infomation are saved in rootFolderPath and will be used to generate robotic Thing description  
 
 **generateTD(robotName:string, rootFolderPath:string)**  
 
-Based on information of robot, it could automatically generate the robotic Things description. For some robot with special structure, we manually write script to generate infomation instead of the second function and directly use this function  
+Based on information of robot, it could automatically generate the robotic Thing description. For some robot with special structure, we need to manually write script to generate infomation instead of the second function. Based on these information we can directly use this function to generate the Thing Description
 
 
 
