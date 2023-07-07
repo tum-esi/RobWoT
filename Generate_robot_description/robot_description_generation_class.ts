@@ -343,7 +343,7 @@ export class robotDescriptiongenrate{
         }
     }
     // load robot model to scene
-    async loadModel(modelPath:string):Promise<any> {
+    async loadModel(modelPath:string, modelPosition?:number[]):Promise<any> {
         let sim:any;
         // load scene to coppeliasim and get sim
         if (this.sim == null){
@@ -358,9 +358,17 @@ export class robotDescriptiongenrate{
         let robotHandle = await sim.loadModel(this.modelAddress);
         robotHandle = robotHandle[0];
 
-        let curRobotpos = (await sim.getObjectPosition(robotHandle, sim.handle_world))[0];
-        let compensateHeight = 0.03; // consider potential collision, increase the height
-        await sim.setObjectPosition(robotHandle, sim.handle_world, [curRobotpos[0],curRobotpos[1], curRobotpos[2]+compensateHeight]);
+        if (modelPosition == null){
+            let curRobotpos = (await sim.getObjectPosition(robotHandle, sim.handle_world))[0];
+            let compensateHeight = 0.03; // consider potential collision, increase the height
+            await sim.setObjectPosition(robotHandle, sim.handle_world, [curRobotpos[0],curRobotpos[1], curRobotpos[2]+compensateHeight]);
+    
+        }
+        else{
+            // set model position based on user set
+            await sim.setObjectPosition(robotHandle, sim.handle_world, [modelPosition[0],modelPosition[1],modelPosition[2]]);
+
+        }
 
         let robotName = (await sim.getObjectAlias(robotHandle))[0]; //get robot name based on robot handle
         //console.log(await sim.getObjectAlias(robotHandle));
