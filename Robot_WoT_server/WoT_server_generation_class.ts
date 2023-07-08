@@ -32,8 +32,9 @@ export class robotWoTserver{
     shapePath:string;
     pointPath:string;
     sim:any;
+    eulerAngle:any;
 
-    constructor(sceneAddress:string,driverAddress:string,robotTDAddress:string,robotName:string,posReal?:any,posVirtual?:any,compensate?:any,shapePath?:any,pointPath?:any){
+    constructor(sceneAddress:string,driverAddress:string,robotTDAddress:string,robotName:string,posReal?:any,posVirtual?:any,compensate?:any,shapePath?:any,pointPath?:any,eulerAngle?:any){
         this.sceneAddress = sceneAddress;
         this.driverAddress = driverAddress;
         this.robotTDAddress = robotTDAddress;
@@ -53,6 +54,7 @@ export class robotWoTserver{
 
         this.shapePath = shapePath;
         this.pointPath = pointPath;
+        this.eulerAngle = eulerAngle;
 
     }
 
@@ -97,7 +99,7 @@ export class robotWoTserver{
 
                         for (let i = 1; i <= jointLen; i++) {
                             let curJointname = "joint" + i.toString();
-                            let curVal = 
+                            //let curVal = 
                             jointPosval.push(jointPos[curJointname]*Math.PI/180);
                         }
                         //console.log(jointPosval);
@@ -115,8 +117,18 @@ export class robotWoTserver{
                 // set moveTocartesianPosition action handlers
                 thing.setActionHandler("moveTocartesianPosition", async(data) =>{
                     try {
-                        let cartPos:any = await data.value();
-                        let cartPosval = [cartPos["x"], cartPos["y"], cartPos["z"],0,0.707,0,0.707];
+                        let cartPos:any;
+                        let cartPosval;
+                        let eulerAngle = this.eulerAngle;
+                        if (this.eulerAngle != null){
+                            cartPos = await data.value();
+                            cartPosval = [cartPos["x"], cartPos["y"], cartPos["z"],eulerAngle[0],eulerAngle[1],eulerAngle[2],eulerAngle[3]];
+
+                        }
+                        else{
+                            cartPos = await data.value();
+                            cartPosval = [cartPos["x"], cartPos["y"], cartPos["z"],0,0.707,0,0.707];
+                        }
 
                         // if it has shape and csv file, generate instance of class robotPositioncheck
                         if ((this.shapePath !=null)&&(this.pointPath != null)){
