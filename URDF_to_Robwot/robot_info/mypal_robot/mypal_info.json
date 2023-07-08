@@ -1,0 +1,18 @@
+{
+  "jointLimitHighs": [
+    2.8239998817444, 1.4900000672787, 1.1060000061989, 1.570796251297,
+    3.1400001049042
+  ],
+  "jointLimitLows": [
+    -2.8239998817444, -0.014000000432134, -0.21299999952316, 0, -3.1400001049042
+  ],
+  "robotName": "mypal",
+  "jointTypes": [
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint",
+    "Revolute_joint"
+  ],
+  "jointAmount": 5
+}

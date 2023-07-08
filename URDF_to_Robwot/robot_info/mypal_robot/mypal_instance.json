@@ -1,0 +1,194 @@
+{
+  "title": "coppeliasim_virtualrobot_mypal",
+  "id": "urn:dev:ops:32473-virtual-mypal",
+  "description": "The TD document for digital twins of mypal",
+  "links": [
+    {
+      "href": "http://localhost:4000/mypal_robot/mypal_robot_shape.stl",
+      "type": "model/stl",
+      "rel": "workspace"
+    },
+    {
+      "href": "http://localhost:4000/mypal_robot/mypal_robot_data_point.csv",
+      "type": "text/csv",
+      "rel": "dataset-points"
+    },
+    {
+      "href": "http://localhost:4000/mypal_robot/mypal_robot.ttm",
+      "type": "application/octet-stream",
+      "rel": "coppeliasim scene"
+    }
+  ],
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],
+  "@type": "Thing",
+  "security": "nosec_sc",
+  "securityDefinitions": { "nosec_sc": { "scheme": "nosec" } },
+  "properties": {
+    "getJointposition": {
+      "title": "get position of each joint",
+      "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+      "type": "object",
+      "properties": {
+        "joint1": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -162.8032745693977,
+          "maximum": 162.8032745693977
+        },
+        "joint2": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -1.8021409379426068,
+          "maximum": 86.37071532927821
+        },
+        "joint3": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -13.204001008965616,
+          "maximum": 64.36913249663985
+        },
+        "joint4": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -1,
+          "maximum": 90.99999567428917
+        },
+        "joint5": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -180.9087536816464,
+          "maximum": 180.9087536816464
+        }
+      },
+      "readOnly": true,
+      "observable": true,
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_mypal/properties/getJointposition",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    },
+    "getCartesianposition": {
+      "title": "get cartesian position of robotic end-effector",
+      "description": "minimum,maximum is decided by specific robot",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -0.23735763132572,
+          "maximum": 0.26523879170418,
+          "unit": "meter"
+        },
+        "y": {
+          "type": "number",
+          "minimum": -0.26019689440727,
+          "maximum": 0.23507556319237,
+          "unit": "meter"
+        },
+        "z": {
+          "type": "number",
+          "minimum": 0.015626264736056,
+          "maximum": 0.38849395513535,
+          "unit": "meter"
+        }
+      },
+      "observable": true,
+      "readOnly": true,
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_mypal/properties/getCartesianposition",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "moveTojointPosition": {
+      "title": "let robot move according to joint position",
+      "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "joint1": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -162.8032745693977,
+            "maximum": 162.8032745693977
+          },
+          "joint2": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -1.8021409379426068,
+            "maximum": 86.37071532927821
+          },
+          "joint3": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -13.204001008965616,
+            "maximum": 64.36913249663985
+          },
+          "joint4": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -1,
+            "maximum": 90.99999567428917
+          },
+          "joint5": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -180.9087536816464,
+            "maximum": 180.9087536816464
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_mypal/actions/moveTojointPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    },
+    "moveTocartesianPosition": {
+      "title": "make robot move according to cartesian position",
+      "description": "minimum,maximum are decided by sprecific virtual robot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": -0.23735763132572,
+            "maximum": 0.26523879170418,
+            "unit": "meter"
+          },
+          "y": {
+            "type": "number",
+            "minimum": -0.26019689440727,
+            "maximum": 0.23507556319237,
+            "unit": "meter"
+          },
+          "z": {
+            "type": "number",
+            "minimum": 0.015626264736056,
+            "maximum": 0.38849395513535,
+            "unit": "meter"
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_mypal/actions/moveTocartesianPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    }
+  }
+}
