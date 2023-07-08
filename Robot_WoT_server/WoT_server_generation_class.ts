@@ -33,7 +33,7 @@ export class robotWoTserver{
     pointPath:string;
     sim:any;
 
-    constructor(sceneAddress:string,driverAddress:string,robotTDAddress:string,robotName:string,posReal?:number[][],posVirtual?:number[][],compensate?:any,shapePath?:any,pointPath?:any){
+    constructor(sceneAddress:string,driverAddress:string,robotTDAddress:string,robotName:string,posReal?:any,posVirtual?:any,compensate?:any,shapePath?:any,pointPath?:any){
         this.sceneAddress = sceneAddress;
         this.driverAddress = driverAddress;
         this.robotTDAddress = robotTDAddress;
