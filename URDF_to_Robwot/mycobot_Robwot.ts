@@ -73,7 +73,7 @@ async function robotWoTGen() {
 
     let robotName = "mycobot280";
 
-    let mycobot_robot = new robotWoTserver(dtSceneAddress,driverAddress,robotTD,robotName,null,null,null,shapePath,pointPath); // it requires coppeliaism
+    let mycobot_robot = new robotWoTserver(dtSceneAddress,driverAddress,robotTD,robotName,null,null,null,shapePath,pointPath,null); // it requires coppeliaism
 
     //initial the virtual robot WoT server
     await mycobot_robot.serverInit();
