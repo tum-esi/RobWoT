@@ -150,8 +150,8 @@ export class robotDescriptiongenrate{
             let curJointtype = robotInfo["jointTypes"][index];
             if (curJointtype == "Revolute_joint"){
                 let curJointname = "joint" + String(index+1);
-                let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
-                let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
+                let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI - 1;
+                let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI + 1;
                 robot_template["actions"]["moveTojointPosition"]["input"]["properties"][curJointname] = {
                     "type" : "number",
                     "unit" : "deg",
@@ -189,8 +189,8 @@ export class robotDescriptiongenrate{
             let curJointtype = robotInfo["jointTypes"][index];
             if (curJointtype == "Revolute_joint"){
                 let curJointname = "joint" + String(index+1);
-                let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI;
-                let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI;
+                let min = robotInfo["jointLimitLows"][index] * 180 / Math.PI - 1;
+                let max = robotInfo["jointLimitHighs"][index] * 180 / Math.PI + 1;
                 robot_template["properties"]["getJointposition"]["properties"][curJointname] = {
                     "type" : "number",
                     "unit" : "deg",
@@ -315,6 +315,10 @@ export class robotDescriptiongenrate{
         await delay(300);
         console.log("workspace successfully generate, stop simulation");
         await sim.stopSimulation();
+        await delay(300);
+        
+        await sim.saveScene(this.sceneAddress);
+        await delay(3000);
 
         return robotInfo[0];
     }
@@ -365,8 +369,9 @@ export class robotDescriptiongenrate{
     
         }
         else{
+            let compensateHeight = 0.03; // consider potential collision, increase the height
             // set model position based on user set
-            await sim.setObjectPosition(robotHandle, sim.handle_world, [modelPosition[0],modelPosition[1],modelPosition[2]]);
+            await sim.setObjectPosition(robotHandle, sim.handle_world, [modelPosition[0],modelPosition[1],modelPosition[2]+compensateHeight]);
 
         }
 
