@@ -48,7 +48,7 @@ async function robotTDGen() {
     let robotInfo = await rdg.robotInfogeneration(robotName, rootFolderPath);
     console.log(robotInfo);
 
-    let optionsMypal = {
+    let optionsmycobot = {
         "unit of distance": "meter",
         "stlFilepath": "http://localhost:4000/mycobot_robot/mycobot_robot_shape.stl",
         "csvFilepath": "http://localhost:4000/mycobot_robot/mycobot_robot_data_point.csv",
@@ -58,7 +58,7 @@ async function robotTDGen() {
     }
 
     // generate TD file base on robot name and necessary files in folder
-    await rdg.generateTD(robotName, rootFolderPath,optionsMypal);  
+    await rdg.generateTD(robotName, rootFolderPath,optionsmycobot);  
 }
 
 async function robotWoTGen() {
