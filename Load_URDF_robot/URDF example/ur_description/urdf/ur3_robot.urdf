@@ -24,7 +24,7 @@
     </link>
     <link name="link_1">
         <inertial>
-            <origin xyz="-0.003125 0.000075 -0.001374" rpy="3.042686 3.141884 1.57" />
+            <origin xyz="0 0 0" rpy="3.042686 3.141884 1.57" />
             <inertia iyy="0.013356528244913" izz="0.0099014118313789" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.014095027931035" />
             <mass value="1.0" />
         </inertial>
@@ -35,7 +35,7 @@
             </geometry>
         </collision>
         <visual>
-            <origin xyz="0.000000 -0.000000 0.000354" rpy="-3.141593 3.141593 1.57" />
+            <origin xyz="0.000000 -0.000000 0" rpy="-3.141593 3.141593 1.57" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur3/ur3_link1_visual.dae" />
             </geometry>
@@ -49,7 +49,7 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="50.0" velocity="3.1415927410126" />
         <parent link="base" />
         <child link="link_1" />
-        <origin xyz="-0.003618 -0.000070 0.104020" rpy="-3.14 3.141593 -3.141593" />
+        <origin xyz="0 0.004 0.104020" rpy="-3.14 3.141593 -3.141593" />
     </joint>
     <link name="link_2">
         <inertial>
