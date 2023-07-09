@@ -17,29 +17,29 @@
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_base_visual.dae" />
             </geometry>
-            <material name="link1_visible__37___material">
+            <material name="base_texture">
                 <color rgba="0.870588 0.870588 0.870588 1.0" />
             </material>
         </visual>
     </link>
     <link name="link1">
         <inertial>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 3.141593" />
+            <origin xyz="0.000000 0.000000 0.000000" rpy="0 3.141593 3.141593" />
             <inertia ixx="0.15600000321865" ixy="0.0" ixz="0.0" iyy="0.15600000321865" izz="0.15600000321865" iyz="0.0" />
             <mass value="3.9000000953674" />
         </inertial>
         <collision>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000000 0.000000 0.000000" rpy="0 3.141593 -3.141593" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link1.dae" />
             </geometry>
         </collision>
         <visual>
-            <origin xyz="-0.000095 0.000209 0.000015" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="-0.000095 0.000209 0.000015" rpy="0 3.141593 -3.141593" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link1_visual.dae" />
             </geometry>
-            <material name="link2_visible__40___material">
+            <material name="link1_texture">
                 <color rgba="0.508235 0.761224 0.903529 1.0" />
             </material>
         </visual>
@@ -49,26 +49,26 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="600.0" velocity="1.0471975803375" />
         <parent link="base" />
         <child link="link1" />
-        <origin xyz="0.000097 0.013831 0.107586" rpy="-3.141593 3.141593 -3.141593" />
+        <origin xyz="0.000097 0.013831 0.107586" rpy="-3.14 3.14 0" />
     </joint>
     <link name="link2">
         <inertial>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000302 0.300694 0.169547" rpy="1.57 0 -3.14" />
             <inertia ixx="0.533999979496" ixy="0.0" ixz="0.0" iyy="0.533999979496" izz="0.35599997639656" iyz="0.0" />
             <mass value="8.8999996185303" />
         </inertial>
         <collision>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000302 0.300694 0.169547" rpy="1.57 0 -3.14" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link2.dae" />
             </geometry>
         </collision>
         <visual>
-            <origin xyz="0.000207 -0.000138 -0.000448" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000302 0.300694 0.169547" rpy="1.57 0 -3.14" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link2_visual.dae" />
             </geometry>
-            <material name="link3_visible__43___material">
+            <material name="link2_texture">
                 <color rgba="0.282353 0.282353 0.282353 1.0" />
             </material>
         </visual>
@@ -78,26 +78,26 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="600.0" velocity="1.0471975803375" />
         <parent link="link1" />
         <child link="link2" />
-        <origin xyz="-0.000302 0.169547 0.300694" rpy="-3.141593 3.141593 -3.141593" />
+        <origin xyz="0.000207 -0.000138 -0.000448" rpy="1.571242 0 0" />
     </joint>
     <link name="link3">
         <inertial>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="3.141593 3.141593 -3.141593" />
+            <origin xyz="-0.000117 0.28091 -0.086" rpy="-1.57 3.14 0" />
             <inertia ixx="0.33550000190735" ixy="0.0" ixz="0.0" iyy="0.33550000190735" izz="0.24399998784065" iyz="0.0" />
             <mass value="6.0999999046326" />
         </inertial>
         <collision>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="-0.000117 0.28091 -0.086" rpy="-1.57 3.14 0" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link3.dae" />
             </geometry>
         </collision>
         <visual>
-            <origin xyz="-0.000118 0.003220 0.000159" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="-0.000117 0.28091 -0.086" rpy="-1.57 3.14 0" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link3_visual.dae" />
             </geometry>
-            <material name="link4_visible__46___material">
+            <material name="link3_texture">
                 <color rgba="0.282353 0.282353 0.282353 1.0" />
             </material>
         </visual>
@@ -107,26 +107,26 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="600.0" velocity="1.0471975803375" />
         <parent link="link2" />
         <child link="link3" />
-        <origin xyz="0.000323 -0.130180 0.591802" rpy="-3.141593 3.141593 -3.141593" />
+        <origin xyz="0.000323 0.610802 0.130180" rpy="0 0 0" />
     </joint>
     <link name="link4">
         <inertial>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 3.141593" />
+            <origin xyz="-0.000023 0.0 0.095" rpy="-1.57 -3.14 0" />
             <inertia ixx="0.15600000321865" ixy="0.0" ixz="0.0" iyy="0.15600000321865" izz="0.15600000321865" iyz="0.0" />
             <mass value="3.9000000953674" />
         </inertial>
         <collision>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="-0.000023 0.0 0.095" rpy="-1.57 -3.14 0" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link4.dae" />
             </geometry>
         </collision>
         <visual>
-            <origin xyz="-0.000023 -0.000006 0.000043" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="-0.000023 0.0 0.095" rpy="-1.57 -3.14 0" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link4_visual.dae" />
             </geometry>
-            <material name="link5_visible__49___material">
+            <material name="link4_texture">
                 <color rgba="0.508235 0.761224 0.903529 1.0" />
             </material>
         </visual>
@@ -136,26 +136,26 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="600.0" velocity="1.0471975803375" />
         <parent link="link3" />
         <child link="link4" />
-        <origin xyz="-0.000271 0.115196 0.295091" rpy="-3.141593 3.141593 -3.141593" />
+        <origin xyz="0.0000255 0.5759 -0.069749" rpy="0 0 0" />
     </joint>
     <link name="link5">
         <inertial>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000000 0.000000 0.1" rpy="0 0 3.14" />
             <inertia ixx="0.15600000321865" ixy="0.0" ixz="0.0" iyy="0.15600000321865" izz="0.15600000321865" iyz="0.0" />
             <mass value="3.9000000953674" />
         </inertial>
         <collision>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000000 0.000000 0.1" rpy="0 0 3.14" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link5.dae" />
             </geometry>
         </collision>
         <visual>
-            <origin xyz="0.000022 0.000043 -0.000006" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000022 0 0.1" rpy="0 0 3.14" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link5_visual.dae" />
             </geometry>
-            <material name="link6_visible__52___material">
+            <material name="link5_texture">
                 <color rgba="0.508235 0.761224 0.903529 1.0" />
             </material>
         </visual>
@@ -165,26 +165,26 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="600.0" velocity="1.0471975803375" />
         <parent link="link4" />
         <child link="link5" />
-        <origin xyz="0.000255 0.006251 0.109749" rpy="-3.141593 3.141593 -3.141593" />
+        <origin xyz="0.000 0.00 0.1" rpy="-1.57 0 0" />
     </joint>
     <link name="link6">
         <inertial>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 0 -3.141593" />
             <inertia ixx="0.010999999940395" ixy="0.0" ixz="0.0" iyy="0.010999999940395" izz="0.010999999940395" iyz="0.0" />
             <mass value="1.1000000238419" />
         </inertial>
         <collision>
-            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 0 -3.141593" />
             <geometry>
                 <cylinder length="0.023004442453384" radius="0.044264044612646" />
             </geometry>
         </collision>
         <visual>
-            <origin xyz="-0.000001 -0.000000 -0.003751" rpy="1.570844 3.141595 -1.464497" />
+            <origin xyz="-0.000001 -0.000000 -0.003751" rpy="1.570844 0 -1.464497" />
             <geometry>
                 <mesh filename="package://ur_description/meshes/ur10/ur10_link6_visual.dae" />
             </geometry>
-            <material name="link7_visible__55___material">
+            <material name="link6_texture">
                 <color rgba="0.870588 0.870588 0.870588 1.0" />
             </material>
         </visual>
@@ -194,6 +194,6 @@
         <limit upper="6.2831854820251" lower="-6.2831854820251" effort="600.0" velocity="1.0471975803375" />
         <parent link="link5" />
         <child link="link6" />
-        <origin xyz="-0.000170 0.071019 0.004261" rpy="1.571242 1.677095 0.000447" />
+        <origin xyz="0 -0.07 0.105" rpy="1.571242 0 0.000" />
     </joint>
 </robot>
