@@ -1,0 +1,206 @@
+{
+  "title": "coppeliasim_virtualrobot_UR3",
+  "id": "urn:dev:ops:32473-virtual-UR3",
+  "description": "The TD document for digital twins of UR3",
+  "links": [
+    {
+      "href": "http://localhost:4000/UR3_robot/UR3_robot_shape.stl",
+      "type": "model/stl",
+      "rel": "workspace"
+    },
+    {
+      "href": "http://localhost:4000/UR3_robot/UR3_robot_data_point.csv",
+      "type": "text/csv",
+      "rel": "dataset-points"
+    },
+    {
+      "href": "http://localhost:4000/UR3_robot/UR3_robot.ttm",
+      "type": "application/octet-stream",
+      "rel": "coppeliasim scene"
+    }
+  ],
+  "@context": ["https://www.w3.org/2019/wot/td/v1", { "@language": "en" }],
+  "@type": "Thing",
+  "security": "nosec_sc",
+  "securityDefinitions": { "nosec_sc": { "scheme": "nosec" } },
+  "properties": {
+    "getJointposition": {
+      "title": "get position of each joint",
+      "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+      "type": "object",
+      "properties": {
+        "joint1": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -361.00001001791,
+          "maximum": 361.00001001791
+        },
+        "joint2": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -361.00001001791,
+          "maximum": 361.00001001791
+        },
+        "joint3": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -361.00001001791,
+          "maximum": 361.00001001791
+        },
+        "joint4": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -361.00001001791,
+          "maximum": 361.00001001791
+        },
+        "joint5": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -361.00001001791,
+          "maximum": 361.00001001791
+        },
+        "joint6": {
+          "type": "number",
+          "unit": "deg",
+          "minimum": -181.0000000000004,
+          "maximum": 361.0000000000008
+        }
+      },
+      "readOnly": true,
+      "observable": true,
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_UR3/properties/getJointposition",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    },
+    "getCartesianposition": {
+      "title": "get cartesian position of robotic end-effector",
+      "description": "minimum,maximum is decided by specific robot",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": -0.47563961148262,
+          "maximum": 0.56517153978348,
+          "unit": "meter"
+        },
+        "y": {
+          "type": "number",
+          "minimum": -0.55618131160736,
+          "maximum": 0.56878709793091,
+          "unit": "meter"
+        },
+        "z": {
+          "type": "number",
+          "minimum": 0.023636803030968,
+          "maximum": 0.72899305820465,
+          "unit": "meter"
+        }
+      },
+      "observable": true,
+      "readOnly": true,
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_UR3/properties/getCartesianposition",
+          "contentType": "application/json",
+          "op": ["readproperty"],
+          "htv:methodName": "GET"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "moveTojointPosition": {
+      "title": "let robot move according to joint position",
+      "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "joint1": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -361.00001001791,
+            "maximum": 361.00001001791
+          },
+          "joint2": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -361.00001001791,
+            "maximum": 361.00001001791
+          },
+          "joint3": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -361.00001001791,
+            "maximum": 361.00001001791
+          },
+          "joint4": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -361.00001001791,
+            "maximum": 361.00001001791
+          },
+          "joint5": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -361.00001001791,
+            "maximum": 361.00001001791
+          },
+          "joint6": {
+            "type": "number",
+            "unit": "deg",
+            "minimum": -181.0000000000004,
+            "maximum": 361.0000000000008
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_UR3/actions/moveTojointPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    },
+    "moveTocartesianPosition": {
+      "title": "make robot move according to cartesian position",
+      "description": "minimum,maximum are decided by sprecific virtual robot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "number",
+            "minimum": -0.47563961148262,
+            "maximum": 0.56517153978348,
+            "unit": "meter"
+          },
+          "y": {
+            "type": "number",
+            "minimum": -0.55618131160736,
+            "maximum": 0.56878709793091,
+            "unit": "meter"
+          },
+          "z": {
+            "type": "number",
+            "minimum": 0.023636803030968,
+            "maximum": 0.72899305820465,
+            "unit": "meter"
+          }
+        }
+      },
+      "forms": [
+        {
+          "href": "http://localhost:8081/coppeliasim_virtualrobot_UR3/actions/moveTocartesianPosition",
+          "contentType": "application/json",
+          "op": ["invokeaction"],
+          "htv:methodName": "PUT"
+        }
+      ]
+    }
+  }
+}
