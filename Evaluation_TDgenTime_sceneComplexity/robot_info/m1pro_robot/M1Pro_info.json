@@ -1,0 +1,1 @@
+{"jointLimitLows":[0,-3.1415926535898,-3.1415926535898,-3.1415926535898],"jointTypes":["Prismatic_joint","Revolute_joint","Revolute_joint","Revolute_joint"],"jointAmount":4,"jointLimitHighs":[0.25,6.2831853071796,6.2831853071796,6.2831853071796],"robotName":"M1Pro"}
