@@ -221,7 +221,7 @@
     name="Link4">
     <inertial>
       <origin
-        xyz="3.505E-13 -1.5772E-11 -0.038921"
+        xyz="3.505E-13 -1.5772E-11 0.06"
         rpy="0 0 0" />
       <mass
         value="0.010941" />
@@ -235,7 +235,7 @@
     </inertial>
     <visual>
       <origin
-        xyz="0 0 0.08081"
+        xyz="0 0 0.06"
         rpy="0 0 0" />
       <geometry>
         <mesh
@@ -249,7 +249,7 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.06"
         rpy="0 0 0" />
       <geometry>
         <mesh
