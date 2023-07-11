@@ -49,7 +49,7 @@
       <geometry>    
        <mesh filename="package://mecharm_description/meshes/link2.dae"/>
       </geometry>
-      <origin xyz = "-0.005  -0.21 0.002  " rpy = " 1.5708 -3.1415926 0"/>
+      <origin xyz = "-0.005 0.21 0.002  " rpy = " 1.5708 -3.1415926 0"/>
       
     </collision>     
   </link>
