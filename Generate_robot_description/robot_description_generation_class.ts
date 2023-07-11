@@ -318,7 +318,7 @@ export class robotDescriptiongenrate{
         await delay(300);
         
         await sim.saveScene(this.sceneAddress);
-        await delay(3000);
+        await delay(300);
 
         return robotInfo[0];
     }
