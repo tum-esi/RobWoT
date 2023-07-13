@@ -1,0 +1,82 @@
+function sysCall_init()
+    corout=coroutine.create(coroutineMain)
+end
+
+function sysCall_actuation()
+    if coroutine.status(corout)~='dead' then
+        local ok,errorMsg=coroutine.resume(corout)
+        if errorMsg then
+            error(debug.traceback(corout,errorMsg),2)
+        end
+    end
+end
+
+function sysCall_cleanup()
+    -- do some clean-up here
+end
+
+function toBits(num)
+    -- returns a table of bits, least significant first.
+    local t={} -- will contain the bits
+    while num>0 do
+        rest=math.fmod(num,2)
+        t[#t+1]=rest
+        num=(num-rest)/2
+    end
+    return t
+end
+
+
+function coroutineMain()
+    local handleCount = #(sim.getObjectsInTree(sim.handle_scene, sim.handle_all,0))
+    local handleList = sim.getObjectsInTree(sim.handle_scene, sim.handle_all,0)
+    
+    local objectCount = #(sim.getObjectsInTree(sim.handle_scene, sim.handle_all,2))
+    local objectList = (sim.getObjectsInTree(sim.handle_scene, sim.handle_all,2))
+    --print(objectList)
+    local collisionHandleCount = 0
+    local collisionObjectCount = 0
+    
+    
+    for i=1, handleCount, 1 do
+        local curState = sim.getObjectSpecialProperty(handleList[i])
+        --local curState2 = sim.getObjectProperty(handleList[i])
+        --print(i-1)
+        --print(curState)
+        if curState ~= 0 then
+            local binaryState = toBits(curState)
+            --print(binaryState)
+            -- the bit0 indicates the collisions of handle
+            if binaryState[#binaryState] == 1 then
+                collisionHandleCount = collisionHandleCount + 1
+            end
+        end
+    end
+    
+    for i=1, objectCount, 1 do
+        local curState = sim.getObjectSpecialProperty(objectList[i])
+        if curState ~= 0 then
+            local binaryState = toBits(curState)
+            --print(binaryState)
+            -- the bit0 indicates the collisions of handle
+            if binaryState[#binaryState] == 1 then
+                --print(objectList[i])
+                collisionObjectCount = collisionObjectCount + 1
+            end
+        end
+    
+    end
+    print("The amount of object is")
+    print(objectCount)
+    print("------------------------")
+    print("The amount of collision object is")
+    print(collisionObjectCount)
+    print("------------------------")
+    print("The amount of all handle is: " )
+    print(handleCount)
+    print("------------------------")
+    print("The number of collision handle is: ")
+    print(collisionHandleCount)
+
+
+end
