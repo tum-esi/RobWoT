@@ -1,7 +1,4 @@
-# The Master's thesis
-Author: Zucheng Han
-
-Here you can check out the related code and result.
+# RobWoT
 
 >Prerequest: node.js, CoppeliaSim V4.4.0 installed
 
@@ -15,7 +12,7 @@ This thesis tends to propose the common method to automatically generate Thing D
 
 Besides, in the simulation framework, it introduces how to correctly build two digital twin scenes about IoT platform. These two virtual scenes with full functionality and same response-ability as real scene can be used in research and teaching in the future. In this repository, you can check the code implementation in my thesis.
 
-## Content
+## Table of Contents
 
 - [CoppeliaSim scens communication via Remote API](./Virtual_scenes/)
 - [Virtual device Thing description](./virtual_things_description/)
