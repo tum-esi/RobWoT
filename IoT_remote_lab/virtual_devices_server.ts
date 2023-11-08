@@ -80,6 +80,10 @@ async function main() {
             port: 9000, // set port 9000 as request
         })
     );
+
+    Helpers.setStaticAddress("localhost");
+    
+
     virtualIoTlabserver.start().then((WoT) => {
         //sensor1
         WoT.produce(sensorTD1).then(async(thing) => {

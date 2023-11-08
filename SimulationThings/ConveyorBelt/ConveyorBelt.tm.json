@@ -1,0 +1,20 @@
+{
+    "@context":"https://www.w3.org/2019/wot/td/v1",
+    "@type":"tm:ThingModel",
+    "title": "Conveyor Belt {{BELT_NUMBER}}",
+    "description": "Conveyor belt to move items upto 500g with constant speed",
+    "actions":{
+        "startBeltBackward":{
+            "title":"Start conveyor belt with fixed speed",
+            "description":"This action starts moving the conveyor belt backward"
+        },
+        "startBeltForward":{
+            "title":"Start conveyor belt",
+            "description":"This action starts moving the conveyor belt forward"
+        },
+        "stopBelt":{
+            "title":"Stop conveyor belt",
+            "description":"This action stops moving the conveyor belt"
+        }
+    }
+}
