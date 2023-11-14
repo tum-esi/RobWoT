@@ -1,10 +1,4 @@
-/*
-1. TM of the entity
-2. Simulation Logic (websocket communication)
-3. Exposed Thing Logic (node-wot)
-*/
-
-// add delay function
+// simple delay function
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -17,41 +11,40 @@ export class virtualConveyorBelt {
   sim: any;
   conveyorHandle: Number | undefined;
 
-  // constructor
+  // An empty constructor
   constructor() {}
 
+  // Real construction happens here
   async startThing(sim: any, coppeliaObjectName: String, WoT: any, params: Object) {
-    // read the conveyor TD file
+    
+    // read the conveyor TM file
     let conveyorTM = JSON.parse(
-      fs.readFileSync(
-        "../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_left.td.json",
-        "utf8"
-      )
+      fs.readFileSync("ConveyorBelt.tm.json", "utf8")
     );
+    
     this.name = coppeliaObjectName;
     this.sim = sim;
-    // get handle from simulation
-
+    
+    // get handle from simulation that will be used later on
     this.conveyorHandle = Number(await this.sim.getObject(this.name));
 
     WoT.produce(conveyorTM).then(async (thing: any) => {
+      
       console.log("Produced " + thing.getThingDescription().title);
-
-      // /ConveyorBelt1 is the scene specific handler
+      // Stop the simulation Thing
       await this.setConveyorSpeed(0);
 
-      // set action handlers (using async-await)
-      // set startBeltBackward action handlers
+      // Handle Actions invoked by the Consumers
       thing.setActionHandler("startBeltBackward", async () => {
         try {
-          await this.setConveyorSpeed(0.02);
+          await this.setConveyorSpeed(0.02); // influence the simulation
           return "";
         } catch {
           console.log("failed");
           return "";
         }
       });
-      // set startBeltForward action handlers
+
       thing.setActionHandler("startBeltForward", async () => {
         try {
           await this.setConveyorSpeed(-0.02);
@@ -72,7 +65,7 @@ export class virtualConveyorBelt {
         }
       });
 
-      // expose the thing
+      // expose the thing and make it interactable
       thing.expose().then(() => {
         console.info(thing.getThingDescription().title + " ready");
         console.info("TD : " + JSON.stringify(thing.getThingDescription()));
@@ -80,14 +73,15 @@ export class virtualConveyorBelt {
     });
   }
 
-  // get conveyorbelt info
+  // These two functions call the websocket api to interact with the simulation
+  
+  // get conveyor belt info for using in properties
   private async getConveyorState() {
-    // this.conveyorHandle = Number(await this.sim.getObject(this.name));
     return await this.sim.readCustomTableData(this.conveyorHandle, "__state__");
   }
-  //speed should be -1 to 1
+  
+  // Sets the speed to a value between -1 to 1, which moves the conveyor belt
   private async setConveyorSpeed(speed: Number) {
-    // this.conveyorHandle = Number(await this.sim.getObject(this.name));
     await this.sim.writeCustomTableData(this.conveyorHandle, "__ctrl__", {
       vel: speed,
     });
