@@ -3,7 +3,7 @@ var path = require('path');   // for root path
 import * as fs from 'fs';
 
 
-import {robotDescriptiongenrate} from "../Generate_robot_description/robot_description_generation_class";
+import {RobotDescriptionGenerator} from "../Library/Generate_Robot_Description/RobotDescriptionGenerator";
 
 
 
@@ -17,7 +17,7 @@ async function main() {
     let filePath = rootAddress + "/UR10_folder";
     let robotName = "UR10";
 
-    let rdg = new robotDescriptiongenrate(sceneAddress);
+    let rdg = new RobotDescriptionGenerator(sceneAddress);
     //rdg.driverAddress = rootRepo + "/Generate_robot_description/robot_driver_workspace.txt";
 
     let posOutput = [[-0.68, -489.75, 1426.52],[691, 1.63, 737.38]];

@@ -3,7 +3,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
 
 var GetIntrinsic = require('get-intrinsic');
 
-var callBind = require('./');
+var callBind = require('./index.js');
 
 var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
 
@@ -151,16 +151,16 @@ var GetIntrinsic = require('get-intrinsic');
 
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var isPropertyDescriptor = require('../helpers/isPropertyDescriptor');
-var DefineOwnProperty = require('../helpers/DefineOwnProperty');
+var isPropertyDescriptor = require('../helpers/isPropertyDescriptor.js');
+var DefineOwnProperty = require('../helpers/DefineOwnProperty.js');
 
-var FromPropertyDescriptor = require('./FromPropertyDescriptor');
-var IsAccessorDescriptor = require('./IsAccessorDescriptor');
-var IsDataDescriptor = require('./IsDataDescriptor');
-var IsPropertyKey = require('./IsPropertyKey');
-var SameValue = require('./SameValue');
-var ToPropertyDescriptor = require('./ToPropertyDescriptor');
-var Type = require('./Type');
+var FromPropertyDescriptor = require('./FromPropertyDescriptor.js');
+var IsAccessorDescriptor = require('./IsAccessorDescriptor.js');
+var IsDataDescriptor = require('./IsDataDescriptor.js');
+var IsPropertyKey = require('./IsPropertyKey.js');
+var SameValue = require('./SameValue.js');
+var ToPropertyDescriptor = require('./ToPropertyDescriptor.js');
+var Type = require('./Type.js');
 
 // https://ecma-international.org/ecma-262/6.0/#sec-definepropertyorthrow
 
@@ -199,9 +199,9 @@ module.exports = function DefinePropertyOrThrow(O, P, desc) {
 },{"../helpers/DefineOwnProperty":20,"../helpers/isPropertyDescriptor":23,"./FromPropertyDescriptor":7,"./IsAccessorDescriptor":8,"./IsDataDescriptor":11,"./IsPropertyKey":12,"./SameValue":13,"./ToPropertyDescriptor":16,"./Type":17,"get-intrinsic":26}],7:[function(require,module,exports){
 'use strict';
 
-var assertRecord = require('../helpers/assertRecord');
+var assertRecord = require('../helpers/assertRecord.js');
 
-var Type = require('./Type');
+var Type = require('./Type.js');
 
 // https://ecma-international.org/ecma-262/6.0/#sec-frompropertydescriptor
 
@@ -239,9 +239,9 @@ module.exports = function FromPropertyDescriptor(Desc) {
 
 var has = require('has');
 
-var assertRecord = require('../helpers/assertRecord');
+var assertRecord = require('../helpers/assertRecord.js');
 
-var Type = require('./Type');
+var Type = require('./Type.js');
 
 // https://ecma-international.org/ecma-262/6.0/#sec-isaccessordescriptor
 
@@ -273,7 +273,7 @@ var GetIntrinsic = require('../GetIntrinsic.js');
 
 var $construct = GetIntrinsic('%Reflect.construct%', true);
 
-var DefinePropertyOrThrow = require('./DefinePropertyOrThrow');
+var DefinePropertyOrThrow = require('./DefinePropertyOrThrow.js');
 try {
 	DefinePropertyOrThrow({}, '', { '[[Get]]': function () {} });
 } catch (e) {
@@ -313,9 +313,9 @@ if (DefinePropertyOrThrow && $construct) {
 
 var has = require('has');
 
-var assertRecord = require('../helpers/assertRecord');
+var assertRecord = require('../helpers/assertRecord.js');
 
-var Type = require('./Type');
+var Type = require('./Type.js');
 
 // https://ecma-international.org/ecma-262/6.0/#sec-isdatadescriptor
 
@@ -345,7 +345,7 @@ module.exports = function IsPropertyKey(argument) {
 },{}],13:[function(require,module,exports){
 'use strict';
 
-var $isNaN = require('../helpers/isNaN');
+var $isNaN = require('../helpers/isNaN.js');
 
 // http://262.ecma-international.org/5.1/#sec-9.12
 
@@ -365,8 +365,8 @@ var GetIntrinsic = require('get-intrinsic');
 var $species = GetIntrinsic('%Symbol.species%', true);
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var IsConstructor = require('./IsConstructor');
-var Type = require('./Type');
+var IsConstructor = require('./IsConstructor.js');
+var Type = require('./Type.js');
 
 // https://ecma-international.org/ecma-262/6.0/#sec-speciesconstructor
 
@@ -407,9 +407,9 @@ var GetIntrinsic = require('get-intrinsic');
 
 var $TypeError = GetIntrinsic('%TypeError%');
 
-var Type = require('./Type');
-var ToBoolean = require('./ToBoolean');
-var IsCallable = require('./IsCallable');
+var Type = require('./Type.js');
+var ToBoolean = require('./ToBoolean.js');
+var IsCallable = require('./IsCallable.js');
 
 // https://262.ecma-international.org/5.1/#sec-8.10.5
 
@@ -455,7 +455,7 @@ module.exports = function ToPropertyDescriptor(Obj) {
 },{"./IsCallable":9,"./ToBoolean":15,"./Type":17,"get-intrinsic":26,"has":29}],17:[function(require,module,exports){
 'use strict';
 
-var ES5Type = require('../5/Type');
+var ES5Type = require('../5/Type.js');
 
 // https://262.ecma-international.org/11.0/#sec-ecmascript-data-types-and-values
 
@@ -522,7 +522,7 @@ if ($defineProperty) {
 var hasArrayLengthDefineBug = Object.defineProperty && Object.defineProperty([], 'length', { value: 1 }).length === 0;
 
 // eslint-disable-next-line global-require
-var isArray = hasArrayLengthDefineBug && require('../2020/IsArray'); // this does not depend on any other AOs.
+var isArray = hasArrayLengthDefineBug && require('../2020/IsArray.js'); // this does not depend on any other AOs.
 
 var callBound = require('call-bind/callBound');
 
@@ -714,7 +714,7 @@ module.exports = function bind(that) {
 },{}],25:[function(require,module,exports){
 'use strict';
 
-var implementation = require('./implementation');
+var implementation = require('./implementation.js');
 
 module.exports = Function.prototype.bind || implementation;
 
@@ -1054,7 +1054,7 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 'use strict';
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
-var hasSymbolSham = require('./shams');
+var hasSymbolSham = require('./shams.js');
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -1200,7 +1200,7 @@ if (!Object.keys) {
 	// modified from https://github.com/es-shims/es5-shim
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
-	var isArgs = require('./isArguments'); // eslint-disable-line global-require
+	var isArgs = require('./isArguments.js'); // eslint-disable-line global-require
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -1320,10 +1320,10 @@ module.exports = keysShim;
 'use strict';
 
 var slice = Array.prototype.slice;
-var isArgs = require('./isArguments');
+var isArgs = require('./isArguments.js');
 
 var origKeys = Object.keys;
-var keysShim = origKeys ? function keys(o) { return origKeys(o); } : require('./implementation');
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : require('./implementation.js');
 
 var originalKeys = Object.keys;
 
@@ -1393,8 +1393,8 @@ module.exports = {
 /**
  * @ignore
  */
-const defaults = require('./defaults');
-const {isPromise, createErrorType, tryCall} = require('./utils');
+const defaults = require('./defaults.js');
+const {isPromise, createErrorType, tryCall} = require('./utils.js');
 
 /**
  * @typicalname pc
@@ -1661,7 +1661,7 @@ exports.createErrorType = function (name) {
 },{}],37:[function(require,module,exports){
 'use strict';
 
-var requirePromise = require('./requirePromise');
+var requirePromise = require('./requirePromise.js');
 
 requirePromise();
 
@@ -1735,9 +1735,9 @@ module.exports = promiseFinally;
 var callBind = require('call-bind');
 var define = require('define-properties');
 
-var implementation = require('./implementation');
-var getPolyfill = require('./polyfill');
-var shim = require('./shim');
+var implementation = require('./implementation.js');
+var getPolyfill = require('./polyfill.js');
+var shim = require('./shim.js');
 
 var bound = callBind(getPolyfill());
 
@@ -1752,9 +1752,9 @@ module.exports = bound;
 },{"./implementation":37,"./polyfill":39,"./shim":41,"call-bind":2,"define-properties":4}],39:[function(require,module,exports){
 'use strict';
 
-var requirePromise = require('./requirePromise');
+var requirePromise = require('./requirePromise.js');
 
-var implementation = require('./implementation');
+var implementation = require('./implementation.js');
 
 module.exports = function getPolyfill() {
 	requirePromise();
@@ -1773,9 +1773,9 @@ module.exports = function requirePromise() {
 },{}],41:[function(require,module,exports){
 'use strict';
 
-var requirePromise = require('./requirePromise');
+var requirePromise = require('./requirePromise.js');
 
-var getPolyfill = require('./polyfill');
+var getPolyfill = require('./polyfill.js');
 var define = require('define-properties');
 
 module.exports = function shimPromiseFinally() {
@@ -2074,9 +2074,9 @@ const Channel = require('chnl');
 const PromiseController = require('promise-controller');
 const { PromisedMap } = require('promised-map');
 // todo: maybe remove Requests and just use promised-map?
-const Requests = require('./requests');
-const defaultOptions = require('./options');
-const {throwIf, isPromise} = require('./utils');
+const Requests = require('./requests.js');
+const defaultOptions = require('./options.js');
+const {throwIf, isPromise} = require('./utils.js');
 
 // see: https://developer.mozilla.org/en-US/docs/Web/API/WebSocket#Ready_state_constants
 const STATE = {

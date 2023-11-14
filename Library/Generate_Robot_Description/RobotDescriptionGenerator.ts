@@ -7,7 +7,7 @@ function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
-export class robotDescriptiongenrate{
+export class RobotDescriptionGenerator{
     //variable
     sceneAddress:string;
     driverAddress:string;
@@ -455,7 +455,7 @@ async function main() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
     let modelAddress = rootAddress + "/Coppeliasim scene/default robot models/mypal_robot.ttm";
     let sceneAddress = rootAddress + "/Coppeliasim scene/robot_virtual_workspace.ttt";
-    let rdg = new robotDescriptiongenrate(sceneAddress);
+    let rdg = new RobotDescriptionGenerator(sceneAddress);
 
     let rootFolderPath = __dirname + "/robot_info/mypal_robot"; //the path of folder to save necessary files
 
@@ -490,8 +490,4 @@ async function main() {
 
     await delay(500);
     process.exit(1);
-    
-    
 }
-
-//main();

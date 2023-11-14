@@ -9,9 +9,9 @@ import * as fs from 'fs';
 // load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
-import {robotMotioncontrol} from "../UR10_TD_Verification/robotMotioncontrol_class"
+import {robotMotioncontrol} from "../../UR10_TD_Verification/robotMotioncontrol_class"
 
-import {robotPositioncheck} from "../UR10_TD_Verification/robotPositioncheck_class"
+import {robotPositioncheck} from "../../UR10_TD_Verification/robotPositioncheck_class"
 
 
 // add delay function
@@ -20,7 +20,7 @@ function delay(ms: number) {
 }
 
 
-export class robotWoTserver{
+export class RobotWoTServer{
     //variable
     sceneAddress:string;
     robotName:string;

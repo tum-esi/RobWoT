@@ -1,10 +1,12 @@
 var path = require('path');   // for root path
 
-import {robotWoTserver} from "../Robot_WoT_server/WoT_server_generation_class";
+import {RobotWoTServer} from "../Library/Robot_WoT_Server/WoT_server_generation_class";
 
 import {robotPositioncheck} from "./robotPositioncheck_class";
 
-import {makeWoTinteraction} from "../virtual_devices_WoT/clientClass";
+import {Servient, Helpers} from '@node-wot/core';
+import {HttpServer, HttpClientFactory, HttpsClientFactory} from '@node-wot/binding-http'
+import { ThingDescription } from "wot-typescript-definitions";
 
 
 // add delay function
@@ -31,7 +33,7 @@ async function main() {
 
     let rMC = new robotPositioncheck(shapePath,pointPath);  // it can only check the convex shape and don not require coppeliasim
 
-    let UR_robot = new robotWoTserver(sceneAddress,driverAddress,UR10TD,"UR10",posOutput,posInput,compensateVal,shapePath,pointPath); // it requires coppeliaism
+    let UR_robot = new RobotWoTServer(sceneAddress,driverAddress,UR10TD,"UR10",posOutput,posInput,compensateVal,shapePath,pointPath); // it requires coppeliaism
 
     //initial the virtual robot WoT server
     await UR_robot.serverInit();
@@ -40,32 +42,39 @@ async function main() {
 
 
     // WoT client (You can also write your own client)-----------------------
-    
     let UR10_URL = "http://localhost:8081/coppeliasim_virtualrobot_ur10";
-    let ur10 = new makeWoTinteraction(UR10_URL);
 
-    let res1 = await ur10.readProperty("getCartesianposition");
-    console.log(res1);
-
-    let res2 = await ur10.readProperty("getJointposition");
-    console.log(res2);
-
-    let res3 = await rMC.posSafetycheck([500,-890,1000]); // check if the point in workspace, it doesn't require Coppeliasim
-    console.log(res3);
-
-    await ur10.invokeAction("moveTocartesianPosition", {"x":500,"y":-890,"z":1000});
-
-    await delay(15000);
-
-    let res4 = await ur10.readProperty("getCartesianposition");
-    console.log(res4);
-
-    await ur10.invokeAction("moveTojointPosition",{"joint1":0,"joint2":-30,"joint3":40,"joint4":135,"joint5":20,"joint6":50});
-    await delay(8000);
-
-    let res5 = await ur10.readProperty("getJointposition");
-    console.log(res5);
+    const controllerServient = new Servient()
+    controllerServient.addClientFactory(new HttpClientFactory())
+    controllerServient.addClientFactory(new HttpsClientFactory())
+    const wotHelpers =  new Helpers(controllerServient)
     
+    async function main() {
+        const ur10TD = await wotHelpers.fetch(UR10_URL) as ThingDescription;
+        const WoT  = await controllerServient.start();
+        const ur10Sim = await WoT.consume(ur10TD);
+        ur10Sim.readProperty("getCartesianposition")
+        let res1 = await (await ur10Sim.readProperty("getCartesianposition")).value();
+        console.log(res1);
+
+        let res2 = await (await ur10Sim.readProperty("getJointposition")).value();
+        console.log(res2);
+
+        let res3 = await rMC.posSafetycheck([500,-890,1000]); // check if the point in workspace, it doesn't require Coppeliasim
+        console.log(res3);
+
+        await ur10Sim.invokeAction("moveTocartesianPosition", {"x":500,"y":-890,"z":1000});
+        await delay(15000);
+
+        let res4 = await (await ur10Sim.readProperty("getCartesianposition")).value();
+        console.log(res4);
+
+        await ur10Sim.invokeAction("moveTojointPosition",{"joint1":0,"joint2":-30,"joint3":40,"joint4":135,"joint5":20,"joint6":50});
+        await delay(8000);
+
+        let res5 = await (await ur10Sim.readProperty("getJointposition")).value();
+        console.log(res5);
+    }
     
     //-----------------------------------------------------------------------
 

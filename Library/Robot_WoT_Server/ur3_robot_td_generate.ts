@@ -1,11 +1,11 @@
-import {robotDescriptiongenrate} from "../Generate_robot_description/robot_description_generation_class";
+import {RobotDescriptionGenerator} from "../Generate_Robot_Description/RobotDescriptionGenerator";
 
 
 async function main() {
     let virtualSceneadress = __dirname + "/robot_digital_twins.ttt";
     let sceneAddress:string = virtualSceneadress; 
 
-    let rdg = new robotDescriptiongenrate(sceneAddress);
+    let rdg = new RobotDescriptionGenerator(sceneAddress);
 
     let robotName = "ur3_robot";
     let rootFolder = __dirname + "/robot_info"; //the path of folder to save necessary files

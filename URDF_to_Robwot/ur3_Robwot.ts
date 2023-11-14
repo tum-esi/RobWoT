@@ -2,13 +2,13 @@ const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 var path = require('path');   // for root path
 
 // for class load urdf
-import {robotURDFload} from "../Load_URDF_robot/load_urdf_class";
+import {robotURDFload} from "../Library/Load_URDF/LoadUrdf";
 
 // for class robot description generation
-import {robotDescriptiongenrate} from "../Generate_robot_description/robot_description_generation_class";
+import {RobotDescriptionGenerator} from "../Library/Generate_Robot_Description/RobotDescriptionGenerator";
 
 // for class to generate the robot wot server
-import {robotWoTserver} from "../Robot_WoT_server/WoT_server_generation_class";
+import {RobotWoTServer} from "../Library/Robot_WoT_Server/WoT_server_generation_class";
 
 
 // add delay function
@@ -33,7 +33,7 @@ async function robotTDGen() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
     let dtSceneAddress = rootAddress + "/URDF_to_Robwot/ur3_simple_scene.ttt";
 
-    let rdg = new robotDescriptiongenrate(dtSceneAddress);
+    let rdg = new RobotDescriptionGenerator(dtSceneAddress);
 
     // load the robot model to the scene
     let modelAddress = rootAddress + "/Coppeliasim scene/default robot models/UR3.ttm";
@@ -74,7 +74,7 @@ async function robotWoTGen() {
 
     let robotName = "UR3";
 
-    let ur3_robot = new robotWoTserver(dtSceneAddress,driverAddress,robotTD,robotName,null,null,null,shapePath,pointPath,[0,0,0,1]); // it requires coppeliaism
+    let ur3_robot = new RobotWoTServer(dtSceneAddress,driverAddress,robotTD,robotName,null,null,null,shapePath,pointPath,[0,0,0,1]); // it requires coppeliaism
 
     //initial the virtual robot WoT server
     await ur3_robot.serverInit();

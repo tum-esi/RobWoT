@@ -1,6 +1,6 @@
 "use strict";
 
-const WebSocketAsPromised1 = require('websocket-as-promised');
+const WebSocketAsPromised = require('websocket-as-promised');
 const WebSocket = require('ws');
 
 class RemoteAPIClient{
@@ -31,7 +31,7 @@ class RemoteAPIClient{
         for(var k in opts){ 
             wsOpts[k] = opts[k];
         }
-        this.websocket = new WebSocketAsPromised1(`ws://${this.host}:${this.port}`, wsOpts);
+        this.websocket = new WebSocketAsPromised(`ws://${this.host}:${this.port}`, wsOpts);
     }
 
     async call(func, args) {

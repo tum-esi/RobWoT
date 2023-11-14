@@ -4,7 +4,7 @@ import * as fs from 'fs';
 // load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
-import {robotDescriptiongenrate} from "../Generate_robot_description/robot_description_generation_class";
+import {RobotDescriptionGenerator} from "../Library/Generate_Robot_Description/RobotDescriptionGenerator";
 
 // add delay function
 function delay(ms: number) {
@@ -35,7 +35,7 @@ async function main() {
     let virtualSceneadress = __dirname + "/Virtual_IoT_lab_verification.ttt";
     let sceneAddress:string = virtualSceneadress; 
 
-    let rdg = new robotDescriptiongenrate(sceneAddress);
+    let rdg = new RobotDescriptionGenerator(sceneAddress);
 
 
     // for dobot
