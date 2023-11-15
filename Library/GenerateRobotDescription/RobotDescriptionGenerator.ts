@@ -79,7 +79,7 @@ export class RobotDescriptionGenerator{
     }
     private async limitContentgenerate(robotInfo:any,stlFilepath:string,csvFilepath:string,options?:any):Promise<any>{
         // robot_template should be a fixed path
-        let robot_template = JSON.parse(fs.readFileSync("../robot_template.json", "utf8"));
+        let robot_template = JSON.parse(fs.readFileSync("../Assets/robot_template.json", "utf8"));
         let robotType = robotInfo["robotName"];
 
         // parse the csv file, try to find max,min value of x,y,z
