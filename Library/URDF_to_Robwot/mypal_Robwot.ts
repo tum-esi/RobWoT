@@ -2,13 +2,13 @@ const { RemoteAPIClient } = require("coppelia-ws-api");
 var path = require('path');   // for root path
 
 // for class load urdf
-import {robotURDFload} from "../Library/Load_URDF/LoadUrdf";
+import {robotURDFload} from "../Load_URDF/LoadUrdf";
 
 // for class robot description generation
-import {RobotDescriptionGenerator} from "../Library/GenerateRobotDescription/RobotDescriptionGenerator";
+import {RobotDescriptionGenerator} from "../GenerateRobotDescription/RobotDescriptionGenerator";
 
 // for class to generate the robot wot server
-import {RobotWoTServer} from "../Library/Robot_WoT_Server/WoT_server_generation_class";
+import {RobotWoTServer} from "../Robot_WoT_Server/WoT_server_generation_class";
 
 
 // add delay function
