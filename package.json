@@ -18,6 +18,7 @@
     "websocket": "^1.0.34",
     "websocket-as-promised": "^2.0.1",
     "ws": "^8.11.0",
-    "parse-stl":"1.0.2"
+    "parse-stl":"1.0.2",
+    "coppelia-ws-api": "file:Library/CoppeliasimRemoteApi/RemoteAPIClient.js"
   }
 }
