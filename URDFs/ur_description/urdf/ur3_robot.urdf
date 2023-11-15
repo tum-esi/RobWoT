@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<robot name="UR3_urdf">
+    <link name="base">
+        <inertial>
+            <origin xyz="0.000079 0.000098 -0.005218" rpy="-3.140614 3.141544 -1.823162" />
+            <inertia iyy="0.0014176038093865" izz="0.0016785468906164" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.0014156427932903" />
+            <mass value="1.0" />
+        </inertial>
+        <collision>
+            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_base.dae" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.000125 0.000086 -0.000000" rpy="-3.141593 3.141593 -3.141593" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_base_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <link name="link_1">
+        <inertial>
+            <origin xyz="0 0 0" rpy="3.042686 3.141884 1.57" />
+            <inertia iyy="0.013356528244913" izz="0.0099014118313789" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.014095027931035" />
+            <mass value="1.0" />
+        </inertial>
+        <collision>
+            <origin xyz="0.000000 0.000000 0.000000" rpy="-3.141593 3.141593 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link1.dae" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.000000 -0.000000 0" rpy="-3.141593 3.141593 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link1_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <joint type="revolute" name="joint_1">
+        <axis xyz="0 0 1" />
+        <limit upper="6.2831854820251" lower="-6.2831854820251" effort="50.0" velocity="3.1415927410126" />
+        <parent link="base" />
+        <child link="link_1" />
+        <origin xyz="0 0.004 0.104020" rpy="-3.14 3.141593 -3.141593" />
+    </joint>
+    <link name="link_2">
+        <inertial>
+            <origin xyz="0.000073 -0.117 0.03" rpy="-1.57 1.57 -3.141593" />
+            <inertia iyy="0.21194118261337" izz="0.024627504870296" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.21848785877228" />
+            <mass value="2.5" />
+        </inertial>
+        <collision>
+            <origin xyz="0.000073 -0.117 0.03" rpy="-1.57 1.57 -3.141593" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link2.dae" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.000073 -0.117 0.06" rpy="-1.57 1.57 -3.141593" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link2_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <joint type="revolute" name="joint_2">
+        <axis xyz="0 0 1" />
+        <limit upper="6.2831854820251" lower="-6.2831854820251" effort="50.0" velocity="3.1415927410126" />
+        <parent link="link_1" />
+        <child link="link_2" />
+        <origin xyz="0 0.05 0.0055" rpy="1.57 3.141593 -3.141593" />
+    </joint>
+    <link name="link_3">
+        <inertial>
+            <origin xyz="0 0.1017 -0.0265" rpy="0 1.57 1.57" />
+            <inertia iyy="0.14924985170364" izz="0.01328753773123" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.15226745605469" />
+            <mass value="2.5" />
+        </inertial>
+        <collision>
+            <origin xyz="0 0.1017 -0.0265" rpy="0 1.57 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link3.dae" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0.1017 -0.0265" rpy="0 1.57 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link3_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <joint type="revolute" name="joint_3">
+        <axis xyz="0 0 1" />
+        <limit upper="6.2831854820251" lower="-6.2831854820251" effort="50.0" velocity="3.1415927410126" />
+        <parent link="link_2" />
+        <child link="link_3" />
+        <origin xyz="0 -0.245 0" rpy="0 0 -3.141593" />
+    </joint>
+    <link name="link_4">
+        <inertial>
+            <origin xyz="0 0 0.0543" rpy="0 1.57 1.57" />
+            <inertia iyy="0.0074614337645471" izz="0.0046329372562468" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.0076239206828177" />
+            <mass value="1.0" />
+        </inertial>
+        <collision>
+            <origin xyz="0 0 0.0543" rpy="0 1.57 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link4.dae" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0.0543" rpy="0 1.57 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link4_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <joint type="revolute" name="joint_4">
+        <axis xyz="0 0 1" />
+        <limit upper="6.2831854820251" lower="-6.2831854820251" effort="50.0" velocity="6.2831854820251" />
+        <parent link="link_3" />
+        <child link="link_4" />
+        <origin xyz="0 0.211 0.00" rpy="-3.141593 3.141593 -3.141593" />
+    </joint>
+    <link name="link_5">
+        <inertial>
+            <origin xyz="0.00 -0.0 0.081" rpy="0 0 1.57" />
+            <inertia iyy="0.0046688904985785" izz="0.0076049752533436" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.007785230409354" />
+            <mass value="1.0" />
+        </inertial>
+        <collision>
+            <origin xyz="0.0000 -0.0000 0.081" rpy="0 0 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link5.dae" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.0000 -0.0000 0.081" rpy="0 0 1.57" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link5_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <joint type="revolute" name="joint_5">
+        <axis xyz="0 0 1" />
+        <limit upper="6.2831854820251" lower="-6.2831854820251" effort="50.0" velocity="6.2831854820251" />
+        <parent link="link_4" />
+        <child link="link_5" />
+        <origin xyz="0 0 0.058" rpy="1.57 3.141593 3.14" />
+    </joint>
+    <link name="link_6">
+        <inertial>
+            <origin xyz="0.000000 0.003 0.06400" rpy="-1.570796 -1.570796 0.000000" />
+            <inertia iyy="0.0026207731571048" izz="0.0038703854661435" iyz="0.0" ixz="0.0" ixy="0.0" ixx="0.0026207731571048" />
+            <mass value="1.0" />
+        </inertial>
+        <collision>
+            <origin xyz="0.000000 0.003 0.06400" rpy="-1.570796 -1.570796 0.000000" />
+            <geometry>
+                <cylinder length="0.032068222761154" radius="0.03120630979538" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.000000 0.003 0.06400" rpy="-1.570796 -1.570796 0.000000" />
+            <geometry>
+                <mesh filename="package://ur_description/meshes/ur3/ur3_link6_visual.dae" />
+            </geometry>
+        </visual>
+    </link>
+    <joint type="continuous" name="joint_6">
+        <axis xyz="0 0 1" />
+        <parent link="link_5" />
+        <child link="link_6" />
+        <origin xyz="0 0 0.0835" rpy="-1.570796 3.141593 -3.14" />
+    </joint>
+</robot>
