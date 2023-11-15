@@ -1,6 +1,3 @@
-// for reading local TD file
-import * as fs from 'fs';
-
 // load remote api for coppeliasim
 const { RemoteAPIClient } = require("coppelia-ws-api");
 
