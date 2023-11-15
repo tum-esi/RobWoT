@@ -34,6 +34,7 @@ main()
 
 async function main() {
     let Consumer = new Servient();
+    // in the next line, we are expecting a JSON file that has {"username":"myUsername", "password":"myPassword" structure}
     const credentials = JSON.parse(readFileSync("credential.json", "utf-8"));
     Consumer.addCredentials({
         "urn:dev:ops:32473-ConveyorBelt-002": credentials,
