@@ -6,10 +6,10 @@ import { Helpers } from "@node-wot/core";
 // for reading local TD file
 import * as fs from "fs";
 
-import { virtualConveyorBelt } from "../SimulationThings/ConveyorBelt/ConveyorBelt";
+import { virtualConveyorBelt } from "../../../SimulationThings/ConveyorBelt/ConveyorBelt";
 
 // load remote api for coppeliasim
-const { RemoteAPIClient } = require("../remoteApi/RemoteAPIClient.js");
+const { RemoteAPIClient } = require("coppelia-ws-api");
 
 let virtualSceneAddress = "./IoT_remote_lab.ttt";
 
