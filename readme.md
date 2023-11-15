@@ -16,7 +16,7 @@ To showcase our methods, we recreate setups of the IoT Remote Lab of the Profess
 ## Table of Contents
 
 - [CoppeliaSim scens communication via Remote API](./Virtual_scenes/)
-- [Virtual device Thing description](./virtual_things_description/)
+- [Virtual device Thing description](./TDs/Virtual/)
 - [Virtual IoT robot platform](./virtual_devices_WoT/)
 - [Automatic load URDF in Coppeliasim scene to generate robot model](./Load_URDF_robot/)
 - [Automatic implemetation of inverse kinematics calculation for robots](./Robot_WoT_server/)

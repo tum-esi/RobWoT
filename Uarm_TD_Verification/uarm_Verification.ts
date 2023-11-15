@@ -12,7 +12,7 @@ function delay(ms: number) {
 }
 
 //const uarm = JSON.parse(readFileSync("./uarm_real.json","utf-8"));  // uarm_real is used for Wifi in lab
-const uarm = JSON.parse(readFileSync("../Real-Devices-TDs/Uarm_remote.json","utf-8")); // uarm_remote is used for Wifi in Uni
+const uarm = JSON.parse(readFileSync("../TDs/Real/Uarm_remote.json","utf-8")); // uarm_remote is used for Wifi in Uni
 
 main()
 
