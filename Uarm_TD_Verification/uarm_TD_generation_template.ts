@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 
 // load remote api for coppeliasim
-const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
+const { RemoteAPIClient } = require("coppelia-ws-api");
 
 import {RobotDescriptionGenerator} from "../Library/GenerateRobotDescription/RobotDescriptionGenerator";
 

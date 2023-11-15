@@ -1,5 +1,5 @@
 // load remote api for coppeliasim
-const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
+const { RemoteAPIClient } = require("coppelia-ws-api");
 var path = require('path');   // for root path
 const parseSTL = require("parse-stl");  // parse the stl file binary
 

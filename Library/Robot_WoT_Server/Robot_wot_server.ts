@@ -7,7 +7,7 @@ import {Helpers} from '@node-wot/core';
 import * as fs from 'fs';
 
 // load remote api for coppeliasim
-const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
+const { RemoteAPIClient } = require("coppelia-ws-api");
 
 
 // add delay function

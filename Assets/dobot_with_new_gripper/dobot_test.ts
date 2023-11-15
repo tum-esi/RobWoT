@@ -1,5 +1,5 @@
 // load remote api for coppeliasim
-const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
+const { RemoteAPIClient } = require("coppelia-ws-api");
 
 // load virtual dobot class
 import {virtualDobot} from "../virtual_devices_WoT/virtualDevices";

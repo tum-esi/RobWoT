@@ -1,4 +1,4 @@
-const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
+const { RemoteAPIClient } = require("coppelia-ws-api");
 var path = require('path');   // for root path
 
 // for class wot client
