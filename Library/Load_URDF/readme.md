@@ -21,10 +21,10 @@ ts-node load_urdf_class.ts
 
 ## Some robot models
 1. mycobot280
-<img src="../Picture folder/mycobot280 model.JPG" width="300">
+<img src="../pictures/mycobot280 model.JPG" width="300">
 
 2. mypal
-<img src="../Picture folder/mypal model.JPG" width="300">
+<img src="../pictures/mypal model.JPG" width="300">
 
 3. M1 Pro
-<img src="../Picture folder/M1 Pro model.JPG" width="300">
+<img src="../pictures/M1 Pro model.JPG" width="300">

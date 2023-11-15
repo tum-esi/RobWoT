@@ -27,4 +27,4 @@ To showcase our methods, we recreate setups of the IoT Remote Lab of the Profess
 
 ## IoT Remote Lab
 
-<img src="./Picture folder/IoT remote lab.jpg" width="600">
+<img src="./pictures/IoT remote lab.jpg" width="600">

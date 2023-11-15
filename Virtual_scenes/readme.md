@@ -19,10 +19,10 @@ ts-node Virtual_lab_template.ts
 ```
 
 ## Virtual light devices in coppeliasim
-<img src="../Picture folder/scene1 virtual light.JPG" width="400">
+<img src="../pictures/scene1 virtual light.JPG" width="400">
 
 ## Virtual robot devices in coppeliasim
-<img src="../Picture folder/scene2 virtual robot.JPG" width="400">
+<img src="../pictures/scene2 virtual robot.JPG" width="400">
 
 ## Virtual lab devices in coppeliasim
-<img src="../Picture folder/scene3 virtual lab.JPG" width="400">
+<img src="../pictures/scene3 virtual lab.JPG" width="400">
