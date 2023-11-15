@@ -4,7 +4,7 @@ import * as fs from 'fs';
 // load remote api for coppeliasim
 const {RemoteAPIClient} = require("./remoteApi/RemoteAPIClient.js");
 
-import {RobotDescriptionGenerator} from "../Library/Generate_Robot_Description/RobotDescriptionGenerator";
+import {RobotDescriptionGenerator} from "../Library/GenerateRobotDescription/RobotDescriptionGenerator";
 
 // add delay function
 function delay(ms: number) {

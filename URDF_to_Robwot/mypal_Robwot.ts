@@ -5,7 +5,7 @@ var path = require('path');   // for root path
 import {robotURDFload} from "../Library/Load_URDF/LoadUrdf";
 
 // for class robot description generation
-import {RobotDescriptionGenerator} from "../Library/Generate_Robot_Description/RobotDescriptionGenerator";
+import {RobotDescriptionGenerator} from "../Library/GenerateRobotDescription/RobotDescriptionGenerator";
 
 // for class to generate the robot wot server
 import {RobotWoTServer} from "../Library/Robot_WoT_Server/WoT_server_generation_class";
