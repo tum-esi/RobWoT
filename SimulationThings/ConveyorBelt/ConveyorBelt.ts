@@ -4,6 +4,7 @@ function delay(ms: number) {
 }
 
 import * as fs from "fs";
+import conveyorTM from "./ConveyorBelt.tm.json";
 
 export class virtualConveyorBelt {
   // variable
@@ -17,16 +18,15 @@ export class virtualConveyorBelt {
   // Real construction happens here
   async startThing(sim: any, coppeliaObjectName: String, WoT: any, params: Object) {
     
-    // read the conveyor TM file
-    let conveyorTM = JSON.parse(
-      fs.readFileSync("ConveyorBelt.tm.json", "utf8")
-    );
-    
     this.name = coppeliaObjectName;
     this.sim = sim;
     
     // get handle from simulation that will be used later on
     this.conveyorHandle = Number(await this.sim.getObject(this.name));
+
+    // Change TM-specific fields for a TD input
+    conveyorTM["@type"] = "Thing"
+    conveyorTM.title = "Conveyor Belt 1";
 
     WoT.produce(conveyorTM).then(async (thing: any) => {
       
