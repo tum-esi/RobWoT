@@ -20,29 +20,29 @@ function delay(ms: number) {
 
 
 // read the virtual devices TD file
-let sensorTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor1.td.json", "utf8"));
-let sensorTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor2.td.json", "utf8"));
+let sensorTD1 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor1.td.json", "utf8"));
+let sensorTD2 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor2.td.json", "utf8"));
 
 // read the conveyor TD file
-let conveyorTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_left.td.json", "utf8"));
-let conveyorTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_right.td.json", "utf8"));
+let conveyorTD1 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_left.td.json", "utf8"));
+let conveyorTD2 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_right.td.json", "utf8"));
 
 // read the uarm TD file
-let uarmTD =JSON.parse(fs.readFileSync("../virtual_things_description/virtual_robot/virtual_uarm.td.json", "utf8"));
+let uarmTD =JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_robot/virtual_uarm.td.json", "utf8"));
 
 // read the dobot TD file
-let dobotTD =JSON.parse(fs.readFileSync("../virtual_things_description/virtual_robot/virtual_dobot.td.json", "utf8"));
+let dobotTD =JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_robot/virtual_dobot.td.json", "utf8"));
 
 // read the color sensor TD file
-let colorTD =JSON.parse(fs.readFileSync("../virtual_things_description/virtual_color_sensor/virtual_color_sensor.td.json", "utf8"));
+let colorTD =JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_color_sensor/virtual_color_sensor.td.json", "utf8"));
 
 // read the spotlight TD file
-let spotlightTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_lights/virtual_light_left.td.json", "utf8"));
-let spotlightTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_lights/virtual_light_right.td.json", "utf8"));
+let spotlightTD1 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_lights/virtual_light_left.td.json", "utf8"));
+let spotlightTD2 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_lights/virtual_light_right.td.json", "utf8"));
 
 // read the pantilt TD file
-let pantiltTD1 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_PanTilt/virtual_PanTilt1.json", "utf8"));
-let pantiltTD2 = JSON.parse(fs.readFileSync("../virtual_things_description/virtual_PanTilt/virtual_PanTilt2.json", "utf8"));
+let pantiltTD1 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_PanTilt/virtual_PanTilt1.json", "utf8"));
+let pantiltTD2 = JSON.parse(fs.readFileSync("../../../virtual_things_description/virtual_PanTilt/virtual_PanTilt2.json", "utf8"));
 
 // set virtual scene address
 //console.log(__dirname); // get current file absolute path

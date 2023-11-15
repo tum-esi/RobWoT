@@ -8,14 +8,14 @@ function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
-const sensor1 = JSON.parse(readFileSync("../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor1.td.json","utf-8"));
-const sensor2 = JSON.parse(readFileSync("../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor2.td.json","utf-8"));
-const conveyor1 = JSON.parse(readFileSync("../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_left.td.json","utf-8"));
-const conveyor2 = JSON.parse(readFileSync("../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_right.td.json","utf-8"));
+const sensor1 = JSON.parse(readFileSync("../../../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor1.td.json","utf-8"));
+const sensor2 = JSON.parse(readFileSync("../../../virtual_things_description/virtual_infrared_sensor/virtual_infrared_sensor2.td.json","utf-8"));
+const conveyor1 = JSON.parse(readFileSync("../../../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_left.td.json","utf-8"));
+const conveyor2 = JSON.parse(readFileSync("../../../virtual_things_description/virtual_conveyorbelt/virtual_conveyor_right.td.json","utf-8"));
 
-const colorSensor = JSON.parse(readFileSync("../virtual_things_description/virtual_color_sensor/virtual_color_sensor.td.json","utf-8"));
-const dobot = JSON.parse(readFileSync("../virtual_things_description/virtual_robot/virtual_dobot.td.json","utf-8"));
-const uarm = JSON.parse(readFileSync("../virtual_things_description/virtual_robot/virtual_uarm.td.json","utf-8"));
+const colorSensor = JSON.parse(readFileSync("../../../virtual_things_description/virtual_color_sensor/virtual_color_sensor.td.json","utf-8"));
+const dobot = JSON.parse(readFileSync("../../../virtual_things_description/virtual_robot/virtual_dobot.td.json","utf-8"));
+const uarm = JSON.parse(readFileSync("../../../virtual_things_description/virtual_robot/virtual_uarm.td.json","utf-8"));
 main()
 
 async function main() {
