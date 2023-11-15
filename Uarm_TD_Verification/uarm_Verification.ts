@@ -20,10 +20,7 @@ async function main() {
     let Consumer = new Servient();
 
     Consumer.addCredentials({
-        "de.tum:ei:esi:uArm:192.168.0.112:8080": {
-            username: "admin",
-            password: "hunter2"
-        }
+        "de.tum:ei:esi:uArm:192.168.0.112:8080": credentials
     })
     Consumer.addClientFactory(new HttpClientFactory());
     Consumer.addClientFactory(new HttpsClientFactory({allowSelfSigned:true}));
