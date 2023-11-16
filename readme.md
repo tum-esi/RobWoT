@@ -30,7 +30,7 @@ There are different resources available in this repository. They are listed belo
 
 - [Thing Descriptions of Virtual Devices](./TDs/Virtual/)
 - [Thing Descriptions of Real Devices](./TDs/Real/)
-- [URDF Examples of Robots](./URDFs/)
+- [URDF Examples of Robots](./Assets/URDFs/)
 - [Individual Things to be used in Simulation Setups](./SimulationThings/) (Under construction!)
 - [Simulation Setups including CoppeliaSim Scenes and Simulation in the Loop](./Setups/)
 - [Digital Twin Demos](./RealLifeDemos/)
