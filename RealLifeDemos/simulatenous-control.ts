@@ -25,10 +25,10 @@ const startPosition = {
   z: 70,
 };
 
-const uarmTD_V = JSON.parse(readFileSync("TDs/Virtual/virtual_uarm.td.json","utf-8"))
-const conveyor1TD_V = JSON.parse(readFileSync("TDs/Virtual/virtual_conveyor_right.td.json","utf-8"))
-const uarmTD_R = JSON.parse(readFileSync("TDs/Real/Uarm.json","utf-8"))
-const conveyor1TD_R = JSON.parse(readFileSync("TDs/Real/ConveyorBelt2.json","utf-8"))
+const uarmTD_V = JSON.parse(readFileSync("../TDs/Virtual/virtual_uarm.td.json","utf-8"))
+const conveyor1TD_V = JSON.parse(readFileSync("../TDs/Virtual/virtual_conveyor_right.td.json","utf-8"))
+const uarmTD_R = JSON.parse(readFileSync("../TDs/Real/Uarm.json","utf-8"))
+const conveyor1TD_R = JSON.parse(readFileSync("../TDs/Real/ConveyorBelt2.json","utf-8"))
 
 main()
 
