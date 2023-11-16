@@ -3,7 +3,7 @@ var path = require('path');   // for root path
 import * as fs from 'fs';
 
 
-import {RobotDescriptionGenerator} from "../../Library/GenerateRobotDescription/RobotDescriptionGenerator";
+import {RobotDescriptionGenerator} from "../../../Library/GenerateRobotDescription/RobotDescriptionGenerator";
 
 
 

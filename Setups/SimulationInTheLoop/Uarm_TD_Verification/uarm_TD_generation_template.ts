@@ -1,7 +1,7 @@
 // load remote api for coppeliasim
 const { RemoteAPIClient } = require("coppelia-ws-api");
 
-import {RobotDescriptionGenerator} from "../../Library/GenerateRobotDescription/RobotDescriptionGenerator";
+import {RobotDescriptionGenerator} from "../../../Library/GenerateRobotDescription/RobotDescriptionGenerator";
 
 // add delay function
 function delay(ms: number) {

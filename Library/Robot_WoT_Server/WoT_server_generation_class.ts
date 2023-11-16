@@ -9,9 +9,9 @@ import * as fs from 'fs';
 // load remote api for coppeliasim
 const { RemoteAPIClient } = require("coppelia-ws-api");
 
-import {robotMotioncontrol} from "../../SimulationInTheLoop/UR10_TD_Verification/robotMotioncontrol_class"
+import {robotMotioncontrol} from "../../Setups/SimulationInTheLoop/UR10_TD_Verification/robotMotioncontrol_class"
 
-import {robotPositioncheck} from "../../SimulationInTheLoop/UR10_TD_Verification/robotPositioncheck_class"
+import {robotPositioncheck} from "../../Setups/SimulationInTheLoop/UR10_TD_Verification/robotPositioncheck_class"
 
 
 // add delay function

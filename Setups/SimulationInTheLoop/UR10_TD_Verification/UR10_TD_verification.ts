@@ -1,6 +1,6 @@
 var path = require('path');   // for root path
 
-import {RobotWoTServer} from "../../Library/Robot_WoT_Server/WoT_server_generation_class";
+import {RobotWoTServer} from "../../../Library/Robot_WoT_Server/WoT_server_generation_class";
 
 import {robotPositioncheck} from "./robotPositioncheck_class";
 
