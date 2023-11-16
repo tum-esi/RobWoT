@@ -1,4 +1,4 @@
-## The Coppeliasim scene to reproduce the IoT lab platform
+## The CoppeliaSim scene to reproduce the IoT lab platform
 
 >Virtual_IoT_lab.ttt: 90% replicate the IoT lab platform except dobot gripper
 <img src="Virtual_IoT_lab.png" width="600">
