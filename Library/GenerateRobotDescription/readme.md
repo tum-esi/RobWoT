@@ -1,4 +1,4 @@
-## Automatic generate robot things description
+## Automatic Generation of Robot Thing Description
 
 >Related files: robot_description_generation_class.ts, robot_virtual_workspace.ttt(**Coppeliasim scene** folder), virtual_robot.ttm(**Coppeliasim scene** folder)
 

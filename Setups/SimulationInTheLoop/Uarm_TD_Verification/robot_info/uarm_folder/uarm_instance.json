@@ -1,7 +1,7 @@
 {
   "title": "coppeliasim_virtualrobot_uarm",
   "id": "urn:dev:ops:32473-virtual-uarm",
-  "description": "things description for uarm in current coppeliasim scene",
+  "description": "Uarm in current CoppeliaSim scene",
   "links": [
     {
       "href": "http://localhost:4000/uarm_robot/uarm_shape.stl",

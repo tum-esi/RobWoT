@@ -1,7 +1,7 @@
 {
   "title": "coppeliasim_virtualrobot_dobot",
   "id": "urn:dev:ops:32473-virtual-dobot",
-  "description": "things description for dobot in current coppeliasim scene",
+  "description": "Dobot in current CoppeliaSim scene",
   "links": [
     {
       "href": "http://localhost:4000/uarm_robot/dobot_shape.stl",

@@ -436,7 +436,6 @@ export class RobotDescriptionGenerator{
             // filter the data point, which is not in the shape
 
             let finalData = infoNew;
-            console.log("write infomation into things description")
             // file save
             this.robotInstancename = rootPath + "/" + robotInfo["robotName"] +"_instance" + ".json";
             fs.writeFileSync(this.robotInstancename, finalData);
