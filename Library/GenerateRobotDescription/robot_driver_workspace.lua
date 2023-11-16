@@ -640,7 +640,4 @@ function robotInfo()
 end
 
 function coroutineMain()
-    --generateWorkingspace(true,8,"D:\\master_thesis\\project\\robwot\\Generate_robot_description")
-    --local info=robotInfo()
-    --print(info)
 end
