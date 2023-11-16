@@ -99,7 +99,7 @@ export class robotURDFload{
             await sim.setObjectAlias(robotHandles[0],this.robotName);
             // save the robot as model 
             let rootAddress = path.resolve(__dirname, '..');
-            let finalPath = rootAddress + "/Coppeliasim scene/default robot models/" + this.robotName + ".ttm";
+            let finalPath = rootAddress + "../../Coppeliasim scene/default robot models/" + this.robotName + ".ttm";
             await sim.saveModel(robotHandles[0], finalPath);
             console.log(finalPath);
         }
@@ -135,20 +135,15 @@ export class robotURDFload{
 }
 
 async function main() {
-    let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
+    let rootAddress = path.resolve(__dirname, '..', '..'); // get the root directory of the repository
 
-    let sceneAddress = rootAddress + "/Coppeliasim scene/robot_urdf_load_scene.ttt";
+    let sceneAddress = rootAddress + "../../Coppeliasim scene/robot_urdf_load_scene.ttt";
     console.log(sceneAddress);
-    let fileAddress = rootAddress + "/Load_URDF_robot/URDF example/m1pro_description/urdf/m1pro_description.urdf";
+    let fileAddress = rootAddress + "/Assets/URDFs/m1pro_description/urdf/m1pro_description.urdf";
     let robotName = "M1 Pro";
     let robURDF = new robotURDFload(sceneAddress,fileAddress,robotName);
 
-
-
     await robURDF.loadURDF();
-
-
-    
 
     await delay(500);
     process.exit(1); 

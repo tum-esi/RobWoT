@@ -17,11 +17,11 @@ function delay(ms: number) {
 }
 
 async function robotModelGen() {
-    let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
+    let rootAddress = path.resolve(__dirname, '..','..'); // get the root directory of the repository
 
     let sceneAddress = rootAddress + "/Coppeliasim scene/robot_urdf_load_scene.ttt";
     console.log(sceneAddress);
-    let fileAddress = rootAddress + "/Load_URDF_robot/URDF example/mypal_description/urdf/mypal_260.urdf";
+    let fileAddress = rootAddress + "/Assets/URDFs/mypal_description/urdf/mypal_260.urdf";
     let robotName = "mypal";
     let robURDF = new robotURDFload(sceneAddress,fileAddress,robotName);
 
