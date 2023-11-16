@@ -46,7 +46,7 @@ async function init(address:String){
 }
 
 async function loadRobotdriver(sim:any, robotName:string) {
-    const fileName = "./robot_driver.txt";
+    const fileName = "./robot_driver.lua";
     let fileContent = fs.readFileSync(fileName, 'utf8');
     
     let scriptHandle = Number(await sim.addScript(1)); // add sim.scripttype_childscript 1

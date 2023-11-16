@@ -66,7 +66,7 @@ async function robotWoTGen() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
     let dtSceneAddress = rootAddress + "/URDF_to_Robwot/ur3_simple_scene.ttt";
 
-    let driverAddress = rootAddress + "/Robot_WoT_server/robot_driver.txt";
+    let driverAddress = rootAddress + "/Robot_WoT_Server/robot_driver.lua";
 
     let shapePath = path.resolve(__dirname, '..') + "/URDF_to_Robwot/robot_info/ur3_robot/UR3_shape.stl";
     let pointPath = path.resolve(__dirname, '..') + "/URDF_to_Robwot/robot_info/ur3_robot/UR3_data_point.csv";

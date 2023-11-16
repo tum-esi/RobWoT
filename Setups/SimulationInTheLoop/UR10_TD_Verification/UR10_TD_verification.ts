@@ -20,7 +20,7 @@ async function main() {
     let rootAddress = __dirname;
     let sceneAddress = rootAddress + "/UR10_TD_verification.ttt";
 
-    let driverAddress = path.resolve(__dirname, '..') + "/Robot_WoT_server/robot_driver.txt";
+    let driverAddress = path.resolve(__dirname, '..') + "/Robot_WoT_Server/robot_driver.lua";
     let UR10TD = rootAddress + "/UR10_folder/UR10_instance.json";
 
     let posOutput = [[-0.68, -489.75, 1426.52],[687, -0.7, 741]];

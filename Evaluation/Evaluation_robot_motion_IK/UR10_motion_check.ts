@@ -12,7 +12,7 @@ async function main() {
     let rootAddress = path.resolve(__dirname, '..'); // get the root directory of the repository
     let sceneAddress = rootAddress + "/Evaluation_TDgenTime_sceneComplexity/9_ur10_new_scene.ttt";
 
-    let driverAddress = rootAddress + "/Robot_WoT_server/robot_driver.txt";
+    let driverAddress = rootAddress + "/Robot_WoT_Server/robot_driver.lua";
     let posOutput = [[1123.95, 443.28, 1426.52],[-1298.13, -1298.13, 130.36]];
     let posInput = [[ 0.53818 ,0.63484, 2.2692],[ -1.8901, -1.1118, 0.96328]];
     //    let posOutput = [[-0.68, 443.28, 1426.52],[-1298.13, -1298.13, 130.36]];
