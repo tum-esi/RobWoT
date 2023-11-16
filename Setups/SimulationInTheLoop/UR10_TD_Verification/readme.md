@@ -1,4 +1,4 @@
-## The verification of UR10 robot Thing Description and robot motion by Coppeliasim
+## The verification of UR10 robot Thing Description and robot motion by CoppeliaSim
 
 >Related files: UR10_TD_Verification.ttt, robotMotioncontrol_class.ts, UR10_TD_verification.ts
 
@@ -21,11 +21,11 @@ ts-node robotMotioncontrol_class.ts
 
 4. The class **robotMotioncontrol**, **robotPositioncheck**, **robotWoTserver** will be suitable for the robots with common strucures, such as the robot models in the **Load_URDF_robot** folder.
 
-## Plus: Check if the point in workspace without Coppeliasim
+## Plus: Check if the point in workspace without CoppeliaSim
 
 >Related files: robotPositioncheck_class.ts
 
-Here it provides a method to check if point in robot workspace without Coppeliasim
+Here it provides a method to check if point in robot workspace without CoppeliaSim
 
 ```
 cd UR10_TD_Verification

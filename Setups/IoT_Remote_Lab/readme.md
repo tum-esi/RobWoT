@@ -1,12 +1,10 @@
-## Virtual IoT remote lab  
+## Virtual IoT Remote Lab  
 
->Related files: virtual_devices_server.ts, virtualDevices.ts, IoT_remote_lab.ttt  
+<img src="../../pictures/IoT remote lab.jpg" width="600">
 
-<img src="../pictures/IoT remote lab.jpg" width="600">
+The virtual IoT Remote Lab scene reproduces the devices in the real IoT Remote Lab at TU Munich. 
 
-Combine with two verification scene, the virtual IoT remote lab scene reproduces the devices in the real IoT remote lab. We can implemet all previous tasks such as workspace generation and robotic TD verification in this scene. 
-
-Furthermore, object such as cube or gripper shaking is a normal phenomenon in Coppeliasim simulation. If sometimes action fails due to the vibration of the object. You can try to restart the Coppeliasim to fix this problem
+Furthermore, object such as cube or gripper shaking is a normal phenomenon in CoppeliaSim simulation. If sometimes action fails due to the vibration of the object. You can try to restart the CoppeliaSim to fix this problem
 
 ## How to initialize the virtual IoT lab based on WoT server
 
@@ -15,7 +13,7 @@ Furthermore, object such as cube or gripper shaking is a normal phenomenon in Co
 >Note: the client_template.ts file is just an example WoT client, you can write your own WoT client
 
 1. Run the ```npm install``` command to install necessary packages in the repository root directory
-2. Please open the Coppeliasim and load the scene file **IoT_remote_lab.ttt** manually
+2. Please open the CoppeliaSim and load the scene file **IoT_remote_lab.ttt** manually
 3. Enter the **virtual_devices_WoT** folder and run the following command
 
 ```
@@ -32,4 +30,4 @@ ts-node client_template.ts
 
 >light_pantilt_template.ts : It is template to show how to interact with virtual light and pantilt
 
->debug_code.ts: It shows how to automatically generate the robotic TD and it could also debug Coppeliasim remote API interaction without WoT server
+>debug_code.ts: It shows how to automatically generate the robotic TD and it could also debug CoppeliaSim remote API interaction without WoT server

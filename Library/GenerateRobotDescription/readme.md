@@ -1,11 +1,11 @@
 ## Automatic Generation of Robot Thing Description
 
->Related files: robot_description_generation_class.ts, robot_virtual_workspace.ttt(**Coppeliasim scene** folder), virtual_robot.ttm(**Coppeliasim scene** folder)
+>Related files: robot_description_generation_class.ts, robot_virtual_workspace.ttt(**CoppeliaSim scene** folder), virtual_robot.ttm(**CoppeliaSim scene** folder)
 
 >Note: Remember to uncomment the **main()** function if you want to check template in this file
 
 1. Enter the folder **Generate_robot_description**
-2. Run the following command, it includes simple demo to generate Thing description based on robot in the Coppeliasim scene
+2. Run the following command, it includes simple demo to generate Thing description based on robot in the CoppeliaSim scene
 
 ```
 cd Generate_robot_description
@@ -18,9 +18,9 @@ ts-node robot_description_generation_class.ts
 
 **let robotName = loadModel(modelPath:string)**  
 
-modelPath: the path file of coppeliasim model  
+modelPath: the path file of CoppeliaSim model  
 robotName: return the name of robot model  
-We can use this function load coppeliasim model to coppeliasim scene by code. Or we can directly import the model manually in coppeliasim interface  
+We can use this function load CoppeliaSim model to CoppeliaSim scene by code. Or we can directly import the model manually in CoppeliaSim interface  
 
 **robotInfogeneration(robotName:string, rootFolderPath:string)**  
 
