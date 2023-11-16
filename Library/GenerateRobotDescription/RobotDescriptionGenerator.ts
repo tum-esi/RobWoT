@@ -19,7 +19,7 @@ export class RobotDescriptionGenerator{
         this.sceneAddress = sceneAddress;
         this.modelAddress = "";
         console.log(__dirname);
-        this.driverAddress = __dirname + "/robot_driver_workspace.txt";
+        this.driverAddress = __dirname + "/robot_driver_workspace.lua";
         this.robotName = "/virtual_robot";
         this.robotInstancename = "./generated_robot_td/robot_" + "instance" + ".json";
         this.sim = null;
