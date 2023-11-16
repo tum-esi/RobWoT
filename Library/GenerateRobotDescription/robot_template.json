@@ -29,7 +29,7 @@
     "properties": {
         "getJointposition":{
             "title": "get position of each joint",
-            "description": "maxItems,minItems,minimum,maximum are decided by sprecific virtual robot",
+            "description": "maxItems, minItems, minimum, maximum are decided by specific virtual robot",
             "type": "object",
             "properties":{
             },

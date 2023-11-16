@@ -14,7 +14,7 @@ To showcase our methods, we recreate setups of the IoT Remote Lab (see picture b
 ## Installation
 
 - Prerequisite: Node.js, CoppeliaSim V4.4.0 or higher installed
-- Run the ```npm install``` or ``yarn install`` command to install necessary packages in the repository root directory
+- Run the `npm install` or `yarn install` command to install necessary packages in the repository root directory
 
 ## Try it yourself
 
