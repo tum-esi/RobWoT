@@ -5,4 +5,4 @@ You can change their colors.
 
 ## Virtual light devices in CoppeliaSim
 
-<img src="./scene1 virtual light.JPG" width="400">
+![Virtual Lights](./virtual-light.JPG)

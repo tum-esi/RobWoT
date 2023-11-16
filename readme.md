@@ -9,7 +9,7 @@ RobWoT methods have been implemented in CoppeliaSim using its Remote API which r
 
 To showcase our methods, we recreate setups of the IoT Remote Lab (see picture below) of the Professorship of Embedded Systems and Internet of Things located in the main campus of the Technical University of Munich (TUM) and provide all the code that allows interacting using WoT interaction affordances with the devices inside these setups.
 
-<img src="./pictures/IoT remote lab.jpg" width="600">
+![IoT Remote Lab](./pictures/iot-remote-lab.jpg)
 
 ## Installation
 

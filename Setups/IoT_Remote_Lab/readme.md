@@ -1,6 +1,6 @@
 ## Virtual IoT Remote Lab
 
-<img src="../../pictures/IoT remote lab.jpg" width="600">
+![Virtual IoT Remote](../../pictures/iot-remote-lab.jpg)
 
 The virtual IoT Remote Lab scene reproduces the devices in the real IoT Remote Lab at TU Munich.
 
