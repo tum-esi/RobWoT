@@ -1,0 +1,115 @@
+{
+  "@context": "https://www.w3.org/2019/wot/td/v1",
+  "@type": "tm:ThingModel",
+  "title": "UArm Robot Arm {{ROBOT_NUMBER}}",
+  "description": "UArm robot arm which can move on a linear belt in addition to 4 degrees of freedom on the arm",
+  "actions": {
+    "goTo": {
+      "title": "Go to position",
+      "description": "Move to Position x,y,z given with fixed speed",
+      "input": {
+        "properties": {
+          "x": {
+            "maximum": 200,
+            "minimum": 120,
+            "type": "integer"
+          },
+          "y": {
+            "maximum": 200,
+            "minimum": -200,
+            "type": "number"
+          },
+          "z": {
+            "maximum": 100,
+            "minimum": 52,
+            "type": "integer"
+          }
+        },
+        "required": ["x", "y", "z"],
+        "type": "object"
+      }
+    },
+    "gripClose": {
+      "title": "Close gripper",
+      "description": "Closes the gripper"
+    },
+    "gripOpen": {
+      "title": "Open gripper",
+      "description": "Opens the gripper"
+    },
+    "goHome": {
+      "title": "Go Home",
+      "description": "Go to the set home position",
+      "idempotent": false,
+      "safe": false
+    },
+    "goWithSpeed": {
+      "title": "Go with speed",
+      "description": "Move to described position with set speed",
+      "idempotent": true,
+      "input": {
+        "properties": {
+          "speed": {
+            "maximum": 10000,
+            "minimum": 100,
+            "type": "integer"
+          },
+          "x": {
+            "maximum": 200,
+            "minimum": 120,
+            "type": "integer"
+          },
+          "y": {
+            "maximum": 200,
+            "minimum": -200,
+            "type": "integer"
+          },
+          "z": {
+            "maximum": 100,
+            "minimum": 52,
+            "type": "integer"
+          }
+        },
+        "required": ["x", "y", "z", "speed"],
+        "type": "object"
+      },
+      "safe": false
+    },
+    "beep": {
+      "title": "Beep",
+      "description": "Beep for 1 sec",
+      "idempotent": true,
+      "safe": false,
+      
+    },
+    "beepWithTime": {
+      "title": "Beep with given time",
+      "description": "Beep for a time set between 1-3 sec",
+      "idempotent": true,
+      "input": {
+        "maximum": 3,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "safe": false
+    },
+    "reset": {
+      "title": "Reset",
+      "description": "Reestablish connection to Uarm to correct for loss of location",
+      "idempotent": true,
+      "safe": false
+    },
+    "turnLeft": {
+      "title": "Turn Left",
+      "description": "Turn robot arm to left for 1 step",
+      "idempotent": false,
+      "safe": false
+    },
+    "turnRight": {
+      "title": "Turn Right",
+      "description": "Turn robot arm to right for 1 step",
+      "idempotent": false,
+      "safe": false
+    }
+  }
+}
