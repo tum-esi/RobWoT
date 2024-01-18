@@ -79,8 +79,7 @@
       "title": "Beep",
       "description": "Beep for 1 sec",
       "idempotent": true,
-      "safe": false,
-      
+      "safe": false
     },
     "beepWithTime": {
       "title": "Beep with given time",

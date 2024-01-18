@@ -2,8 +2,6 @@
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-import * as fs from "fs";
 import conveyorTM from "./ConveyorBelt.tm.json";
 
 export class virtualConveyorBelt {
