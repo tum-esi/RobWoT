@@ -34,7 +34,7 @@ main()
 
 async function main() {
     let Consumer = new Servient();
-    // in the next line, we are expecting a JSON file that has {"username":"myUsername", "password":"myPassword" structure}
+    // in the next line, we are expecting a JSON file that has {"username":"myUsername", "password":"myPassword"} structure}
     const credentials = JSON.parse(readFileSync("credential.json", "utf-8"));
     Consumer.addCredentials({
         "urn:dev:ops:32473-ConveyorBelt-002": credentials,
@@ -51,6 +51,7 @@ async function main() {
 
     while(true){
         await delay(3000)
+        console.log("New loop is starting")
         uarm_V.invokeAction("gripOpen");
         uarm_R.invokeAction("gripOpen");
         await delay(3000)
