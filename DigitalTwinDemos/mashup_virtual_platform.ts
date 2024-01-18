@@ -31,21 +31,11 @@ async function main() {
   const infraredSensor2 = await WoT.consume(sensor2TD_V);
   const colorSensor = await WoT.consume(colorsensorTD_V);
 
-  await dobot.invokeAction("getCube");
-
-  await delay(10000);
-
-  await conveyor1.invokeAction("startBeltForward");
-
-  while (true) {
-    const sensor2Read = await infraredSensor2.readProperty("objectPresence");
-    if (await sensor2Read.value() == true) {
-      await delay(500);
-      await conveyor1.invokeAction("stopBelt");
-      break;
-    }
-    await delay(800);
-  }
+  const startPosition = {
+    x: 150,
+    y: 0,
+    z: 70,
+  };
 
   let P1 = {
     x: 192,
@@ -77,6 +67,26 @@ async function main() {
     y: -200,
     z: 70,
   };
+
+  console.log("Starting Mashup");
+  
+  uarm.invokeAction("goTo", startPosition);
+
+  await dobot.invokeAction("getCube");
+
+  await delay(10000);
+
+  await conveyor1.invokeAction("startBeltForward");
+
+  while (true) {
+    const sensor2Read = await infraredSensor2.readProperty("objectPresence");
+    if (await sensor2Read.value() == true) {
+      await delay(500);
+      await conveyor1.invokeAction("stopBelt");
+      break;
+    }
+    await delay(800);
+  }
 
   await uarm.invokeAction("gripOpen");
   await uarm.invokeAction("goTo", P1);

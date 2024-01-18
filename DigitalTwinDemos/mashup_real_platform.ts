@@ -7,16 +7,29 @@ function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
-// virtual devices url
-const devicesURLs: Record<string, string> = {
-    //sensor1: "https://remotelab.esi.cit.tum.de:8081/InfraredSensor1", sensor not working, can be used again when fixed
-    sensor2: "https://remotelab.esi.cit.tum.de:8081/InfraredSensor2",
-    conveyor1: "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt1", 
-    conveyor2: "https://remotelab.esi.cit.tum.de:8081/ConveyorBelt2",
-    uarm: "https://remotelab.esi.cit.tum.de:8081/uarm",
-    dobot: "https://remotelab.esi.cit.tum.de:8081/DobotMagician",
-    color: "https://remotelab.esi.cit.tum.de:8081/ColorSensor",
-}
+// TDs of Real Devices
+
+const uarmTD = JSON.parse(
+  readFileSync("../TDs/Real/Uarm.json", "utf-8")
+);
+const dobotTD = JSON.parse(
+  readFileSync("../TDs/Real/Warehouse Dobot.json", "utf-8")
+);
+const conveyor1TD = JSON.parse(
+  readFileSync("../TDs/Real/ConveyorBelt1.json", "utf-8")
+);
+const conveyor2TD = JSON.parse(
+  readFileSync("../TDs/Real/ConveyorBelt2.json", "utf-8")
+);
+const sensor1TD = JSON.parse(
+  readFileSync("../TDs/Real/InfraredSensor1.json", "utf-8")
+);
+const sensor2TD = JSON.parse(
+  readFileSync("../TDs/Real/InfraredSensor2.json", "utf-8")
+);
+const colorsensorTD = JSON.parse(
+  readFileSync("../TDs/Real/ColorSensor.json", "utf-8")
+);
 
 
 async function main() {
@@ -34,35 +47,21 @@ async function main() {
         "de:tum:ei:esi:dobot": credentials,
         "de:tum:ei:esi:flora": credentials
     })
-    
-    const wotHelper = new Helpers(controller);
-    let devicesTDs: Record<string, ThingDescription> = {}
-    for( const device in devicesURLs) {
-        devicesTDs[device] = (await wotHelper.fetch(devicesURLs[device])) as ThingDescription
-    }
+
     const WoT =  await controller.start();
     
-    const dobot = await WoT.consume(devicesTDs.dobot)
-    const uarm = await WoT.consume(devicesTDs.uarm)
-    const conveyor2 =  await WoT.consume(devicesTDs.conveyor2)
-    const conveyor1 =  await WoT.consume(devicesTDs.conveyor1)
-    const color = await WoT.consume(devicesTDs.color)
+    const dobot = await WoT.consume(dobotTD);
+    const uarm = await WoT.consume(uarmTD);
+    const conveyor2 = await WoT.consume(conveyor2TD);
+    const conveyor1 = await WoT.consume(conveyor1TD);
+    const color = await WoT.consume(colorsensorTD);
     // sensor1, sensor2 could not work now, so skip it
-    
-    // device check
-    //await dobot.invokeAction("calibrateDevice");
 
-    
-    await dobot.invokeAction("getCube");
-    
-    await delay(35000);
-
-    await conveyor2.invokeAction("startBeltForward");
-
-    await delay(5500);
-    
-    await conveyor2.invokeAction("stopBelt");
-
+    const startPosition = {
+      "x": 150,
+      "y": 0,
+      "z": 70
+    };
 
     let P1 = {
         "x":192,
@@ -94,6 +93,18 @@ async function main() {
         "y":-200,
         "z":70
     };
+
+    console.log("Starting Mashup");
+    uarm.invokeAction("goTo", startPosition);
+    await dobot.invokeAction("getCube");
+
+    await delay(35000);
+
+    await conveyor2.invokeAction("startBeltForward");
+
+    await delay(5500);
+
+    await conveyor2.invokeAction("stopBelt");
 
     await uarm.invokeAction("gripOpen");
     await uarm.invokeAction("goTo",P1);
