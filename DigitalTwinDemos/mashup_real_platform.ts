@@ -39,14 +39,14 @@ async function main() {
 
     const credentials = JSON.parse(readFileSync("credential.json", "utf-8"));
     controller.addCredentials({
-        "urn:dev:ops:32473-InfraredSensor-001": credentials,
-        "urn:dev:ops:32473-InfraredSensor-002": credentials,
-        "urn:dev:ops:32473-ConveyorBelt-001": credentials,
-        "urn:dev:ops:32473-ConveyorBelt-002": credentials,
-        "de.tum:ei:esi:uArm:192.168.0.112:8080": credentials,
-        "de:tum:ei:esi:dobot": credentials,
-        "de:tum:ei:esi:flora": credentials
-    })
+      "urn:dev:ops:32473-InfraredSensor-001": credentials,
+      "urn:dev:ops:32473-InfraredSensor-002": credentials,
+      "urn:dev:ops:32473-ConveyorBelt-001": credentials,
+      "urn:dev:ops:32473-ConveyorBelt-002": credentials,
+      "urn:dev:ops:32473-UArm-001": credentials,
+      "de:tum:ei:esi:dobot": credentials,
+      "de:tum:ei:esi:flora": credentials,
+    });
 
     const WoT =  await controller.start();
     
