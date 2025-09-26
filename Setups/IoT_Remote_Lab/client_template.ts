@@ -5,13 +5,13 @@ function delay(ms: number) {
 }
 
 // virtual devices url
-let sensor1URL = "http://localhost:9000/virtualinfraredsensor1";
-let sensor2URL = "http://localhost:9000/virtualinfraredsensor2";
-let conveyor1URL = "http://localhost:9000/virtualconveyorbelt1"; 
-let conveyor2URL = "http://localhost:9000/virtualconveyorbelt2";
-let uarmURL = "http://localhost:9000/virtualuarm";
-let dobotURL = "http://localhost:9000/virtualdobot";
-let colorURL = "http://localhost:9000/virtualcolorsensor";
+let sensor1URL = "http://localhost:9001/virtualinfraredsensor1";
+let sensor2URL = "http://localhost:9001/virtualinfraredsensor2";
+let conveyor1URL = "http://localhost:9001/virtualconveyorbelt1"; 
+let conveyor2URL = "http://localhost:9001/virtualconveyorbelt2";
+let uarmURL = "http://localhost:9001/virtualuarm";
+let dobotURL = "http://localhost:9001/virtualdobot";
+let colorURL = "http://localhost:9001/virtualcolorsensor";
 
 async function main() {
     // WoT client init

@@ -7,7 +7,8 @@ import {Helpers} from '@node-wot/core';
 import * as fs from 'fs';
 
 // load remote api for coppeliasim
-const { RemoteAPIClient } = require("coppelia-ws-api");
+// const { RemoteAPIClient } = require("coppelia-ws-api");
+const { RemoteAPIClient } = require("../../Library/CoppeliasimRemoteApi/RemoteApiClient");
 
 // load virtual sensor class
 import {virtualSensor,virtualConveyor, virtualUarm, virtualDobot,virtualLight,virtualPanTilt} from "./virtualDevices";
@@ -399,17 +400,21 @@ async function main() {
                 
                     await dobot.setJointangle([0,20,60,40,0]);
                 
-                    await dobot.dobotMove(-0.38);
+                    // set rail distance
+                    await dobot.dobotMove(-0.58);
                 
-                    await dobot.setJointangle([0,20,60,40,59]);
+                    await dobot.setJointangle([0,20,60,40,0]);
                 
                     await dobot.setGripperstate(false);
+                    
+                    // get cube
+                    await dobot.moveTopos([0.8345, -0.58, 1.09, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                 
                     await dobot.moveTopos([0.8345, -0.58, 1.085, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                 
                     await dobot.moveTopos([0.8345, -0.58, 1.068, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                     
-                    await dobot.moveTopos([0.8345, -0.58, 1.056, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
+                    // await dobot.moveTopos([0.8345, -0.58, 1.056, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                     
                     await dobot.setGripperstate(true);
                 
@@ -417,6 +422,7 @@ async function main() {
                 
                     await dobot.setJointangle([0,20,60,40,-90]);
                 
+                    // drop cube
                     await dobot.dobotMove(0.113); //0.112 - 0.115
                 
                     await dobot.moveTopos([0.98, 0.113, 1.12, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
