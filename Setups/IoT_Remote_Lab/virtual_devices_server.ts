@@ -8,7 +8,7 @@ import * as fs from 'fs';
 
 // load remote api for coppeliasim
 // const { RemoteAPIClient } = require("coppelia-ws-api");
-const { RemoteAPIClient } = require("../../Library/CoppeliasimRemoteApi/RemoteApiClient");
+const { RemoteAPIClient } = require("../../Library/CoppeliasimRemoteApi/RemoteApiClient.js");
 
 // load virtual sensor class
 import {virtualSensor,virtualConveyor, virtualUarm, virtualDobot,virtualLight,virtualPanTilt} from "./virtualDevices";
@@ -47,7 +47,7 @@ let pantiltTD2 = JSON.parse(fs.readFileSync("../../TDs/Virtual/virtual_PanTilt2.
 
 // set virtual scene address
 //console.log(__dirname); // get current file absolute path
-let virtualSceneadress = __dirname + "/IoT_remote_lab.ttt";
+let virtualSceneadress = __dirname + "/IoT_Remote_Lab.ttt";
 
 
 
@@ -375,6 +375,11 @@ async function main() {
 
             dobot.setGripperstate(false);
 
+            // thing.setActionHandler("goTo", async(data) =>{
+            //     try {
+            //         let pos:any = await data.value();
+            //         await dobot.moveTopos([pos["x"], pos["y"], pos["z"],, -1.6752026965605e-07, 0.707, 0.707]);
+
             // set action handlers (using async-await)
             // set startBeltBackward action handlers
             // set startBeltForward action handlers
@@ -409,7 +414,7 @@ async function main() {
                     
                     // get cube
                     await dobot.moveTopos([0.8345, -0.58, 1.09, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
-                
+
                     await dobot.moveTopos([0.8345, -0.58, 1.085, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                 
                     await dobot.moveTopos([0.8345, -0.58, 1.068, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
@@ -421,7 +426,7 @@ async function main() {
                     await dobot.moveTopos([0.8345, -0.58, 1.11, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
                 
                     await dobot.setJointangle([0,20,60,40,-90]);
-                
+                    
                     // drop cube
                     await dobot.dobotMove(0.113); //0.112 - 0.115
                 
@@ -433,7 +438,7 @@ async function main() {
 
                     await dobot.setJointangle([0,20,60,40,0]);
                 
-                    await dobot.dobotMove(-0.43);
+                    await dobot.dobotMove(-0.39);
 
                     await dobot.setJointangle([0,40,100,60,0]); // go to the position like real iot lab
                    
@@ -454,25 +459,27 @@ async function main() {
                  
                     await dobot.dobotMove(-0.833);
                  
-                    await dobot.moveTopos([0.993, -0.833, 1.2, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+
+                    await dobot.moveTopos([0.993, -0.8, 1.12, 2.1218905033038e-07, -1.6752026965605e-07, 0.707, 0.707]);
+                    // await dobot.moveTopos([0.993, -0.833, 1.2, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
                                      
                     //await dobot.moveTopos([0.993, -0.833, 1.15, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
                  
-                    await dobot.moveTopos([0.993, -0.833, 1.12, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
-                 
-                    await dobot.moveTopos([0.993, -0.833, 1.094, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
-                 
+                    await dobot.moveTopos([0.993, -0.833, 1.12, 2.1218826873337e-07, -1.6752122178332e-07, 0.707, 0.707]);
+
+                    await dobot.moveTopos([0.993, -0.833, 1.094, 2.1218826873337e-07, -1.6752122178332e-07, 0.707, 0.707]);
+
                     await dobot.setGripperstate(true);
                  
-                    await dobot.moveTopos([0.993, -0.833, 1.25, 2.1218826873337e-07, -1.6752122178332e-07, -0.70711296796799, 0.70710062980652]);
+                    await dobot.moveTopos([0.993, -0.833, 1.25, 2.1218826873337e-07, -1.6752122178332e-07, 0.70711296796799, 0.70710062980652]);
                  
                     await dobot.setJointangle([0,20,60,40,0]);
                  
                     await dobot.dobotMove(-0.62);
                  
                     await dobot.setJointangle([0,20,60,40,55]);
-                    await dobot.moveTopos([0.83214, -0.8, 1.10, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
-                    await dobot.moveTopos([0.83214, -0.8, 1.06, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                    await dobot.moveTopos([0.83214, -0.8, 1.10, 2.1218905033038e-07, -1.6752026965605e-07, 0.70711588859558, 0.70709764957428]);
+                    await dobot.moveTopos([0.83214, -0.8, 1.06, 2.1218905033038e-07, -1.6752026965605e-07, 0.70711588859558, 0.70709764957428]);
                      
                      // detect cube then slowly move
                      let distance = 0;
@@ -487,11 +494,11 @@ async function main() {
                      }
                      //await dobot.dobotMove(0.47);
 
-                     await dobot.moveTopos([0.83214, -0.805+distance, 1.06, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                     await dobot.moveTopos([0.83214, -0.805+distance, 1.06, 2.1218905033038e-07, -1.6752026965605e-07, 0.70711588859558, 0.70709764957428]);
                      
                      await dobot.setGripperstate(false);
 
-                     await dobot.moveTopos([0.83214, -0.805+distance, 1.1, 2.1218905033038e-07, -1.6752026965605e-07, -0.70711588859558, 0.70709764957428]);
+                     await dobot.moveTopos([0.83214, -0.805+distance, 1.1, 2.1218905033038e-07, -1.6752026965605e-07, 0.70711588859558, 0.70709764957428]);
                      
                      await dobot.setJointangle([0,20,60,40,0]);
                  
